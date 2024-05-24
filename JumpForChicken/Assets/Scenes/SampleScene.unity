@@ -1937,7 +1937,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movePower: 5
-  jumpPower: 5
+  jumpPower: 0.025
+  minJumpPower: 2.5
+  maxJumpPower: 8
   lookat: 1
 --- !u!61 &1853212185
 BoxCollider2D:
