@@ -30,14 +30,14 @@ public class playerController : MonoBehaviour
     // 프레임 당 초기화 : 사용자 인풋 감지를 위함
     void Update()
     {
-        if (Input.GetButton("Jump") && !animator_.GetBool("isJumping")) {
+        if (Input.GetButton("Jump") && !animator_.GetBool("isJumping") && !animator_.GetBool("isFalling")) {
             jumpGauge += jumpGauge < maxJumpPower ? jumpPower : 0;
         }
-        if (Input.GetButtonUp("Jump") && !animator_.GetBool("isJumping") && jumpGauge >= minJumpPower){
+        if (Input.GetButtonUp("Jump") && !animator_.GetBool("isJumping") && jumpGauge >= minJumpPower && !animator_.GetBool("isFalling")){
             isJump = true;
             animator_.SetBool("isJumping", true);
             animator_.SetTrigger("doJumping");
-        } else if (Input.GetButtonUp("Jump") && !animator_.GetBool("isJumping") && jumpGauge < minJumpPower){
+        } else if (Input.GetButtonUp("Jump") && !animator_.GetBool("isJumping") && jumpGauge < minJumpPower && !animator_.GetBool("isFalling")){
             jumpGauge = 0f;
         }
     }
@@ -99,6 +99,7 @@ public class playerController : MonoBehaviour
     private void OnTriggerStay2D(Collider2D other) {
         if (other.gameObject.layer == 6 && rigid.velocity.y == 0) {
             animator_.SetBool("isFalling", false);
+            animator_.SetBool("isJumping", false);
         }
     }
 }
