@@ -25,8 +25,6 @@ public class playerController : MonoBehaviour
     bool isJump = false;
     float inputAxis;
 
-    float first = 0f;
-
     // Start is called before the first frame update
     void Start()
     {
@@ -54,12 +52,14 @@ public class playerController : MonoBehaviour
         Move();
         Jump();
         Animations(); // 애니메이션 함수
+
+        Debug.Log(rigid.velocity.y);
     }
 
     void Move()
     {
         Vector2 currentVelocity = rigid.velocity;
-        if (jumpGauge == minJumpPower && !animator_.GetBool("isJumping") && !animator_.GetBool("isFalling") && animator_.GetBool("onGround")){
+        if (jumpGauge == minJumpPower && !animator_.GetBool("isJumping") && !animator_.GetBool("isFalling")){
             if (inputAxis < 0){
                 lookat = -1;
                 currentVelocity.x = movePower * lookat;
@@ -90,10 +90,6 @@ public class playerController : MonoBehaviour
 
     void Animations()
     {
-        if (first < rigid.velocity.y && rigid.velocity.y == 0f){
-            Debug.Log("가속됨");
-            Debug.Log(rigid.velocity.y);
-        }
         if (inputAxis == 0 || jumpGauge != minJumpPower){
             animator_.SetBool("isMove", false);
         }
@@ -108,7 +104,5 @@ public class playerController : MonoBehaviour
                 animator_.SetBool("isFalling", true);
             }
         }
-
-        first = rigid.velocity.y;
     }
 }

@@ -18,16 +18,12 @@ public class playerLandingTrigger : MonoBehaviour
         if (other.gameObject.layer == 6) {
             if (rigid.velocity.y == 0 && animator_.GetBool("isFalling")){
                 animator_.SetBool("isFalling", false);
-            animator_.SetBool("isJumping", false);
-            rigid.velocity = new Vector2(0, rigid.velocity.y);
-            Debug.Log(rigid.velocity.y);
+                animator_.SetBool("isJumping", false);
+                rigid.velocity = Vector2.zero;
+                Debug.Log("detect!");
+
             }
             animator_.SetBool("onGround", true);
         }
     }
-    void OnTriggerExit2D(Collider2D other)
-    {
-        animator_.SetBool("onGround", false);
-    }
-    
 }
