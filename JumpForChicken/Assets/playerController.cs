@@ -1,14 +1,18 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using UnityEditor.Callbacks;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class playerController : MonoBehaviour
 {
     public float movePower = 1f;
     public float jumpPower = 0.05f;
-    public float minJumpPower = 2f;
-    public float maxJumpPower = 5f;
+    public float minJumpPower = 4f;
+    public float maxJumpPower = 8f;
+    public float widthHeight = 8f;
     Rigidbody2D rigid;
     Animator animator_;
 
@@ -19,12 +23,16 @@ public class playerController : MonoBehaviour
     // 점프 힘 조절
     float jumpGauge = 0f;
     bool isJump = false;
+    float inputAxis;
+
+    float first = 0f;
 
     // Start is called before the first frame update
     void Start()
     {
         rigid = gameObject.GetComponent<Rigidbody2D>();
         animator_ = GetComponent<Animator>();
+        jumpGauge = minJumpPower;
     }
 
     // 프레임 당 초기화 : 사용자 인풋 감지를 위함
@@ -33,13 +41,13 @@ public class playerController : MonoBehaviour
         if (Input.GetButton("Jump") && !animator_.GetBool("isJumping") && !animator_.GetBool("isFalling")) {
             jumpGauge += jumpGauge < maxJumpPower ? jumpPower : 0;
         }
-        if (Input.GetButtonUp("Jump") && !animator_.GetBool("isJumping") && jumpGauge >= minJumpPower && !animator_.GetBool("isFalling")){
+        if (Input.GetButtonUp("Jump") && !animator_.GetBool("isJumping") && !animator_.GetBool("isFalling")){
             isJump = true;
             animator_.SetBool("isJumping", true);
             animator_.SetTrigger("doJumping");
-        } else if (Input.GetButtonUp("Jump") && !animator_.GetBool("isJumping") && jumpGauge < minJumpPower && !animator_.GetBool("isFalling")){
-            jumpGauge = 0f;
         }
+
+        inputAxis = Input.GetAxisRaw("Horizontal");
     }
 
     private void FixedUpdate() {
@@ -50,18 +58,22 @@ public class playerController : MonoBehaviour
 
     void Move()
     {
-        // 초기화
-        Vector3 moveVelocity = Vector3.zero;
-
-        if (Input.GetAxisRaw("Horizontal") < 0){
-            moveVelocity = Vector3.left;
-            lookat = -1;
-        } else if (Input.GetAxisRaw("Horizontal") > 0){
-            moveVelocity = Vector3.right;
-            lookat = 1;
+        Vector2 currentVelocity = rigid.velocity;
+        if (jumpGauge == minJumpPower && !animator_.GetBool("isJumping") && !animator_.GetBool("isFalling") && animator_.GetBool("onGround")){
+            if (inputAxis < 0){
+                lookat = -1;
+                currentVelocity.x = movePower * lookat;
+            } else if (inputAxis > 0){
+                lookat = 1;
+                currentVelocity.x = movePower * lookat;
+            } else {
+                currentVelocity.x = 0;
+            }
+            rigid.velocity = currentVelocity;
         }
+        
         transform.localScale = new Vector3(lookat, 1, 1);
-        transform.position += jumpGauge == 0 ? moveVelocity * movePower * Time.deltaTime : Vector3.zero;
+        if (jumpGauge != minJumpPower) rigid.velocity = Vector2.zero;
     }
 
     void Jump()
@@ -69,37 +81,34 @@ public class playerController : MonoBehaviour
         if (!isJump){
             return; // Jump 함수 종료
         }
-        rigid.velocity = Vector2.zero;
+        rigid.velocity += new Vector2(widthHeight*Mathf.Pow(9.81f, 2)/Mathf.Pow(jumpGauge, 3)*lookat, jumpGauge);
 
-        Vector2 jumpVelocity = new Vector2(0, jumpGauge);
-        rigid.AddForce(jumpVelocity, ForceMode2D.Impulse);
 
-        jumpGauge = 0f;
+        jumpGauge = minJumpPower;
         isJump = false;
     }
 
     void Animations()
     {
-        if (Input.GetAxisRaw("Horizontal") == 0 || jumpGauge != 0){
+        if (first < rigid.velocity.y && rigid.velocity.y == 0f){
+            Debug.Log("가속됨");
+            Debug.Log(rigid.velocity.y);
+        }
+        if (inputAxis == 0 || jumpGauge != minJumpPower){
             animator_.SetBool("isMove", false);
         }
-        else if (Input.GetAxisRaw("Horizontal") != 0 && jumpGauge == 0) {
+        else if (inputAxis != 0 && jumpGauge == minJumpPower) {
             animator_.SetBool("isMove", true);
         }
 
         if(rigid.velocity.y < 0){
             if (!animator_.GetBool("isFalling")){
                 animator_.SetTrigger("doFalling");
+                animator_.SetBool("isJumping", false);
+                animator_.SetBool("isFalling", true);
             }
-            animator_.SetBool("isJumping", false);
-            animator_.SetBool("isFalling", true);
         }
-    }
 
-    private void OnTriggerStay2D(Collider2D other) {
-        if (other.gameObject.layer == 6 && rigid.velocity.y == 0) {
-            animator_.SetBool("isFalling", false);
-            animator_.SetBool("isJumping", false);
-        }
+        first = rigid.velocity.y;
     }
 }
