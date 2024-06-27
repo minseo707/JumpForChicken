@@ -61,6 +61,15 @@ public class playerController : MonoBehaviour
         Animations(); // 애니메이션 함수
     }
 
+    private void OnCollisionEnter2D(Collision2D collision) {
+        if (collision.contacts[0].normal.y > 0.7f){
+            animator_.SetBool("isFalling", false);
+            animator_.SetBool("isJumping", false);
+            animator_.SetBool("isFirstJump", true);
+            rigid.velocity = Vector2.zero;
+        }
+    }
+
     void Move()
     {
         Vector2 currentVelocity = rigid.velocity;
