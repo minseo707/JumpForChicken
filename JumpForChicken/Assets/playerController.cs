@@ -31,18 +31,25 @@ public class playerController : MonoBehaviour
         rigid = gameObject.GetComponent<Rigidbody2D>();
         animator_ = GetComponent<Animator>();
         jumpGauge = minJumpPower;
+        animator_.SetBool("isFirstJump", true);
     }
 
     // 프레임 당 초기화 : 사용자 인풋 감지를 위함
     void Update()
     {
-        if (Input.GetButton("Jump") && !animator_.GetBool("isJumping") && !animator_.GetBool("isFalling")) {
-            jumpGauge += jumpGauge < maxJumpPower ? jumpPower : 0;
-        }
-        if (Input.GetButtonUp("Jump") && !animator_.GetBool("isJumping") && !animator_.GetBool("isFalling")){
-            isJump = true;
-            animator_.SetBool("isJumping", true);
-            animator_.SetTrigger("doJumping");
+        if (!animator_.GetBool("isJumping") && !animator_.GetBool("isFalling")){
+            if (Input.GetButton("Jump")){
+                if (animator_.GetBool("isFirstJump")){
+                    animator_.SetTrigger("doJumpReady");
+                    animator_.SetBool("isFirstJump", false);
+                }
+                jumpGauge += jumpGauge < maxJumpPower ? jumpPower : 0;
+            }
+            if (Input.GetButtonUp("Jump")){
+                isJump = true;
+                animator_.SetBool("isJumping", true);
+                animator_.SetTrigger("doJumping");
+            }
         }
 
         inputAxis = Input.GetAxisRaw("Horizontal");
@@ -52,8 +59,6 @@ public class playerController : MonoBehaviour
         Move();
         Jump();
         Animations(); // 애니메이션 함수
-
-        Debug.Log(rigid.velocity.y);
     }
 
     void Move()
@@ -72,7 +77,7 @@ public class playerController : MonoBehaviour
             rigid.velocity = currentVelocity;
         }
         
-        transform.localScale = new Vector3(lookat, 1, 1);
+        transform.localScale = new Vector3(lookat*Math.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
         if (jumpGauge != minJumpPower) rigid.velocity = Vector2.zero;
     }
 

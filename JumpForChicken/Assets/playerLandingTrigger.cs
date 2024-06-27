@@ -19,9 +19,8 @@ public class playerLandingTrigger : MonoBehaviour
             if (rigid.velocity.y == 0 && animator_.GetBool("isFalling")){
                 animator_.SetBool("isFalling", false);
                 animator_.SetBool("isJumping", false);
+                animator_.SetBool("isFirstJump", true);
                 rigid.velocity = Vector2.zero;
-                Debug.Log("detect!");
-
             }
             animator_.SetBool("onGround", true);
         }
