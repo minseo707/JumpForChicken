@@ -346,7 +346,7 @@ Transform:
   m_GameObject: {fileID: 798035760}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.07, y: 0.18, z: 0}
+  m_LocalPosition: {x: 1.05, y: -1.17, z: 0}
   m_LocalScale: {x: 1.5, y: 1.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -459,9 +459,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   movePower: 5
   jumpPower: 0.015
-  minJumpPower: 7.5
+  minJumpPower: 3
   maxJumpPower: 11
-  widthHeight: 32
+  widthHeight: 10
   lookat: 1
 --- !u!1 &1207222128
 GameObject:

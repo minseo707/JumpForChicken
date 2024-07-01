@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using Unity.Burst.Intrinsics;
 using Unity.VisualScripting;
 using UnityEditor.Callbacks;
@@ -35,6 +36,9 @@ public class playerController : MonoBehaviour
     // 미세하게 움직이면 x 속도가 0이 되어 떨어지는 버그 수정
     bool stoped;
 
+    float whControl;
+    float delta;
+
     // 시작될 떄 실행되는 코드
     void Start()
     {
@@ -43,6 +47,7 @@ public class playerController : MonoBehaviour
         jumpGauge = minJumpPower;
         animator_.SetBool("isFirstJump", true);
         stoped = false;
+        delta = maxJumpPower - minJumpPower;
     }
 
     // 프레임 당 초기화 : 사용자 인풋 감지를 위함
@@ -55,7 +60,9 @@ public class playerController : MonoBehaviour
                     animator_.SetTrigger("doJumpReady");
                     animator_.SetBool("isFirstJump", false);
                 }
-                jumpGauge += jumpGauge < maxJumpPower ? jumpPower : 0;
+                jumpGauge += jumpGauge < maxJumpPower ? delta * Time.deltaTime / 1.5f: 0;
+                Debug.Log(jumpGauge);
+                // Debug.Log(delta * Time.deltaTime);
             }
             if (Input.GetButtonUp("Jump") && rigid.velocity.y == 0){
                 isJump = true;
@@ -66,7 +73,7 @@ public class playerController : MonoBehaviour
             if (rigid.velocity.y < 0){
                 animator_.SetBool("isFirstJump", true);
                 jumpGauge = minJumpPower;
-                Debug.Log("Bugged!s");
+                // Debug.Log("Bugged!s");
             }
         }
 
@@ -80,7 +87,7 @@ public class playerController : MonoBehaviour
         Animations(); // 애니메이션 담당 함수
 
         if (transform.position.y + 27.35211> maxHeight){
-            Debug.Log(transform.position.y + 27.35211f);
+            // if (transform.position.y + 27.35211f > 0.2) Debug.Log(transform.position.y + 27.35211f);
             maxHeight = transform.position.y + 27.35211f;
         }
     }
@@ -92,6 +99,7 @@ public class playerController : MonoBehaviour
             animator_.SetBool("isJumping", false);
             animator_.SetBool("isFirstJump", true);
             rigid.velocity = Vector2.zero;
+            maxHeight = -27.35211f;
         }
     }
 
@@ -136,11 +144,14 @@ public class playerController : MonoBehaviour
         }
 
         // 이 아래로는 한 번만 실행
-        rigid.velocity += new Vector2(widthHeight*Mathf.Pow(9.81f, 2)/Mathf.Pow(jumpGauge, 3)*lookat, jumpGauge);
+        
+        whControl = 0.75f*(Mathf.Log((jumpGauge - minJumpPower) / maxJumpPower + 0.01f)-Mathf.Log(0.01f))/(Mathf.Log(1.01f)-Mathf.Log(0.01f))+0.25f;
+        rigid.velocity += new Vector2(whControl*widthHeight*Mathf.Pow(9.81f, 2)/Mathf.Pow(jumpGauge, 3)*lookat, jumpGauge);
 
 
         jumpGauge = minJumpPower;
         isJump = false;
+
     }
 
     void Animations()
