@@ -11,43 +11,37 @@ using UnityEngine.UIElements;
 public class playerController : MonoBehaviour
 {
     // 기본 값
-    public float movePower = 5f;
-    public float jumpPower = 0.015f;
-    public float minJumpPower = 7.5f;
-    public float maxJumpPower = 11f;
-    public float widthHeight = 32f;
+    public float movePower = 4f;
     Rigidbody2D rigid;
     Animator animator_;
 
     // 오른쪽 : 1, 왼쪽 : -1
     public int lookat = 1;
 
-    // Start에서 jumpGauge = minJumpPower
-    float jumpGauge = 0f;
+    // 점프 키를 누른 프레임
+    int jumpHoldTime = 0;
 
     // Update에서 입력받는 inputAxis Horizontal, FixedUpdate에서 사용
     float inputAxis;
 
-    float maxHeight = -1000f;
-    
     // true가 되면 점프 실행 (한 프레임 후 false)
     bool isJump = false;
 
     // 미세하게 움직이면 x 속도가 0이 되어 떨어지는 버그 수정
     bool stoped;
 
-    float whControl;
-    float delta;
+    float move_x = 0;
+    float move_y = 0;
 
     // 시작될 떄 실행되는 코드
     void Start()
     {
         rigid = gameObject.GetComponent<Rigidbody2D>();
         animator_ = GetComponent<Animator>();
-        jumpGauge = minJumpPower;
         animator_.SetBool("isFirstJump", true);
         stoped = false;
-        delta = maxJumpPower - minJumpPower;
+
+        Application.targetFrameRate = 60;
     }
 
     // 프레임 당 초기화 : 사용자 인풋 감지를 위함
@@ -60,8 +54,9 @@ public class playerController : MonoBehaviour
                     animator_.SetTrigger("doJumpReady");
                     animator_.SetBool("isFirstJump", false);
                 }
-                jumpGauge += jumpGauge < maxJumpPower ? delta * Time.deltaTime / 1.5f: 0;
-                Debug.Log(jumpGauge);
+                jumpHoldTime += jumpHoldTime < 90 ? 1 : 0;
+                Debug.Log(jumpHoldTime);
+                Debug.Log(1/Time.deltaTime);
                 // Debug.Log(delta * Time.deltaTime);
             }
             if (Input.GetButtonUp("Jump") && rigid.velocity.y == 0){
@@ -72,8 +67,7 @@ public class playerController : MonoBehaviour
             }
             if (rigid.velocity.y < 0){
                 animator_.SetBool("isFirstJump", true);
-                jumpGauge = minJumpPower;
-                // Debug.Log("Bugged!s");
+                jumpHoldTime = 0;
             }
         }
 
@@ -85,11 +79,6 @@ public class playerController : MonoBehaviour
         Move(); // 움직임 담당 함수
         Jump(); // 점프 담당 함수
         Animations(); // 애니메이션 담당 함수
-
-        if (transform.position.y + 27.35211> maxHeight){
-            // if (transform.position.y + 27.35211f > 0.2) Debug.Log(transform.position.y + 27.35211f);
-            maxHeight = transform.position.y + 27.35211f;
-        }
     }
 
     /** 낙하감지 */
@@ -99,7 +88,7 @@ public class playerController : MonoBehaviour
             animator_.SetBool("isJumping", false);
             animator_.SetBool("isFirstJump", true);
             rigid.velocity = Vector2.zero;
-            maxHeight = -27.35211f;
+            animator_.SetBool("onGround", true);
         }
     }
 
@@ -108,7 +97,7 @@ public class playerController : MonoBehaviour
         // 플레이어의 속도를 직접적으로 설정 불가능 하므로, 새로운 변수에 저장 후 변수를 수정하여 다시 대입
         Vector2 currentVelocity = rigid.velocity;
         // 만약 점프 장전이 안 되어있고, 점프 중이지 않고, 낙하 중이지 않을 때
-        if (jumpGauge == minJumpPower && !animator_.GetBool("isJumping") && !animator_.GetBool("isFalling")){
+        if (jumpHoldTime == 0 && !animator_.GetBool("isJumping") && !animator_.GetBool("isFalling")){
             if (inputAxis < 0){
                 lookat = -1;
                 currentVelocity.x = movePower * lookat;
@@ -134,7 +123,7 @@ public class playerController : MonoBehaviour
         // 플레이어 좌우 반전
         transform.localScale = new Vector3(lookat*Math.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
         // 점프 장전 중에는 정지
-        if (jumpGauge != minJumpPower) rigid.velocity = Vector2.zero;
+        if (jumpHoldTime > 0) rigid.velocity = Vector2.zero;
     }
 
     void Jump()
@@ -144,19 +133,51 @@ public class playerController : MonoBehaviour
         }
 
         // 이 아래로는 한 번만 실행
+
+        switch (jumpHoldTime)
+        {
+            case int n when 0 <= n && n < 18:
+                    move_x = 2.5f;
+                    move_y = 0.5f;
+                break;
+
+            case int n when 18 <= n && n < 36:
+                    move_x = 4f;
+                    move_y = 1f;
+                break;
+
+            case int n when 36 <= n && n < 54:
+                    move_x = 4f;
+                    move_y = 3f;
+                break;
+
+            case int n when 54 <= n && n < 72:
+                    move_x = 6f;
+                    move_y = 5f;
+                break;
+
+            case int n when 72 <= n && n < 90:
+                    move_x = 4f;
+                    move_y = 7f;
+                break;
+
+            case int n when n <= 90:
+                    move_x = 2f;
+                    move_y = 8f;
+                break;
+        }
         
-        whControl = 0.75f*(Mathf.Log((jumpGauge - minJumpPower) / maxJumpPower + 0.01f)-Mathf.Log(0.01f))/(Mathf.Log(1.01f)-Mathf.Log(0.01f))+0.25f;
-        rigid.velocity += new Vector2(whControl*widthHeight*Mathf.Pow(9.81f, 2)/Mathf.Pow(jumpGauge, 3)*lookat, jumpGauge);
+        rigid.velocity += new Vector2(move_x*Mathf.Sqrt(9.81f/(8*move_y))*lookat,Mathf.Sqrt(2*9.81f*move_y));
 
-
-        jumpGauge = minJumpPower;
+        jumpHoldTime = 0;
         isJump = false;
+        animator_.SetBool("onGround", false);
 
     }
 
     void Animations()
     {
-        if (inputAxis == 0 || jumpGauge != minJumpPower){
+        if (inputAxis == 0 || jumpHoldTime > 0){
             animator_.SetBool("isMove", false);
         }
         else {
@@ -168,6 +189,7 @@ public class playerController : MonoBehaviour
                 animator_.SetTrigger("doFalling");
                 animator_.SetBool("isJumping", false);
                 animator_.SetBool("isFalling", true);
+                animator_.SetBool("onGround", false);
             }
         }
     }
