@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class PlatformGenerator : MonoBehaviour
 {
-    public GameObject platformPrefab; // ¹ßÆÇ ÇÁ¸®ÆÕ
-    public int tileCount = 70; // »ý¼ºÇÒ Å¸ÀÏÀÇ ¼ö
-    public int minTile = 4; // ÃÖ¼Ò Å¸ÀÏ °³¼ö
-    public float minMove = 16f; // ÃÖ¼Ò ÀÌµ¿ °Å¸®
-    public float declineArea = 3.5f; // Á¦¿Ü ¹üÀ§
-    public float sideDecline = 2f; // º®¿¡¼­ºÎÅÍ »ý¼º ºÒ°¡´É ¹üÀ§
+    public GameObject platformPrefab; // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    public int tileCount = 70; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Å¸ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
+    public int minTile = 4; // ï¿½Ö¼ï¿½ Å¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+    public float minMove = 16f; // ï¿½Ö¼ï¿½ ï¿½Ìµï¿½ ï¿½Å¸ï¿½
+    public float declineArea = 3.5f; // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+    public float sideDecline = 2f; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ò°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
-    private List<Vector3> tileList = new List<Vector3>(); // Å¸ÀÏ ¸®½ºÆ®
-    private List<float> tileYList = new List<float>(); // Å¸ÀÏÀÇ y ÁÂÇ¥ ¸®½ºÆ®
+    private List<Vector3> tileList = new List<Vector3>(); // Å¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®
+    private List<float> tileYList = new List<float>(); // Å¸ï¿½ï¿½ï¿½ï¿½ y ï¿½ï¿½Ç¥ ï¿½ï¿½ï¿½ï¿½Æ®
 
     void Start()
     {
@@ -39,7 +39,7 @@ public class PlatformGenerator : MonoBehaviour
         float yLeftMin = 0f;
         float yRightMin = 0f;
 
-        // ·£´ýÇÑ Å¸ÀÏ »çÀÌÁî ¼³Á¤
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Å¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         float nextTileSize = Random.Range(4f, 5f);
 
         if (tileYList.Count >= minTile)
@@ -145,11 +145,11 @@ public class PlatformGenerator : MonoBehaviour
 
         x = pointX > lastTileX ? pointX + nextTileSize / 2 : pointX - nextTileSize / 2;
 
-        // tileYList¿Í tileList ¾÷µ¥ÀÌÆ®
+        // tileYListï¿½ï¿½ tileList ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®
         tileYList.Add(y);
         tileList.Add(new Vector3(x, tileList.Count > 0 ? tileList[tileList.Count - 1].y + y : y, nextTileSize));
 
-        // »õ ÇÃ·§ÆûÀ» InstantiateÇÏ°í Å©±â¸¦ ¼³Á¤
+        // ï¿½ï¿½ ï¿½Ã·ï¿½ï¿½ï¿½ï¿½ï¿½ Instantiateï¿½Ï°ï¿½ Å©ï¿½â¸¦ ï¿½ï¿½ï¿½ï¿½
         GameObject newTile = Instantiate(platformPrefab, new Vector3(x, tileList[tileList.Count - 1].y, 0), Quaternion.identity);
         newTile.transform.localScale = new Vector3(nextTileSize, newTile.transform.localScale.y, newTile.transform.localScale.z);
     }
