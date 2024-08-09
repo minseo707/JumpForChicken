@@ -1,18 +1,18 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class PlatformGenerator : MonoBehaviour
 {
-    public GameObject platformPrefab; // ���� ������
-    public int tileCount = 70; // ������ Ÿ���� ��
-    public int minTile = 4; // �ּ� Ÿ�� ����
-    public float minMove = 16f; // �ּ� �̵� �Ÿ�
-    public float declineArea = 3.5f; // ���� ����
-    public float sideDecline = 2f; // ���������� ���� �Ұ��� ����
+    public GameObject platformPrefab; // 프리팹 설정
+    public int tileCount = 70; // 타일 개수
+    public int minTile = 4; // 최소 타일 개수
+    public float minMove = 16f; // 최소 이동 거리
+    public float declineArea = 3.5f; // 제외 범위
+    public float sideDecline = 2f; // 벽에서부터 생성 불가능 범위
 
-    private List<Vector3> tileList = new List<Vector3>(); // Ÿ�� ����Ʈ
-    private List<float> tileYList = new List<float>(); // Ÿ���� y ��ǥ ����Ʈ
+    private List<Vector3> tileList = new List<Vector3>(); // 타일 리스트
+    private List<float> tileYList = new List<float>(); // 타일의 y좌표 리스트
 
     void Start()
     {
@@ -39,7 +39,7 @@ public class PlatformGenerator : MonoBehaviour
         float yLeftMin = 0f;
         float yRightMin = 0f;
 
-        // ������ Ÿ�� ������ ����
+        // 다음 타일의 높이 범위 설정
         float nextTileSize = Random.Range(4f, 5f);
 
         if (tileYList.Count >= minTile)
@@ -145,11 +145,11 @@ public class PlatformGenerator : MonoBehaviour
 
         x = pointX > lastTileX ? pointX + nextTileSize / 2 : pointX - nextTileSize / 2;
 
-        // tileYList�� tileList ������Ʈ
+        // tileYList와 tileList 업데이트
         tileYList.Add(y);
         tileList.Add(new Vector3(x, tileList.Count > 0 ? tileList[tileList.Count - 1].y + y : y, nextTileSize));
 
-        // �� �÷����� Instantiate�ϰ� ũ�⸦ ����
+        // 새 타일 Instantiate하고 높이, 위치 설정
         GameObject newTile = Instantiate(platformPrefab, new Vector3(x, tileList[tileList.Count - 1].y, 0), Quaternion.identity);
         newTile.transform.localScale = new Vector3(nextTileSize, newTile.transform.localScale.y, newTile.transform.localScale.z);
     }

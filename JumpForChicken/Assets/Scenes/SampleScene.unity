@@ -296,7 +296,7 @@ GameObject:
   - component: {fileID: 798035766}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -538,8 +538,9 @@ GameObject:
   - component: {fileID: 1207222133}
   - component: {fileID: 1207222135}
   - component: {fileID: 1207222134}
-  m_Layer: 6
-  m_Name: field
+  - component: {fileID: 1207222136}
+  m_Layer: 8
+  m_Name: Field
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1095,6 +1096,20 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &1207222136
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1207222128}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9b2264c151bbc444bd4b5e904160f47, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  state: 1
+  requiredTimeOnPlatform: 0.1
 --- !u!1 &1577781704
 GameObject:
   m_ObjectHideFlags: 0
@@ -1107,7 +1122,7 @@ GameObject:
   - component: {fileID: 1577781707}
   - component: {fileID: 1577781706}
   m_Layer: 0
-  m_Name: background
+  m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3858,11 +3873,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5707536015927064760, guid: bfe7682bc526c414db43e62c6aa5b967, type: 3}
       propertyPath: m_Name
-      value: block
+      value: FirstBlockPosition
+      objectReference: {fileID: 0}
+    - target: {fileID: 5707536015927064760, guid: bfe7682bc526c414db43e62c6aa5b967, type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 5707536015927064760, guid: bfe7682bc526c414db43e62c6aa5b967, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5865464123188944837, guid: bfe7682bc526c414db43e62c6aa5b967, type: 3}
+      propertyPath: state
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

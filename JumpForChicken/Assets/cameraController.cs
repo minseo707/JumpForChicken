@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,7 +9,7 @@ public class CameraController : MonoBehaviour
     public float floor = -2.231772f;
 
     private float startCamera;
-    private float cameraSpeed = 0.1f; // ÃÊ±â ¼Óµµ
+    private float cameraSpeed = 0.1f; // ì´ˆê¸° ì†ë„
     private float totalDiff;
     private bool trig;
 
@@ -17,7 +17,7 @@ public class CameraController : MonoBehaviour
 
     void Start()
     {
-        // ÃÊ±â Ä«¸Ş¶ó À§Ä¡ ¼³Á¤
+        // ì´ˆê¸° ì¹´ë©”ë¼ ìœ„ì¹˜ ì„¤ì •
         transform.position = new Vector3(0, cameraHeight, -10);
         startCamera = cameraHeight - floor;
         playerAnim = player.GetComponent<Animator>();
@@ -27,7 +27,7 @@ public class CameraController : MonoBehaviour
 
     void Update()
     {
-        // Ä«¸Ş¶ó ³ôÀÌ Á¶Á¤
+        // ì¹´ë©”ë¼ ë†’ì´ ì¡°ì •
         if (playerAnim.GetBool("onGround") && cameraHeight - player.transform.position.y < startCamera && !trig)
         {
             totalDiff += player.transform.position.y + startCamera - cameraHeight;
@@ -52,7 +52,7 @@ public class CameraController : MonoBehaviour
             totalDiff = 0;
         }
 
-        // Ä«¸Ş¶ó À§Ä¡ ¾÷µ¥ÀÌÆ®
+        // ì¹´ë©”ë¼ ìœ„ì¹˜ ì—…ë°ì´íŠ¸
         transform.position = new Vector3(0, cameraHeight, -10);
     }
 }
