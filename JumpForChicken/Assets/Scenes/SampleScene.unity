@@ -474,6 +474,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movePower: 4
+  gaugeBar: {fileID: 5761955548968717459, guid: f5e6ba90d36e24998949d66a07e013cc, type: 3}
 --- !u!1 &1095369650
 GameObject:
   m_ObjectHideFlags: 0

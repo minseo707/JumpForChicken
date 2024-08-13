@@ -8,6 +8,12 @@ public class PlayerController : MonoBehaviour
     public float movePower = 4f;
     private Rigidbody2D rigid;
     private Animator animator;
+    private Animator gaugeAnim;
+
+    // 게이지 바 프리팹
+    public GameObject gaugeBar;
+
+    private GameObject gaugeObject;
 
     // 방향: 오른쪽 = 1, 왼쪽 = -1
     private int lookAt = 1;
@@ -45,6 +51,13 @@ public class PlayerController : MonoBehaviour
         // 땅에 있을 때
         if (!animator.GetBool("isJumping") && !animator.GetBool("isFalling"))
         {
+            if (Input.GetButtonDown("Jump") && rigid.velocity.y == 0)
+            {
+                gaugeObject = Instantiate(gaugeBar, transform.position + new Vector3(lookAt*0.7f, 0, 0), Quaternion.identity);
+                gaugeObject.transform.SetParent(transform);
+                gaugeAnim = gaugeObject.GetComponent<Animator>();
+            }
+
             if (Input.GetButton("Jump") && rigid.velocity.y == 0)
             {
                 // doJumpReady 트리거를 한 번만 작동시키기 위한 조건문
@@ -64,8 +77,10 @@ public class PlayerController : MonoBehaviour
                 animator.SetBool("isJumping", true);
                 animator.SetTrigger("doJumping");
                 stopped = false;
+                gaugeAnim.speed = 0;
             }
 
+            // 땅에 있는데 y속도가 음수인 버그를 수정
             if (rigid.velocity.y < 0)
             {
                 animator.SetBool("isFirstJump", true);
@@ -94,6 +109,7 @@ public class PlayerController : MonoBehaviour
             animator.SetBool("isFirstJump", true);
             rigid.velocity = Vector2.zero;
             animator.SetBool("onGround", true);
+            Destroy(gaugeObject);
         }
     }
 

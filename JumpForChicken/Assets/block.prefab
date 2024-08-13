@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 4204559642797569024}
   - component: {fileID: 5865464123188944837}
   m_Layer: 10
-  m_Name: Block
+  m_Name: block
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -327,3 +327,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   state: 3
+  requiredTimeOnPlatform: 0.1
