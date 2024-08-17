@@ -1,9 +1,20 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Mathematics;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    private float height = -999;
+    private float maxHeight = -999;
+    private float width = -999;
+    private float maxWidth = -999;
+
+    private float gravity = 9.81f * 61/60;
+
+
+
     // 기본 값
     public float movePower = 4f;
     private Rigidbody2D rigid;
@@ -73,6 +84,11 @@ public class PlayerController : MonoBehaviour
 
             if (Input.GetButtonUp("Jump") && rigid.velocity.y == 0)
             {
+                Debug.Log(transform.position.y);
+                height = transform.position.y;
+                maxHeight = transform.position.y;
+                width = transform.position.x;
+
                 isJump = true;
                 animator.SetBool("isJumping", true);
                 animator.SetTrigger("doJumping");
@@ -97,6 +113,11 @@ public class PlayerController : MonoBehaviour
         Move(); // 움직임 담당 함수
         Jump(); // 점프 담당 함수
         Animations(); // 애니메이션 담당 함수
+
+        if (maxHeight < transform.position.y){
+            maxHeight = transform.position.y;
+            Debug.Log(maxHeight - height);
+        }
     }
 
     // 낙하 감지
@@ -110,6 +131,9 @@ public class PlayerController : MonoBehaviour
             rigid.velocity = Vector2.zero;
             animator.SetBool("onGround", true);
             Destroy(gaugeObject);
+
+            maxWidth = transform.position.x;
+            Debug.Log(Mathf.Abs(width - maxWidth));
         }
     }
 
@@ -200,8 +224,11 @@ public class PlayerController : MonoBehaviour
                 break;
         }
 
+        moveX -= 0.01f;
+        moveY += 0.0285f;
+
         // 점프 속도 적용
-        rigid.velocity += new Vector2(moveX * Mathf.Sqrt(9.81f / (8 * moveY)) * lookAt, Mathf.Sqrt(2 * 9.81f * moveY));
+        rigid.velocity += new Vector2(moveX * Mathf.Sqrt(gravity / (8 * moveY)) * lookAt, Mathf.Sqrt(2 * gravity * moveY));
 
         // 점프 후 초기화
         jumpHoldTime = 0;
