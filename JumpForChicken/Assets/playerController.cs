@@ -11,9 +11,7 @@ public class PlayerController : MonoBehaviour
     private float width = -999;
     private float maxWidth = -999;
 
-    private float gravity = 9.81f * 61/60;
-
-
+    private float gravity = 9.81f * 61 / 60;
 
     // 기본 값
     public float movePower = 4f;
@@ -45,6 +43,11 @@ public class PlayerController : MonoBehaviour
     private float moveX = 0;
     private float moveY = 0;
 
+    // 착지 후 잠시 동안 움직임을 막는 변수
+    private bool isLanding = false;
+    private float landingDelay = 0.1f; // 착지 후 멈추는 시간
+    private float landingTimer = 0f;
+
     // 시작될 때 실행되는 코드
     void Start()
     {
@@ -59,12 +62,23 @@ public class PlayerController : MonoBehaviour
     // 프레임 당 초기화: 사용자 입력 감지
     void Update()
     {
+        if (isLanding)
+        {
+            landingTimer -= Time.deltaTime;
+            if (landingTimer <= 0)
+            {
+                isLanding = false;
+                // 착지 후 이동 가능
+            }
+            return; // 착지 중에는 입력을 무시
+        }
+
         // 땅에 있을 때
         if (!animator.GetBool("isJumping") && !animator.GetBool("isFalling"))
         {
             if (Input.GetButtonDown("Jump") && rigid.velocity.y == 0)
             {
-                gaugeObject = Instantiate(gaugeBar, transform.position + new Vector3(lookAt*0.7f, 0, 0), Quaternion.identity);
+                gaugeObject = Instantiate(gaugeBar, transform.position + new Vector3(lookAt * 0.7f, 0, 0), Quaternion.identity);
                 gaugeObject.transform.SetParent(transform);
                 gaugeAnim = gaugeObject.GetComponent<Animator>();
             }
@@ -110,11 +124,21 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        Move(); // 움직임 담당 함수
-        Jump(); // 점프 담당 함수
+        if (isLanding)
+        {
+            // 착지 후 이동을 잠시 막음
+            rigid.velocity = new Vector2(0, rigid.velocity.y);
+        }
+        else
+        {
+            Move(); // 움직임 담당 함수
+            Jump(); // 점프 담당 함수
+        }
+
         Animations(); // 애니메이션 담당 함수
 
-        if (maxHeight < transform.position.y){
+        if (maxHeight < transform.position.y)
+        {
             maxHeight = transform.position.y;
             Debug.Log(maxHeight - height);
         }
@@ -134,6 +158,10 @@ public class PlayerController : MonoBehaviour
 
             maxWidth = transform.position.x;
             Debug.Log(Mathf.Abs(width - maxWidth));
+
+            // 착지 상태 및 타이머 초기화
+            isLanding = true;
+            landingTimer = landingDelay;
         }
     }
 

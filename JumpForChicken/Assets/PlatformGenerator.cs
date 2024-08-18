@@ -10,9 +10,12 @@ public class PlatformGenerator : MonoBehaviour
     public float minMove = 16f; // 최소 이동 거리
     public float declineArea = 3.5f; // 제외 범위
     public float sideDecline = 2f; // 벽에서부터 생성 불가능 범위
+    public float prefabTileLength = 2f; // 프리팹 타일 길이
 
     private List<Vector3> tileList = new List<Vector3>(); // 타일 리스트
     private List<float> tileYList = new List<float>(); // 타일의 y좌표 리스트
+
+    public Grid grid; // 그리드 설정
 
     void Start()
     {
@@ -151,6 +154,15 @@ public class PlatformGenerator : MonoBehaviour
 
         // 새 타일 Instantiate하고 높이, 위치 설정
         GameObject newTile = Instantiate(platformPrefab, new Vector3(x, tileList[tileList.Count - 1].y, 0), Quaternion.identity);
-        newTile.transform.localScale = new Vector3(nextTileSize, newTile.transform.localScale.y, newTile.transform.localScale.z);
+        newTile.transform.localScale = new Vector3(nextTileSize / prefabTileLength, newTile.transform.localScale.y, newTile.transform.localScale.z);
+
+        // 발판의 현재 월드 좌표를 저장합니다
+        Vector3 worldPosition = newTile.transform.position;
+
+        // 새 타일을 Grid의 자식으로 설정
+        newTile.transform.SetParent(grid.transform);
+
+        // 발판의 위치를 다시 설정합니다 (로컬 좌표계를 유지)
+        newTile.transform.position = worldPosition;
     }
 }
