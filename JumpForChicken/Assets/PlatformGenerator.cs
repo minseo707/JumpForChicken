@@ -156,13 +156,13 @@ public class PlatformGenerator : MonoBehaviour
         GameObject newTile = Instantiate(platformPrefab, new Vector3(x, tileList[tileList.Count - 1].y, 0), Quaternion.identity);
         newTile.transform.localScale = new Vector3(nextTileSize / prefabTileLength, newTile.transform.localScale.y, newTile.transform.localScale.z);
 
-        // 발판의 현재 월드 좌표를 저장합니다
+        // 발판의 현재 월드 좌표를 저장
         Vector3 worldPosition = newTile.transform.position;
 
         // 새 타일을 Grid의 자식으로 설정
         newTile.transform.SetParent(grid.transform);
 
-        // 발판의 위치를 다시 설정합니다 (로컬 좌표계를 유지)
+        // 발판의 위치를 다시 설정 (로컬 좌표계를 유지)
         newTile.transform.position = worldPosition;
     }
 }

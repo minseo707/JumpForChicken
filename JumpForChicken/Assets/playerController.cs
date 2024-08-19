@@ -36,17 +36,9 @@ public class PlayerController : MonoBehaviour
     // 점프 여부
     private bool isJump = false;
 
-    // 미세하게 움직이면 x 속도가 0이 되어 떨어지는 버그 수정
-    private bool stopped;
-
     // 점프 속도 변수
     private float moveX = 0;
     private float moveY = 0;
-
-    // 착지 후 잠시 동안 움직임을 막는 변수
-    private bool isLanding = false;
-    private float landingDelay = 0.1f; // 착지 후 멈추는 시간
-    private float landingTimer = 0f;
 
     // 시작될 때 실행되는 코드
     void Start()
@@ -54,25 +46,14 @@ public class PlayerController : MonoBehaviour
         rigid = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         animator.SetBool("isFirstJump", true);
-        stopped = false;
 
+        // 고정 프레임 60
         Application.targetFrameRate = 60;
     }
 
     // 프레임 당 초기화: 사용자 입력 감지
     void Update()
     {
-        if (isLanding)
-        {
-            landingTimer -= Time.deltaTime;
-            if (landingTimer <= 0)
-            {
-                isLanding = false;
-                // 착지 후 이동 가능
-            }
-            return; // 착지 중에는 입력을 무시
-        }
-
         // 땅에 있을 때
         if (!animator.GetBool("isJumping") && !animator.GetBool("isFalling"))
         {
@@ -106,11 +87,10 @@ public class PlayerController : MonoBehaviour
                 isJump = true;
                 animator.SetBool("isJumping", true);
                 animator.SetTrigger("doJumping");
-                stopped = false;
                 gaugeAnim.speed = 0;
             }
 
-            // 땅에 있는데 y속도가 음수인 버그를 수정
+            // 땅에 있는데 y속도가 음수인 버그 우회 (물리랑 화면 간의 프레임 차이)
             if (rigid.velocity.y < 0)
             {
                 animator.SetBool("isFirstJump", true);
@@ -122,19 +102,11 @@ public class PlayerController : MonoBehaviour
         inputAxis = Input.GetAxisRaw("Horizontal");
     }
 
+
     private void FixedUpdate()
     {
-        if (isLanding)
-        {
-            // 착지 후 이동을 잠시 막음
-            rigid.velocity = new Vector2(0, rigid.velocity.y);
-        }
-        else
-        {
-            Move(); // 움직임 담당 함수
-            Jump(); // 점프 담당 함수
-        }
-
+        Move(); // 움직임 담당 함수
+        Jump(); // 점프 담당 함수
         Animations(); // 애니메이션 담당 함수
 
         if (maxHeight < transform.position.y)
@@ -149,19 +121,7 @@ public class PlayerController : MonoBehaviour
     {
         if (collision.contacts[0].normal.y > 0.7f)
         {
-            animator.SetBool("isFalling", false);
-            animator.SetBool("isJumping", false);
-            animator.SetBool("isFirstJump", true);
-            rigid.velocity = Vector2.zero;
-            animator.SetBool("onGround", true);
-            Destroy(gaugeObject);
-
-            maxWidth = transform.position.x;
-            Debug.Log(Mathf.Abs(width - maxWidth));
-
-            // 착지 상태 및 타이머 초기화
-            isLanding = true;
-            landingTimer = landingDelay;
+            Landing();
         }
     }
 
@@ -177,28 +137,17 @@ public class PlayerController : MonoBehaviour
             {
                 lookAt = -1;
                 currentVelocity.x = movePower * lookAt;
-                stopped = false;
             }
             else if (inputAxis > 0)
             {
                 lookAt = 1;
                 currentVelocity.x = movePower * lookAt;
-                stopped = false;
             }
             else
             {
                 currentVelocity.x = 0;
-                stopped = true;
             }
             rigid.velocity = currentVelocity;
-        }
-
-        // inputAxis가 0인 상황에서 떨어지기 시작했을 때. 이론 상은 문제 없지만, 프레임 차이로 발생하는 버그 수정
-        if (animator.GetBool("isFalling") && rigid.velocity.x == 0 && stopped)
-        {
-            currentVelocity.x = movePower * lookAt;
-            rigid.velocity = currentVelocity;
-            stopped = false;
         }
 
         // 플레이어 좌우 반전
@@ -280,5 +229,24 @@ public class PlayerController : MonoBehaviour
                 animator.SetBool("onGround", false);
             }
         }
+
+        // 낙하 모션 중 땅에서 정지하는 버그 수정
+        if ((animator.GetBool("isFalling") && animator.GetBool("isFirstJump")))
+        {
+            Landing();
+        }
+    }
+
+    private void Landing()
+    {
+        animator.SetBool("isFalling", false);
+        animator.SetBool("isJumping", false);
+        animator.SetBool("isFirstJump", true);
+        rigid.velocity = Vector2.zero;
+        animator.SetBool("onGround", true);
+        Destroy(gaugeObject);
+
+        maxWidth = transform.position.x;
+        Debug.Log(Mathf.Abs(width - maxWidth));
     }
 }

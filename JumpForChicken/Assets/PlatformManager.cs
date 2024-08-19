@@ -127,7 +127,7 @@ public class PlatformManager : MonoBehaviour
     private void UpdateNextPlatform()
     {
         // 현재 발판의 다음 발판을 찾아 상태를 Next로 변경
-        Collider2D[] hitColliders = Physics2D.OverlapCircleAll(transform.position, 10f); // 10f는 적절한 반경으로 설정 => 감지 범위로 인한 버그 가능성 있음 (확인 못함)
+        Collider2D[] hitColliders = Physics2D.OverlapCircleAll(transform.position, 10f); // 10f는 적절한 반경으로 설정
         PlatformManager newNextPlatform = null;
 
         foreach (var hitCollider in hitColliders)
@@ -143,13 +143,12 @@ public class PlatformManager : MonoBehaviour
                     }
                     else
                     {
-                        // 가장 가까운 발판을 선택
-                        float currentDistance = Vector2.Distance(transform.position, newNextPlatform.transform.position);
-                        float newDistance = Vector2.Distance(transform.position, platformManager.transform.position);
-                        if (newDistance < currentDistance)
+                        // 가장 y좌표가 작은 발판을 선택
+                        if (platformManager.transform.position.y < newNextPlatform.transform.position.y)
                         {
                             newNextPlatform = platformManager;
                         }
+
                     }
                 }
             }
