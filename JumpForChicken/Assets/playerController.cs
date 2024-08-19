@@ -233,22 +233,22 @@ public class PlayerController : MonoBehaviour
 
             case int n when 36 <= n && n < 54:
                 moveX = 4f;
-                moveY = 3f;
+                moveY = 3.05f;
                 break;
 
             case int n when 54 <= n && n < 72:
                 moveX = 6f;
-                moveY = 5f;
+                moveY = 5.15f;
                 break;
 
             case int n when 72 <= n && n < 90:
                 moveX = 4f;
-                moveY = 7f;
+                moveY = 7.20f;
                 break;
 
             case int n when n <= 90:
                 moveX = 2f;
-                moveY = 8f;
+                moveY = 8.25f;
                 break;
         }
 
