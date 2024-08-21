@@ -366,3 +366,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   state: 3
   requiredTimeOnPlatform: 0.1
+  transparency: 0.2

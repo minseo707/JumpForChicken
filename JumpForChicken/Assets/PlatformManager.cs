@@ -22,10 +22,24 @@ public class PlatformManager : MonoBehaviour
     private bool stateChanged = false; // 상태 변경 플래그 (1번만 실행)
     private Rigidbody2D playerRigidbody;
 
+    private Renderer objectRenderer;
+    private Material originalMaterial;
+    private Color originalColor;
+
+    public float transparency = 0.2f; // 투명도 비율 (0.0f = 완전 투명, 1.0f = 완전 불투명)
+
     private void Start()
     {
         // 모든 발판을 리스트에 추가
         allPlatforms.Add(this);
+
+        objectRenderer = GetComponent<Renderer>();
+        if (objectRenderer != null)
+        {
+            // 원래의 머티리얼 저장
+            originalMaterial = objectRenderer.material;
+            originalColor = originalMaterial.color;
+        }
 
         // 초기 상태에 따라 레이어 설정
         SetPlatformLayer();
@@ -100,8 +114,8 @@ public class PlatformManager : MonoBehaviour
         if (playerRigidbody == null)
             return false;
 
-        // 플레이어의 Y축 속도가 0에 가까우면서 X축 속도가 거의 0일 때 착지로 간주
-        return Mathf.Abs(playerRigidbody.velocity.y) <= 0.1f && Mathf.Abs(playerRigidbody.velocity.x) <= 0.1f;
+        // 플레이어의 X, Y축 속도가 거의 0일 때 착지로 간주 (발판에 딱 붙어서 못 올라가는 일부 경우에 작동하는 버그가 있어 일단 Y축 속도 감지값을 낮춤)
+        return Mathf.Abs(playerRigidbody.velocity.y) <= 0.01f && Mathf.Abs(playerRigidbody.velocity.x) <= 0.1f;
     }
 
     private void SetPlatformLayer()
@@ -114,12 +128,14 @@ public class PlatformManager : MonoBehaviour
                 break;
             case PlatformState.Next:
                 gameObject.layer = LayerMask.NameToLayer("NextPlatform");
+                SetTransparency(false);
                 break;
             case PlatformState.Past:
                 gameObject.layer = LayerMask.NameToLayer("PastPlatform");
                 break;
             default:
                 gameObject.layer = LayerMask.NameToLayer("DefaultPlatform"); // DefaultPlatform 레이어 설정
+                SetTransparency(true);
                 break;
         }
     }
@@ -174,5 +190,43 @@ public class PlatformManager : MonoBehaviour
     public void ResetStateChanged()
     {
         stateChanged = false;
+    }
+
+    // 투명도 조절
+    public void SetTransparency(bool transparent)
+    {
+        if (objectRenderer != null)
+        {
+            if (transparent)
+            {
+                // 투명하게 만들기
+                Color color = originalColor;
+                color.a = transparency;
+                objectRenderer.material.color = color;
+                // 머티리얼의 렌더 모드를 투명으로 설정
+                objectRenderer.material.SetFloat("_Mode", 3);
+                objectRenderer.material.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.SrcAlpha);
+                objectRenderer.material.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha);
+                objectRenderer.material.SetInt("_ZWrite", 0);
+                objectRenderer.material.DisableKeyword("_ALPHATEST_ON");
+                objectRenderer.material.DisableKeyword("_ALPHABLEND_ON");
+                objectRenderer.material.EnableKeyword("_ALPHAPREMULTIPLY_ON");
+                objectRenderer.material.renderQueue = 3000;
+            }
+            else
+            {
+                // 원래 상태로 복구
+                objectRenderer.material.color = originalColor;
+                // 머티리얼의 렌더 모드를 불투명으로 설정
+                objectRenderer.material.SetFloat("_Mode", 0);
+                objectRenderer.material.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.One);
+                objectRenderer.material.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.Zero);
+                objectRenderer.material.SetInt("_ZWrite", 1);
+                objectRenderer.material.DisableKeyword("_ALPHATEST_ON");
+                objectRenderer.material.DisableKeyword("_ALPHABLEND_ON");
+                objectRenderer.material.DisableKeyword("_ALPHAPREMULTIPLY_ON");
+                objectRenderer.material.renderQueue = -1;
+            }
+        }
     }
 }
