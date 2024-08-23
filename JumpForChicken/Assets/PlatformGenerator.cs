@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlatformGenerator : MonoBehaviour
@@ -19,7 +20,15 @@ public class PlatformGenerator : MonoBehaviour
 
     void Start()
     {
+        Sync();
         GenerateInitialTiles();
+    }
+
+    void Sync(){
+        declineArea = PlayerPrefs.GetFloat("declineArea");
+        sideDecline = PlayerPrefs.GetFloat("sideDecline");
+        minMove = PlayerPrefs.GetFloat("minMove");
+        minTile = PlayerPrefs.GetInt("minTile");
     }
 
     void GenerateInitialTiles()
@@ -28,6 +37,8 @@ public class PlatformGenerator : MonoBehaviour
         {
             nextTile();
         }
+
+        Debug.LogError($"{declineArea} {minTile} {minMove} {sideDecline}");
     }
 
     void nextTile()
@@ -165,4 +176,13 @@ public class PlatformGenerator : MonoBehaviour
         // 발판의 위치를 다시 설정 (로컬 좌표계를 유지)
         newTile.transform.position = worldPosition;
     }
+
+    public void DAUp(){PlayerPrefs.SetFloat("declineArea", PlayerPrefs.GetFloat("declineArea") + .1f); Sync();}
+    public void DADown(){PlayerPrefs.SetFloat("declineArea", PlayerPrefs.GetFloat("declineArea") - .1f); Sync();}
+    public void MTUp(){PlayerPrefs.SetInt("minTile", PlayerPrefs.GetInt("minTile") + 1); Sync();}
+    public void MTDown(){PlayerPrefs.SetInt("minTile", PlayerPrefs.GetInt("minTile") - 1); Sync();}
+    public void MMUp(){PlayerPrefs.SetFloat("minMove", PlayerPrefs.GetFloat("minMove") + .5f); Sync();}
+    public void MMDown(){PlayerPrefs.SetFloat("minMove", PlayerPrefs.GetFloat("minMove") - .5f); Sync();}
+    public void SDUp(){PlayerPrefs.SetFloat("sideDecline", PlayerPrefs.GetFloat("sideDecline") + .05f); Sync();}
+    public void SDDown(){PlayerPrefs.SetFloat("sideDecline", PlayerPrefs.GetFloat("sideDecline") - .05f); Sync();}
 }

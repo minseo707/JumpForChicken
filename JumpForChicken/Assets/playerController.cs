@@ -25,7 +25,7 @@ public class PlayerController : MonoBehaviour
     private GameObject gaugeObject;
 
     // 방향: 오른쪽 = 1, 왼쪽 = -1
-    private int lookAt = 1;
+    // animator.GetInteger("lookAt")
 
     // 점프 키를 누른 프레임
     private int jumpHoldTime = 0;
@@ -35,6 +35,9 @@ public class PlayerController : MonoBehaviour
 
     // 점프 여부
     private bool isJump = false;
+
+    // 미세하게 움직이면 x 속도가 0이되어 떨어지는 버그 수정
+    private bool stopped;
 
     // 점프 속도 변수
     private float moveX = 0;
@@ -46,6 +49,7 @@ public class PlayerController : MonoBehaviour
         rigid = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         animator.SetBool("isFirstJump", true);
+        stopped = false;
 
         // 고정 프레임 60
         Application.targetFrameRate = 60;
@@ -59,18 +63,20 @@ public class PlayerController : MonoBehaviour
         {
             if (Input.GetButtonDown("Jump") && rigid.velocity.y == 0)
             {
-                gaugeObject = Instantiate(gaugeBar, transform.position + new Vector3(lookAt * 0.7f, 0, 0), Quaternion.identity);
-                gaugeObject.transform.SetParent(transform);
-                gaugeAnim = gaugeObject.GetComponent<Animator>();
             }
 
             if (Input.GetButton("Jump") && rigid.velocity.y == 0)
             {
                 // doJumpReady 트리거를 한 번만 작동시키기 위한 조건문
+                // isFirstJump : 다음 점프는 첫 번째 점프이다.
                 if (animator.GetBool("isFirstJump"))
                 {
                     animator.SetTrigger("doJumpReady");
                     animator.SetBool("isFirstJump", false);
+                    
+                    gaugeObject = Instantiate(gaugeBar, transform.position + new Vector3(animator.GetInteger("lookAt") * 0.7f, 0, 0), Quaternion.identity);
+                    gaugeObject.transform.SetParent(transform);
+                    gaugeAnim = gaugeObject.GetComponent<Animator>();
                 }
 
                 // 점프 준비 시간 증가
@@ -87,6 +93,8 @@ public class PlayerController : MonoBehaviour
                 isJump = true;
                 animator.SetBool("isJumping", true);
                 animator.SetTrigger("doJumping");
+                stopped = false;
+
                 gaugeAnim.speed = 0;
             }
 
@@ -135,23 +143,36 @@ public class PlayerController : MonoBehaviour
         {
             if (inputAxis < 0)
             {
-                lookAt = -1;
-                currentVelocity.x = movePower * lookAt;
+                animator.SetInteger("lookAt", -1);
+                stopped = false;
+                currentVelocity.x = movePower * animator.GetInteger("lookAt");
             }
             else if (inputAxis > 0)
             {
-                lookAt = 1;
-                currentVelocity.x = movePower * lookAt;
+                animator.SetInteger("lookAt", 1);
+                stopped = false;
+                currentVelocity.x = movePower * animator.GetInteger("lookAt");
             }
             else
             {
                 currentVelocity.x = 0;
+                stopped = true;
             }
             rigid.velocity = currentVelocity;
         }
 
+        // inputAxis가 0인 상황에서 떨어지기 시작했을 때. 이론 상은 문제 없지만, 프레임 차이로 발생하는 버그 수정
+        if (animator.GetBool("isFalling") && rigid.velocity.x == 0 && stopped)
+        {
+            currentVelocity.x = movePower * animator.GetInteger("lookAt");
+            rigid.velocity = currentVelocity;
+            stopped = false;
+
+            Debug.Log("get");
+        }
+
         // 플레이어 좌우 반전
-        transform.localScale = new Vector3(lookAt * Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
+        // transform.localScale = new Vector3(lookAt * Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
 
         // 점프 장전 중에는 정지
         if (jumpHoldTime > 0)
@@ -171,13 +192,13 @@ public class PlayerController : MonoBehaviour
         switch (jumpHoldTime)
         {
             case int n when 0 <= n && n < 18:
-                moveX = 2.5f;
-                moveY = 0.5f;
+                moveX = 1.5f;
+                moveY = 1.5f;
                 break;
 
             case int n when 18 <= n && n < 36:
-                moveX = 4f;
-                moveY = 1f;
+                moveX = 2.5f;
+                moveY = 3f;
                 break;
 
             case int n when 36 <= n && n < 54:
@@ -205,7 +226,7 @@ public class PlayerController : MonoBehaviour
         moveY += 0.0285f;
 
         // 점프 속도 적용
-        rigid.velocity += new Vector2(moveX * Mathf.Sqrt(gravity / (8 * moveY)) * lookAt, Mathf.Sqrt(2 * gravity * moveY));
+        rigid.velocity += new Vector2(moveX * Mathf.Sqrt(gravity / (8 * moveY)) * animator.GetInteger("lookAt"), Mathf.Sqrt(2 * gravity * moveY));
 
         // 점프 후 초기화
         jumpHoldTime = 0;
@@ -227,11 +248,12 @@ public class PlayerController : MonoBehaviour
                 animator.SetBool("isJumping", false);
                 animator.SetBool("isFalling", true);
                 animator.SetBool("onGround", false);
+                animator.SetBool("isFirstJump", false);
             }
         }
 
         // 낙하 모션 중 땅에서 정지하는 버그 수정
-        if ((animator.GetBool("isFalling") && animator.GetBool("isFirstJump")))
+        if (animator.GetBool("isFalling") && animator.GetBool("isFirstJump"))
         {
             Landing();
         }
