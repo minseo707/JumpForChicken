@@ -13,9 +13,13 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI mtText;
     public TextMeshProUGUI mmText;
     public TextMeshProUGUI sdText;
+    public TextMeshProUGUI timeText;
+
+    float time;
 
     private void Start() {
         platformData = GameObject.Find("Platform");
+        time = 0f;
     }
 
     private void Update() {
@@ -24,6 +28,8 @@ public class GameManager : MonoBehaviour
         mtText.text = $"최소 타일: {platformData.GetComponent<PlatformGenerator>().minTile}";
         mmText.text = $"최소 이동: {platformData.GetComponent<PlatformGenerator>().minMove}";
         sdText.text = $"좌우 여백: {platformData.GetComponent<PlatformGenerator>().sideDecline}";
+        time += Time.deltaTime;
+        timeText.text = $"플레이 타임: {Mathf.Floor(time*100f)*0.01f}s";
     }
 
     public void OnClickRestart(){
