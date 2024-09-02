@@ -43,6 +43,9 @@ public class PlayerController : MonoBehaviour
     private float moveX = 0;
     private float moveY = 0;
 
+    private float landingFreezeDuration = 0.1f; // 착지 후 일시 정지 시간
+    private float landingFreezeTimer = 0f; // 착지 후 타이머
+
     // 시작될 때 실행되는 코드
     void Start()
     {
@@ -58,56 +61,70 @@ public class PlayerController : MonoBehaviour
     // 프레임 당 초기화: 사용자 입력 감지
     void Update()
     {
-        // 땅에 있을 때
-        if (!animator.GetBool("isJumping") && !animator.GetBool("isFalling"))
+        // 타이머 업데이트
+        if (landingFreezeTimer > 0f)
         {
-            if (Input.GetButtonDown("Jump") && rigid.velocity.y == 0)
+            landingFreezeTimer -= Time.deltaTime;
+            if (landingFreezeTimer <= 0f)
             {
-            }
-
-            if (Input.GetButton("Jump") && rigid.velocity.y == 0)
-            {
-                // doJumpReady 트리거를 한 번만 작동시키기 위한 조건문
-                // isFirstJump : 다음 점프는 첫 번째 점프이다.
-                if (animator.GetBool("isFirstJump"))
-                {
-                    animator.SetTrigger("doJumpReady");
-                    animator.SetBool("isFirstJump", false);
-                    
-                    gaugeObject = Instantiate(gaugeBar, transform.position + new Vector3(animator.GetInteger("lookAt") * 0.7f, 0, 0), Quaternion.identity);
-                    gaugeObject.transform.SetParent(transform);
-                    gaugeAnim = gaugeObject.GetComponent<Animator>();
-                }
-
-                // 점프 준비 시간 증가
-                jumpHoldTime = Mathf.Min(jumpHoldTime + 1, 90);
-            }
-
-            if (Input.GetButtonUp("Jump") && rigid.velocity.y == 0)
-            {
-                Debug.Log(transform.position.y);
-                height = transform.position.y;
-                maxHeight = transform.position.y;
-                width = transform.position.x;
-
-                isJump = true;
-                animator.SetBool("isJumping", true);
-                animator.SetTrigger("doJumping");
-                stopped = false;
-
-                gaugeAnim.speed = 0;
-            }
-
-            // 땅에 있는데 y속도가 음수인 버그 우회 (물리랑 화면 간의 프레임 차이)
-            if (rigid.velocity.y < 0)
-            {
-                animator.SetBool("isFirstJump", true);
-                jumpHoldTime = 0;
+                landingFreezeTimer = 0f;
+                // 타이머가 끝난 후 다시 움직일 수 있도록 설정
+                rigid.velocity = new Vector2(inputAxis * movePower, rigid.velocity.y);
             }
         }
+        else
+        {
+            // 땅에 있을 때
+            if (!animator.GetBool("isJumping") && !animator.GetBool("isFalling"))
+            {
+                if (Input.GetButtonDown("Jump") && rigid.velocity.y == 0)
+                {
+                }
 
-        // Update에서 변수 저장
-        inputAxis = Input.GetAxisRaw("Horizontal");
+                if (Input.GetButton("Jump") && rigid.velocity.y == 0)
+                {
+                    // doJumpReady 트리거를 한 번만 작동시키기 위한 조건문
+                    // isFirstJump : 다음 점프는 첫 번째 점프이다.
+                    if (animator.GetBool("isFirstJump"))
+                    {
+                        animator.SetTrigger("doJumpReady");
+                        animator.SetBool("isFirstJump", false);
+
+                        gaugeObject = Instantiate(gaugeBar, transform.position + new Vector3(animator.GetInteger("lookAt") * 0.7f, 0, 0), Quaternion.identity);
+                        gaugeObject.transform.SetParent(transform);
+                        gaugeAnim = gaugeObject.GetComponent<Animator>();
+                    }
+
+                    // 점프 준비 시간 증가
+                    jumpHoldTime = Mathf.Min(jumpHoldTime + 1, 90);
+                }
+
+                if (Input.GetButtonUp("Jump") && rigid.velocity.y == 0)
+                {
+                    Debug.Log(transform.position.y);
+                    height = transform.position.y;
+                    maxHeight = transform.position.y;
+                    width = transform.position.x;
+
+                    isJump = true;
+                    animator.SetBool("isJumping", true);
+                    animator.SetTrigger("doJumping");
+                    stopped = false;
+
+                    gaugeAnim.speed = 0;
+                }
+
+                // 땅에 있는데 y속도가 음수인 버그 우회 (물리랑 화면 간의 프레임 차이)
+                if (rigid.velocity.y < 0)
+                {
+                    animator.SetBool("isFirstJump", true);
+                    jumpHoldTime = 0;
+                }
+            }
+
+            // Update에서 변수 저장
+            inputAxis = Input.GetAxisRaw("Horizontal");
+        }
     }
 
 
@@ -138,8 +155,13 @@ public class PlayerController : MonoBehaviour
         // 플레이어의 속도를 직접적으로 설정 불가능하므로, 새로운 변수에 저장 후 수정
         Vector2 currentVelocity = rigid.velocity;
 
+        if (landingFreezeTimer > 0f)
+        {
+            currentVelocity.x = 0; // 착지 후 멈추는 상태
+        }
+
         // 점프 장전이 안 되어있고, 점프 중이지 않고, 낙하 중이지 않을 때
-        if (jumpHoldTime == 0 && !animator.GetBool("isJumping") && !animator.GetBool("isFalling"))
+        else if (jumpHoldTime == 0 && !animator.GetBool("isJumping") && !animator.GetBool("isFalling"))
         {
             if (inputAxis < 0)
             {
@@ -270,5 +292,8 @@ public class PlayerController : MonoBehaviour
 
         maxWidth = transform.position.x;
         Debug.Log(Mathf.Abs(width - maxWidth));
+
+        // 착지 후 일시적으로 멈추는 타이머 시작
+        landingFreezeTimer = landingFreezeDuration;
     }
 }
