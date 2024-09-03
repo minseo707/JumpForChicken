@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.PackageManager;
 using UnityEngine;
 
 public class FirstGameUpdater : MonoBehaviour
@@ -40,8 +41,11 @@ public class FirstGameUpdater : MonoBehaviour
     {
         // 초기화 작업
         PlayerPrefs.SetFloat("declineArea", 3.5f);
-        PlayerPrefs.SetFloat("sideDecline", 2f);
+        PlayerPrefs.SetFloat("sideDecline", 2.0f);
+        PlayerPrefs.SetFloat("minYSelect", 2.0f);
         PlayerPrefs.SetFloat("minMove", 16f);
         PlayerPrefs.SetInt("minTile", 4);
+
+        Debug.LogError("init");
     }
 }

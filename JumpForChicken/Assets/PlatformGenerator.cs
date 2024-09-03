@@ -10,8 +10,9 @@ public class PlatformGenerator : MonoBehaviour
     public int minTile = 4; // 최소 타일 개수
     public float minMove = 16f; // 최소 이동 거리
     public float declineArea = 3.5f; // 제외 범위
-    public float sideDecline = 2f; // 벽에서부터 생성 불가능 범위
+    public float sideDecline = 2.0f; // 벽에서부터 생성 불가능 범위
     public float prefabTileLength = 2f; // 프리팹 타일 길이
+    public float minYSelect = 2.0f;
 
     private List<Vector3> tileList = new List<Vector3>(); // 타일 리스트
     private List<float> tileYList = new List<float>(); // 타일의 y좌표 리스트
@@ -29,6 +30,7 @@ public class PlatformGenerator : MonoBehaviour
         sideDecline = PlayerPrefs.GetFloat("sideDecline");
         minMove = PlayerPrefs.GetFloat("minMove");
         minTile = PlayerPrefs.GetInt("minTile");
+        minYSelect = PlayerPrefs.GetFloat("minYSelect");
     }
 
     void GenerateInitialTiles()
@@ -38,12 +40,12 @@ public class PlatformGenerator : MonoBehaviour
             nextTile();
         }
 
-        Debug.LogError($"{declineArea} {minTile} {minMove} {sideDecline}");
+        Debug.LogError($"{declineArea} {minTile} {minMove} {sideDecline} {minYSelect}");
     }
 
     void nextTile()
     {
-        float minYSelect = 2f;
+        float minYSelectP = minYSelect;
         float x = 0f;
         float y = 0f;
         float pointX = 0f;
@@ -67,15 +69,15 @@ public class PlatformGenerator : MonoBehaviour
 
             if (sumDifference > 2f && sumDifference <= 8f)
             {
-                minYSelect = sumDifference;
+                minYSelectP = sumDifference;
             }
             else if (sumDifference > 8f)
             {
-                minYSelect = 8f;
+                minYSelectP = 8f;
             }
         }
 
-        y = minYSelect == 8f ? 8f : Mathf.Round(Random.Range(minYSelect, 8f) * 10f) / 10f;
+        y = minYSelectP == 8f ? 8f : Mathf.Round(Random.Range(minYSelectP, 8f) * 10f) / 10f;
 
         if (y >= 0 && y < declineArea * 7 / 8)
         {
@@ -185,4 +187,6 @@ public class PlatformGenerator : MonoBehaviour
     public void MMDown(){PlayerPrefs.SetFloat("minMove", PlayerPrefs.GetFloat("minMove") - .5f); Sync();}
     public void SDUp(){PlayerPrefs.SetFloat("sideDecline", PlayerPrefs.GetFloat("sideDecline") + .05f); Sync();}
     public void SDDown(){PlayerPrefs.SetFloat("sideDecline", PlayerPrefs.GetFloat("sideDecline") - .05f); Sync();}
+    public void MYUp(){PlayerPrefs.SetFloat("minYSelect", PlayerPrefs.GetFloat("minYSelect") + .1f); Sync();}
+    public void MYDown(){PlayerPrefs.SetFloat("minYSelect", PlayerPrefs.GetFloat("minYSelect") - .1f); Sync();}
 }

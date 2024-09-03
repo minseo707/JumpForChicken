@@ -22,6 +22,7 @@ public class PlayerController : MonoBehaviour
     // 게이지 바 프리팹
     public GameObject gaugeBar;
 
+    private SpriteRenderer spriteRendererGauge;
     private GameObject gaugeObject;
 
     // 방향: 오른쪽 = 1, 왼쪽 = -1
@@ -51,6 +52,8 @@ public class PlayerController : MonoBehaviour
         animator.SetBool("isFirstJump", true);
         stopped = false;
 
+        spriteRendererGauge = gaugeBar.GetComponent<SpriteRenderer>();
+
         // 고정 프레임 60
         Application.targetFrameRate = 60;
     }
@@ -61,10 +64,6 @@ public class PlayerController : MonoBehaviour
         // 땅에 있을 때
         if (!animator.GetBool("isJumping") && !animator.GetBool("isFalling"))
         {
-            if (Input.GetButtonDown("Jump") && rigid.velocity.y == 0)
-            {
-            }
-
             if (Input.GetButton("Jump") && rigid.velocity.y == 0)
             {
                 // doJumpReady 트리거를 한 번만 작동시키기 위한 조건문
@@ -74,13 +73,17 @@ public class PlayerController : MonoBehaviour
                     animator.SetTrigger("doJumpReady");
                     animator.SetBool("isFirstJump", false);
                     
-                    gaugeObject = Instantiate(gaugeBar, transform.position + new Vector3(animator.GetInteger("lookAt") * 0.7f, 0, 0), Quaternion.identity);
-                    gaugeObject.transform.SetParent(transform);
-                    gaugeAnim = gaugeObject.GetComponent<Animator>();
+                    // gaugeObject = Instantiate(gaugeBar, transform.position + new Vector3(animator.GetInteger("lookAt") * 0.7f, 0, 0), Quaternion.identity);
+                    // gaugeObject.transform.SetParent(transform);
+                    // gaugeAnim = gaugeObject.GetComponent<Animator>();
+
+                    spriteRendererGauge.enabled = true;
                 }
 
                 // 점프 준비 시간 증가
                 jumpHoldTime = Mathf.Min(jumpHoldTime + 1, 90);
+                // 게이지바에 점프 준비 시간 동기화
+                gaugeBar.GetComponent<GaugeBarManager>().jumpGauge = jumpHoldTime;
             }
 
             if (Input.GetButtonUp("Jump") && rigid.velocity.y == 0)
@@ -95,7 +98,7 @@ public class PlayerController : MonoBehaviour
                 animator.SetTrigger("doJumping");
                 stopped = false;
 
-                gaugeAnim.speed = 0;
+                // gaugeAnim.speed = 0;
             }
 
             // 땅에 있는데 y속도가 음수인 버그 우회 (물리랑 화면 간의 프레임 차이)
@@ -222,6 +225,7 @@ public class PlayerController : MonoBehaviour
                 break;
         }
 
+        // 보정치, 실제 값 오차 복구
         moveX -= 0.01f;
         moveY += 0.0285f;
 
@@ -229,8 +233,8 @@ public class PlayerController : MonoBehaviour
         rigid.velocity += new Vector2(moveX * Mathf.Sqrt(gravity / (8 * moveY)) * animator.GetInteger("lookAt"), Mathf.Sqrt(2 * gravity * moveY));
 
         // 점프 후 초기화
-        jumpHoldTime = 0;
         isJump = false;
+        jumpHoldTime = 0;
         animator.SetBool("onGround", false);
     }
 
@@ -267,6 +271,12 @@ public class PlayerController : MonoBehaviour
         rigid.velocity = Vector2.zero;
         animator.SetBool("onGround", true);
         Destroy(gaugeObject);
+
+        // 동기화 원리 : 점프 키를 떼는 순간, jumpHoldTime은 0이 되지만, gaugeBar의 jumpGauge는 점프 키를 떼기 직전의 jumpHoldTime을 가지고 있으므로
+        // jumpHoldTime이 0이 되어도 점프 중일 때 적절한 게이지바를 출력 
+        gaugeBar.GetComponent<GaugeBarManager>().jumpGauge = jumpHoldTime;
+
+        spriteRendererGauge.enabled = false;
 
         maxWidth = transform.position.x;
         Debug.Log(Mathf.Abs(width - maxWidth));

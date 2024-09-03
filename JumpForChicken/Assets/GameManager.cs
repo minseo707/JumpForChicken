@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI mtText;
     public TextMeshProUGUI mmText;
     public TextMeshProUGUI sdText;
+    public TextMeshProUGUI myText;
     public TextMeshProUGUI timeText;
 
     float time;
@@ -28,13 +29,14 @@ public class GameManager : MonoBehaviour
         mtText.text = $"최소 타일: {platformData.GetComponent<PlatformGenerator>().minTile}";
         mmText.text = $"최소 이동: {platformData.GetComponent<PlatformGenerator>().minMove}";
         sdText.text = $"좌우 여백: {platformData.GetComponent<PlatformGenerator>().sideDecline}";
+        myText.text = $"최소 높이: {platformData.GetComponent<PlatformGenerator>().minYSelect}";
         time += Time.deltaTime;
         timeText.text = $"플레이 타임: {Mathf.Floor(time*100f)*0.01f}s";
     }
 
     public void OnClickRestart(){
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-        Debug.LogError($"{platformData.GetComponent<PlatformGenerator>().declineArea} {platformData.GetComponent<PlatformGenerator>().minTile} {platformData.GetComponent<PlatformGenerator>().minMove} {platformData.GetComponent<PlatformGenerator>().sideDecline}");
+        Debug.LogError($"{platformData.GetComponent<PlatformGenerator>().declineArea} {platformData.GetComponent<PlatformGenerator>().minTile} {platformData.GetComponent<PlatformGenerator>().minMove} {platformData.GetComponent<PlatformGenerator>().sideDecline} {platformData.GetComponent<PlatformGenerator>().minYSelect}");
     }
 
     public void OnClickDADown(){
@@ -76,5 +78,15 @@ public class GameManager : MonoBehaviour
     public void OnClickSDUp(){
         platformData.GetComponent<PlatformGenerator>().SDUp();
         sdText.text = $"좌우 여백: {platformData.GetComponent<PlatformGenerator>().sideDecline}";
+    }
+
+    public void OnClickMYDown(){
+        platformData.GetComponent<PlatformGenerator>().MYDown();
+        myText.text = $"최소 높이: {platformData.GetComponent<PlatformGenerator>().minYSelect}";
+    }
+
+    public void OnClickMYUp(){
+        platformData.GetComponent<PlatformGenerator>().MYUp();
+        myText.text = $"최소 높이: {platformData.GetComponent<PlatformGenerator>().minYSelect}";
     }
 }
