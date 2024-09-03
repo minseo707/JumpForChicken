@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class GaugeBarManager : MonoBehaviour
@@ -9,6 +11,8 @@ public class GaugeBarManager : MonoBehaviour
 
     // 플레이어 위치 가져오기 위함
     public GameObject player;
+    // 카메라의 좌표를 가져오기 위함
+    public GameObject cameras;
     // 플레이어 애니메이터 안에 있는 'lookAt' 변수 가져오기 위함
     private Animator playerAnimator;
 
@@ -34,7 +38,7 @@ public class GaugeBarManager : MonoBehaviour
 
         playerPos = player.transform.position;
 
-        playerPos += new Vector3(playerAnimator.GetInteger("lookAt") * 0.7f, 0, 0); // (x, y, z)
+        playerPos = new Vector3(player.transform.position.x + playerAnimator.GetInteger("lookAt") * 0.7f, Mathf.Max(player.transform.position.y, cameras.GetComponent<CameraController>().cameraHeight - 6.5f), player.transform.position.z); // (x, y, z)
 
         transform.position = playerPos;
         transform.localScale = new Vector3(-playerAnimator.GetInteger("lookAt"), 1, 1);

@@ -17,7 +17,6 @@ public class PlayerController : MonoBehaviour
     public float movePower = 4f;
     private Rigidbody2D rigid;
     private Animator animator;
-    private Animator gaugeAnim;
 
     // 게이지 바 프리팹
     public GameObject gaugeBar;
@@ -145,9 +144,9 @@ public class PlayerController : MonoBehaviour
     }
 
     // 낙하 감지
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnCollisionStay2D(Collision2D collision)
     {
-        if (collision.contacts[0].normal.y > 0.7f)
+        if (collision.contacts[0].normal.y > 0.7f && animator.GetBool("isFalling"))
         {
             Landing();
         }

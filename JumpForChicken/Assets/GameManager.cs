@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -15,12 +16,16 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI sdText;
     public TextMeshProUGUI myText;
     public TextMeshProUGUI timeText;
+    public TextMeshProUGUI fpsText;
 
     float time;
+
+    private float deltaTime = 0f;
 
     private void Start() {
         platformData = GameObject.Find("Platform");
         time = 0f;
+        deltaTime = 0f;
     }
 
     private void Update() {
@@ -32,6 +37,9 @@ public class GameManager : MonoBehaviour
         myText.text = $"최소 높이: {platformData.GetComponent<PlatformGenerator>().minYSelect}";
         time += Time.deltaTime;
         timeText.text = $"플레이 타임: {Mathf.Floor(time*100f)*0.01f}s";
+
+        deltaTime += (Time.unscaledDeltaTime - deltaTime) * 0.1f;
+        fpsText.text = $"FPS: {Mathf.Floor(10f/deltaTime)*0.1f}";
     }
 
     public void OnClickRestart(){
