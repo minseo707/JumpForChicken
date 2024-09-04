@@ -13,6 +13,10 @@ public class PlayerController : MonoBehaviour
 
     private float gravity = 9.81f * 61 / 60;
 
+    public float gameSpeed = 1.6f;
+
+    private float jumpTime = 0f;
+
     // 기본 값
     public float movePower = 4f;
     private Rigidbody2D rigid;
@@ -58,6 +62,10 @@ public class PlayerController : MonoBehaviour
 
         // 고정 프레임 60
         Application.targetFrameRate = 60;
+
+        gravity *= gameSpeed;
+
+        rigid.gravityScale = gameSpeed;
     }
 
     // 프레임 당 초기화: 사용자 입력 감지
@@ -113,7 +121,7 @@ public class PlayerController : MonoBehaviour
                     animator.SetTrigger("doJumping");
                     stopped = false;
 
-                    // gaugeAnim.speed = 0;
+                    jumpTime = 0f;
                 }
 
                 // 땅에 있는데 y속도가 음수인 버그 우회 (물리랑 화면 간의 프레임 차이)
@@ -127,6 +135,8 @@ public class PlayerController : MonoBehaviour
             // Update에서 변수 저장
             inputAxis = Input.GetAxisRaw("Horizontal");
         }
+
+        jumpTime += Time.deltaTime;
     }
 
 
@@ -139,7 +149,7 @@ public class PlayerController : MonoBehaviour
         if (maxHeight < transform.position.y)
         {
             maxHeight = transform.position.y;
-            Debug.Log(maxHeight - height);
+            Debug.LogWarning(maxHeight - height);
         }
     }
 
@@ -216,22 +226,22 @@ public class PlayerController : MonoBehaviour
         switch (jumpHoldTime)
         {
             case int n when 0 <= n && n < 18:
-                moveX = 1.5f;
-                moveY = 1.5f;
+                moveX = 1.53f;
+                moveY = 1.55f;
                 break;
 
             case int n when 18 <= n && n < 36:
-                moveX = 2.5f;
-                moveY = 3f;
-                break;
-
-            case int n when 36 <= n && n < 54:
-                moveX = 4f;
+                moveX = 2.55f;
                 moveY = 3.05f;
                 break;
 
+            case int n when 36 <= n && n < 54:
+                moveX = 4.05f;
+                moveY = 3.07f;
+                break;
+
             case int n when 54 <= n && n < 72:
-                moveX = 6f;
+                moveX = 6.05f;
                 moveY = 5.15f;
                 break;
 
@@ -300,7 +310,8 @@ public class PlayerController : MonoBehaviour
         spriteRendererGauge.enabled = false;
 
         maxWidth = transform.position.x;
-        Debug.Log(Mathf.Abs(width - maxWidth));
+        Debug.LogWarning(Mathf.Abs(width - maxWidth));
+        Debug.LogError($"{jumpTime}s");
 
         // 착지 후 일시적으로 멈추는 타이머 시작
         landingFreezeTimer = landingFreezeDuration;
