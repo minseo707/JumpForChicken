@@ -38,8 +38,8 @@ public class GaugeBarManager : MonoBehaviour
 
         playerPos = player.transform.position;
 
-        // playerPos = new Vector3(player.transform.position.x + playerAnimator.GetInteger("lookAt") * 0.7f, Mathf.Max(player.transform.position.y, cameras.GetComponent<CameraController>().cameraHeight - 6.5f), player.transform.position.z); // (x, y, z)
-        playerPos = new Vector3(player.transform.position.x + playerAnimator.GetInteger("lookAt") * 0.7f, player.transform.position.y, player.transform.position.z); // (x, y, z)
+        playerPos = new Vector3(player.transform.position.x + playerAnimator.GetInteger("lookAt") * 0.7f, Mathf.Max(player.transform.position.y, cameras.GetComponent<CameraController>().cameraHeight - 7.5f), player.transform.position.z); // (x, y, z)
+        // playerPos = new Vector3(player.transform.position.x + playerAnimator.GetInteger("lookAt") * 0.7f, player.transform.position.y, player.transform.position.z); // (x, y, z)
 
         transform.position = playerPos;
         transform.localScale = new Vector3(-playerAnimator.GetInteger("lookAt"), 1, 1);

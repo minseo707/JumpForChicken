@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class FirstGameUpdater : MonoBehaviour
 {
+    public GameObject gameoverUI;
+    public GameObject canvas; 
+
+    public bool isGameover = false;
+
     private static FirstGameUpdater _instance;
 
     public static FirstGameUpdater Instance
@@ -46,5 +51,15 @@ public class FirstGameUpdater : MonoBehaviour
         PlayerPrefs.SetInt("minTile", 4);
 
         Debug.LogError("init");
+    }
+
+    private void Update() {
+
+    }
+
+    public void OnPlayerDead(){
+        canvas = GameObject.Find("Canvas");
+        GameObject newgameoverUI = Instantiate(gameoverUI, canvas.transform);
+        isGameover = true;
     }
 }

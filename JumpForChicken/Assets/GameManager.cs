@@ -22,7 +22,7 @@ public class GameManager : MonoBehaviour
 
     private float deltaTime = 0f;
 
-    private void Start() {
+    private void Awake() {
         platformData = GameObject.Find("Platform");
         time = 0f;
         deltaTime = 0f;
@@ -97,4 +97,5 @@ public class GameManager : MonoBehaviour
         platformData.GetComponent<PlatformGenerator>().MYUp();
         myText.text = $"최소 높이: {platformData.GetComponent<PlatformGenerator>().minYSelect}";
     }
+
 }

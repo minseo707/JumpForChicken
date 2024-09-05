@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Mathematics;
+using UnityEditor.PackageManager;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -50,6 +51,8 @@ public class PlayerController : MonoBehaviour
     private float landingFreezeDuration = 0.1f; // 착지 후 일시 정지 시간
     private float landingFreezeTimer = 0f; // 착지 후 타이머
 
+    private bool isDead = false;
+
     // 시작될 때 실행되는 코드
     void Start()
     {
@@ -57,6 +60,7 @@ public class PlayerController : MonoBehaviour
         animator = GetComponent<Animator>();
         animator.SetBool("isFirstJump", true);
         stopped = false;
+        isDead = false;
 
         spriteRendererGauge = gaugeBar.GetComponent<SpriteRenderer>();
 
@@ -145,6 +149,8 @@ public class PlayerController : MonoBehaviour
         Move(); // 움직임 담당 함수
         Jump(); // 점프 담당 함수
         Animations(); // 애니메이션 담당 함수
+
+        if (isDead) rigid.velocity = Vector2.zero;
 
         if (maxHeight < transform.position.y)
         {
@@ -315,5 +321,19 @@ public class PlayerController : MonoBehaviour
 
         // 착지 후 일시적으로 멈추는 타이머 시작
         landingFreezeTimer = landingFreezeDuration;
+    }
+
+    private void OnTriggerStay2D(Collider2D other) {
+        if (other.tag == "Dead" && !isDead){
+            Die();
+        }
+
+        Debug.LogError("died!");
+    }
+
+    private void Die(){
+        isDead = true;
+        FirstGameUpdater.Instance.OnPlayerDead();
+        rigid.velocity = Vector2.zero;
     }
 }
