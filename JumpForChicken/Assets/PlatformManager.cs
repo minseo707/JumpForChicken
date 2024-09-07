@@ -92,6 +92,9 @@ public class PlatformManager : MonoBehaviour
 
                         // 상태 변경 플래그 설정
                         stateChanged = true;
+
+                        // 점수에 반영
+                        ScoreManager.Instance.AddScore(1);
                     }
                 }
             }
