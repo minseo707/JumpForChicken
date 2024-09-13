@@ -67,9 +67,18 @@ public class GaugeBarManager : MonoBehaviour
                 spriteRenderer.sprite = sprites[4];
                 break;
 
-            case int n when n <= 90:
+            case int n when n >= 90:
                 spriteRenderer.sprite = sprites[5];
                 break;
         }
+
+        if (jumpGauge >= 120){
+            Shake();
+        }
+    }
+
+    void Shake(){
+        float shakeX = Mathf.Sin(Time.time * 60f) * .042f;
+        transform.position = new Vector3(player.transform.position.x + playerAnimator.GetInteger("lookAt") * 0.7f + shakeX, transform.position.y, transform.position.z);
     }
 }

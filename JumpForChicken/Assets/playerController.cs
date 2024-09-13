@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Mathematics;
-using UnityEditor.PackageManager;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -25,6 +24,9 @@ public class PlayerController : MonoBehaviour
 
     // 게이지 바 프리팹
     public GameObject gaugeBar;
+
+    // 사라지는 파티클 프리팹
+    public GameObject daParticle;
 
     private SpriteRenderer spriteRendererGauge;
     private GameObject gaugeObject;
@@ -97,6 +99,7 @@ public class PlayerController : MonoBehaviour
                     // isFirstJump : 다음 점프는 첫 번째 점프이다.
                     if (animator.GetBool("isFirstJump"))
                     {
+                        animator.ResetTrigger("doJumpCancel");
                         animator.SetTrigger("doJumpReady");
                         animator.SetBool("isFirstJump", false);
                         
@@ -108,24 +111,41 @@ public class PlayerController : MonoBehaviour
                     }
 
                     // 점프 준비 시간 증가
-                    jumpHoldTime = Mathf.Min(jumpHoldTime + 1, 90);
+                    jumpHoldTime = Mathf.Min(jumpHoldTime + 1, 181);
+
+                    // 점프 캔슬 (1 프레임 오차 허용)
+                    if (jumpHoldTime == 180){
+                        Destroy(gaugeObject);
+                        spriteRendererGauge.enabled = false;
+                        animator.SetTrigger("doJumpCancel");
+                        GameObject dapInstance = Instantiate(daParticle);
+                        dapInstance.transform.position = new Vector3(transform.position.x + animator.GetInteger("lookAt") * 0.7f, transform.position.y, transform.position.z);
+                    }
+
                     // 게이지바에 점프 준비 시간 동기화
                     gaugeBar.GetComponent<GaugeBarManager>().jumpGauge = jumpHoldTime;
                 }
 
                 if (Input.GetButtonUp("Jump") && rigid.velocity.y == 0)
                 {
-                    Debug.Log(transform.position.y);
-                    height = transform.position.y;
-                    maxHeight = transform.position.y;
-                    width = transform.position.x;
 
-                    isJump = true;
-                    animator.SetBool("isJumping", true);
-                    animator.SetTrigger("doJumping");
-                    stopped = false;
+                    if (jumpHoldTime >= 180){
+                        jumpHoldTime = 0;
+                        Landing();
+                    }
+                    else {
+                        Debug.Log(transform.position.y);
+                        height = transform.position.y;
+                        maxHeight = transform.position.y;
+                        width = transform.position.x;
 
-                    jumpTime = 0f;
+                        isJump = true;
+                        animator.SetBool("isJumping", true);
+                        stopped = false;
+
+                        jumpTime = 0f;
+                    }
+                    
                 }
 
                 // 땅에 있는데 y속도가 음수인 버그 우회 (물리랑 화면 간의 프레임 차이)
@@ -256,9 +276,10 @@ public class PlayerController : MonoBehaviour
                 moveY = 7.20f;
                 break;
 
-            case int n when n <= 90:
+            case int n when n >= 90:
                 moveX = 2f;
                 moveY = 8.25f;
+                gaugeBar.GetComponent<GaugeBarManager>().jumpGauge = 90;
                 break;
         }
 
@@ -279,6 +300,7 @@ public class PlayerController : MonoBehaviour
     {
         // 이동 애니메이션 설정
         animator.SetBool("isMove", inputAxis != 0 && jumpHoldTime == 0);
+        MoveAnimRandom();
 
         // 낙하 애니메이션 설정
         if (rigid.velocity.y < 0)
@@ -329,6 +351,14 @@ public class PlayerController : MonoBehaviour
         }
 
         Debug.LogError("died!");
+    }
+
+    private void MoveAnimRandom(){
+        if (UnityEngine.Random.Range(0, 2) == 0){
+            animator.SetBool("isIDLE1", true);
+        } else {
+            animator.SetBool("isIDLE1", false);
+        }
     }
 
     private void Die(){

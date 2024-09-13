@@ -18,6 +18,6 @@ public class BackgroundManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.position = new Vector3(cameras.transform.position.x, 5*(cameras.transform.position.y-1)/11 + 13, transform.position.z);
+        transform.position = new Vector3(cameras.transform.position.x, 4*(cameras.transform.position.y-1)/5 + 13, transform.position.z);
     }
 }
