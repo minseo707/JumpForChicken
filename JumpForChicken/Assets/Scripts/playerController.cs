@@ -28,6 +28,8 @@ public class PlayerController : MonoBehaviour
     // 사라지는 파티클 프리팹
     public GameObject daParticle;
 
+    public ParticleSystem landingPtc;
+
     private SpriteRenderer spriteRendererGauge;
     private GameObject gaugeObject;
 
@@ -343,6 +345,8 @@ public class PlayerController : MonoBehaviour
 
         // 착지 후 일시적으로 멈추는 타이머 시작
         landingFreezeTimer = landingFreezeDuration;
+
+        landingPtc.Play();
     }
 
     private void OnTriggerStay2D(Collider2D other) {
