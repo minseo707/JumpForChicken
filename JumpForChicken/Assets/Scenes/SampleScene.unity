@@ -1204,7 +1204,8 @@ MonoBehaviour:
   player: {fileID: 798035760}
   cameraHeight: 1
   floor: -2.231772
-  backwards: 2
+  secPerTile: 10
+  backwards: 4
 --- !u!1 &537488281
 GameObject:
   m_ObjectHideFlags: 0
@@ -1983,7 +1984,7 @@ SpriteRenderer:
   m_SortingLayerID: -1744594701
   m_SortingLayer: 1
   m_SortingOrder: 999
-  m_Sprite: {fileID: 529747411, guid: 9a0795503935c43b79ccb50345522741, type: 3}
+  m_Sprite: {fileID: 1052932898, guid: 85fd4d6f18cd84fb4b324c6736ae91d5, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

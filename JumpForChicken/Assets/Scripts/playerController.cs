@@ -110,6 +110,7 @@ public class PlayerController : MonoBehaviour
                         // gaugeAnim = gaugeObject.GetComponent<Animator>();
 
                         spriteRendererGauge.enabled = true;
+                        MoveAnimRandom();
                     }
 
                     // 점프 준비 시간 증가
@@ -208,12 +209,14 @@ public class PlayerController : MonoBehaviour
                 animator.SetInteger("lookAt", -1);
                 stopped = false;
                 currentVelocity.x = movePower * animator.GetInteger("lookAt");
+                MoveAnimRandom();
             }
             else if (inputAxis > 0)
             {
                 animator.SetInteger("lookAt", 1);
                 stopped = false;
                 currentVelocity.x = movePower * animator.GetInteger("lookAt");
+                MoveAnimRandom();
             }
             else
             {
@@ -240,6 +243,7 @@ public class PlayerController : MonoBehaviour
         if (jumpHoldTime > 0)
         {
             rigid.velocity = new Vector2(0, rigid.velocity.y);
+            MoveAnimRandom();
         }
     }
 
@@ -296,13 +300,13 @@ public class PlayerController : MonoBehaviour
         isJump = false;
         jumpHoldTime = 0;
         animator.SetBool("onGround", false);
+        MoveAnimRandom();
     }
 
     private void Animations()
     {
         // 이동 애니메이션 설정
         animator.SetBool("isMove", inputAxis != 0 && jumpHoldTime == 0);
-        MoveAnimRandom();
 
         // 낙하 애니메이션 설정
         if (rigid.velocity.y < 0)
@@ -314,6 +318,7 @@ public class PlayerController : MonoBehaviour
                 animator.SetBool("isFalling", true);
                 animator.SetBool("onGround", false);
                 animator.SetBool("isFirstJump", false);
+                MoveAnimRandom();
             }
         }
 

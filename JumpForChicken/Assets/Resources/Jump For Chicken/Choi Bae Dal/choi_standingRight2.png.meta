@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 5e3a05cc92b384e75b4ce0ab9fa117f4
+guid: 61b9cfe3d9a95400d800d80970a6c944
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -110,7 +110,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: choi_standing1Left-Sheet_0
+      name: choi_standingRight2_0
       rect:
         serializedVersion: 2
         x: 0
@@ -124,14 +124,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 17bcd776bf40846d3a65d218ad202ef5
-      internalID: 1401495955
+      spriteID: dd9521306f20a47e3b37ef091960bc4a
+      internalID: 951247073
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: choi_standing1Left-Sheet_1
+      name: choi_standingRight2_1
       rect:
         serializedVersion: 2
         x: 32
@@ -145,8 +145,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 946b0e8535e3b45b68ad0bd2981fb1e3
-      internalID: 294338561
+      spriteID: 79f7901ea7c0a42dc81730c77ed29f72
+      internalID: -1878088518
       vertices: []
       indices: 
       edges: []
@@ -162,8 +162,8 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      choi_standing1Left-Sheet_0: 1401495955
-      choi_standing1Left-Sheet_1: 294338561
+      choi_standingRight2_0: 951247073
+      choi_standingRight2_1: -1878088518
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

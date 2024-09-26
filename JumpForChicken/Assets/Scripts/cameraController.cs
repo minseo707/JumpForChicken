@@ -10,16 +10,17 @@ public class CameraController : MonoBehaviour
     public float cameraHeight = 1f;
     public float floor = -2.231772f;
 
+    public float secPerTile = 10f;
+
 
     // 데드라인 실수 보강
 
-    public float backwards = 2f;
+    public float backwards = 4f;
 
     private float difference = 0f;
     private float tempDiff = 0f;
 
     private float startCamera;
-    private float cameraSpeed = 0.1f; // 초기 속도
     private float totalDiff;
     private bool trig;
 
@@ -63,7 +64,7 @@ public class CameraController : MonoBehaviour
             trig = false;
         }
 
-        cameraHeight += cameraSpeed * Time.deltaTime;
+        cameraHeight += Time.deltaTime / secPerTile;
 
         if (totalDiff > 1e-4)
         {
