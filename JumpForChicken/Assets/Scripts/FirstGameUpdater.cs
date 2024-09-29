@@ -44,7 +44,7 @@ public class FirstGameUpdater : MonoBehaviour
     void InitializeGame()
     {
         // 초기화 작업
-        PlayerPrefs.SetFloat("declineArea", 3.5f);
+        PlayerPrefs.SetFloat("declineArea", 3f);
         PlayerPrefs.SetFloat("sideDecline", 2.0f);
         PlayerPrefs.SetFloat("minYSelect", 2.0f);
         PlayerPrefs.SetFloat("minMove", 16f);

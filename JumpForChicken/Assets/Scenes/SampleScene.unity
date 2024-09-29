@@ -2988,7 +2988,7 @@ MonoBehaviour:
   tileCount: 70
   minTile: 4
   minMove: 16
-  declineArea: 3.5
+  declineArea: 3
   sideDecline: 2
   prefabTileLength: 2
   minYSelect: 2

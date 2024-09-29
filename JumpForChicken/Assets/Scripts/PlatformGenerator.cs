@@ -9,7 +9,7 @@ public class PlatformGenerator : MonoBehaviour
     public int tileCount = 70; // 타일 개수
     public int minTile = 4; // 최소 타일 개수
     public float minMove = 16f; // 최소 이동 거리
-    public float declineArea = 3.5f; // 제외 범위
+    public float declineArea = 3f; // 제외 범위
     public float sideDecline = 2.0f; // 벽에서부터 생성 불가능 범위
     public float prefabTileLength = 2f; // 프리팹 타일 길이
     public float minYSelect = 2.0f;
@@ -56,7 +56,7 @@ public class PlatformGenerator : MonoBehaviour
         float yRightMin = 0f;
 
         // 다음 타일의 높이 범위 설정
-        float nextTileSize = Random.Range(4f, 5f);
+        float nextTileSize = Random.Range(3, 5);
 
         if (tileYList.Count >= minTile)
         {
