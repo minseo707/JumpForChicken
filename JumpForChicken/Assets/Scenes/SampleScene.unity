@@ -2963,6 +2963,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1095369652}
+  - component: {fileID: 1095369654}
   - component: {fileID: 1095369651}
   - component: {fileID: 1095369653}
   m_Layer: 0
@@ -2984,13 +2985,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 486c0441614c7bc4eb817918da1fbf3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  platformPrefab: {fileID: 9203547847392026565, guid: 0104136d64860574eadd4d7dc0afccfb, type: 3}
-  tileCount: 70
+  tileLoader: {fileID: 1095369654}
   minTile: 4
   minMove: 16
   declineArea: 3
   sideDecline: 2
-  prefabTileLength: 2
   minYSelect: 2
   grid: {fileID: 672269927}
 --- !u!4 &1095369652
@@ -3022,6 +3021,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   score: -1
   scoreText: {fileID: 652313698}
+--- !u!114 &1095369654
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1095369650}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8eb6a0fbdb811d4785e093df34a23f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tileCount: 70
 --- !u!1 &1115178931
 GameObject:
   m_ObjectHideFlags: 0

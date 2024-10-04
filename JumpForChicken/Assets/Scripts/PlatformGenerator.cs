@@ -5,13 +5,12 @@ using UnityEngine;
 
 public class PlatformGenerator : MonoBehaviour
 {
-    public GameObject platformPrefab; // 프리팹 설정
-    public int tileCount = 70; // 타일 개수
+    public TileLoader tileLoader; // TileLoader의 참조
+
     public int minTile = 4; // 최소 타일 개수
     public float minMove = 16f; // 최소 이동 거리
     public float declineArea = 3f; // 제외 범위
     public float sideDecline = 2.0f; // 벽에서부터 생성 불가능 범위
-    public float prefabTileLength = 2f; // 프리팹 타일 길이
     public float minYSelect = 2.0f;
 
     private List<Vector3> tileList = new List<Vector3>(); // 타일 리스트
@@ -35,15 +34,29 @@ public class PlatformGenerator : MonoBehaviour
 
     void GenerateInitialTiles()
     {
-        for (int i = 0; i < tileCount; i++)
+        if (tileLoader != null)
+        {
+            tileLoader.LoadRandomTiles();
+        }
+
+        if (tileLoader.RandomTiles != null && tileLoader.RandomTiles.Length > 0)
+        {
+            // 타일을 활용하여 프리팹 생성하기
+            foreach (GameObject prefab in tileLoader.RandomTiles)
+            {
+                nextTile(prefab);
+            }
+        }
+
+        /*for (int i = 0; i < tileCount; i++)
         {
             nextTile();
-        }
+        }*/
 
         Debug.LogError($"{declineArea} {minTile} {minMove} {sideDecline} {minYSelect}");
     }
 
-    void nextTile()
+    public void nextTile(GameObject prefab)
     {
         float minYSelectP = minYSelect;
         float x = 0f;
@@ -56,7 +69,7 @@ public class PlatformGenerator : MonoBehaviour
         float yRightMin = 0f;
 
         // 다음 타일의 높이 범위 설정
-        float nextTileSize = Random.Range(3, 5);
+        float nextTileHeight = Random.Range(3, 5);
 
         if (tileYList.Count >= minTile)
         {
@@ -159,15 +172,14 @@ public class PlatformGenerator : MonoBehaviour
             }
         }
 
-        x = pointX > lastTileX ? pointX + nextTileSize / 2 : pointX - nextTileSize / 2;
+        x = pointX > lastTileX ? pointX + nextTileHeight / 2 : pointX - nextTileHeight / 2;
 
         // tileYList와 tileList 업데이트
         tileYList.Add(y);
-        tileList.Add(new Vector3(x, tileList.Count > 0 ? tileList[tileList.Count - 1].y + y : y, nextTileSize));
+        tileList.Add(new Vector3(x, tileList.Count > 0 ? tileList[tileList.Count - 1].y + y : y, nextTileHeight));
 
-        // 새 타일 Instantiate하고 높이, 위치 설정
-        GameObject newTile = Instantiate(platformPrefab, new Vector3(x, tileList[tileList.Count - 1].y, 0), Quaternion.identity);
-        newTile.transform.localScale = new Vector3(nextTileSize / prefabTileLength, newTile.transform.localScale.y, newTile.transform.localScale.z);
+        // 새 타일 Instantiate하고 높이, 위치 설정 및 TileLoader에서 프리팹 불러오기
+        GameObject newTile = Instantiate(prefab, new Vector3(x, tileList[tileList.Count - 1].y, 0), Quaternion.identity);
 
         // 발판의 현재 월드 좌표를 저장
         Vector3 worldPosition = newTile.transform.position;
