@@ -7,6 +7,8 @@ public class FirstGameUpdater : MonoBehaviour
     public GameObject gameoverUI;
     public GameObject canvas; 
 
+    GameObject resetButton;
+
     public bool isGameover = false;
 
     private static FirstGameUpdater _instance;

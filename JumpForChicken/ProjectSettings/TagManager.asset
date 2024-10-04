@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - Dead
+  - Managers
+  - Block
   layers:
   - Default
   - TransparentFX
@@ -16,9 +18,9 @@ TagManager:
   - NextPlatform
   - PastPlatform
   - DefaultPlatform
-  - 
-  - 
-  - 
+  - PostProcess
+  - OverUI
+  - NotColPlayer
   - 
   - 
   - 

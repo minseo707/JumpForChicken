@@ -16,7 +16,7 @@ public class ScoreManager : MonoBehaviour
 
     private void Start()
     {
-        scoreText.text = "Score : 0";
+        scoreText.text = "0";
     }
 
     public void AddScore(int amount)
@@ -27,6 +27,6 @@ public class ScoreManager : MonoBehaviour
 
     private void UpdateScoreText()
     {
-        scoreText.text = "Score : " + score;
+        scoreText.text = score.ToString();
     }
 }

@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Mathematics;
+using UnityEditor;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -16,6 +17,11 @@ public class PlayerController : MonoBehaviour
     public float gameSpeed = 1.6f;
 
     private float jumpTime = 0f;
+
+    public bool inputLeft = false;
+    public bool inputRight = false;
+    public bool inputJump = false;
+    public bool firstJumpUp = false;
 
     // 기본 값
     public float movePower = 4f;
@@ -74,7 +80,15 @@ public class PlayerController : MonoBehaviour
         gravity *= gameSpeed;
 
         rigid.gravityScale = gameSpeed;
-    }
+
+        inputLeft = false;
+        inputRight = false;
+        inputJump = false;
+        firstJumpUp = false;
+
+        UIButtonManager uib = GameObject.FindGameObjectWithTag("Managers").GetComponent<UIButtonManager>();
+        uib.Init();
+}
 
     // 프레임 당 초기화: 사용자 입력 감지
     void Update()
@@ -95,7 +109,7 @@ public class PlayerController : MonoBehaviour
             // 땅에 있을 때
             if (!animator.GetBool("isJumping") && !animator.GetBool("isFalling"))
             {
-                if (Input.GetButton("Jump") && rigid.velocity.y == 0)
+                if ((inputJump || Input.GetButton("Jump")) && rigid.velocity.y == 0)
                 {
                     // doJumpReady 트리거를 한 번만 작동시키기 위한 조건문
                     // isFirstJump : 다음 점프는 첫 번째 점프이다.
@@ -129,12 +143,11 @@ public class PlayerController : MonoBehaviour
                     gaugeBar.GetComponent<GaugeBarManager>().jumpGauge = jumpHoldTime;
                 }
 
-                if (Input.GetButtonUp("Jump") && rigid.velocity.y == 0)
+                if ((Input.GetButtonUp("Jump") || firstJumpUp) && rigid.velocity.y == 0)
                 {
-
                     if (jumpHoldTime >= 180){
                         jumpHoldTime = 0;
-                        Landing();
+                        Landing(false);
                     }
                     else {
                         Debug.Log(transform.position.y);
@@ -151,6 +164,8 @@ public class PlayerController : MonoBehaviour
                     
                 }
 
+                firstJumpUp = false;
+
                 // 땅에 있는데 y속도가 음수인 버그 우회 (물리랑 화면 간의 프레임 차이)
                 if (rigid.velocity.y < 0)
                 {
@@ -161,6 +176,10 @@ public class PlayerController : MonoBehaviour
 
             // Update에서 변수 저장
             inputAxis = Input.GetAxisRaw("Horizontal");
+            
+            inputAxis = inputLeft ? -1 : inputAxis;
+            inputAxis = inputRight ? 1 : inputAxis;
+            inputAxis = inputLeft && inputRight ? 0 : inputAxis;
         }
 
         jumpTime += Time.deltaTime;
@@ -189,6 +208,42 @@ public class PlayerController : MonoBehaviour
         {
             Landing();
         }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision) {
+        // 플레이어가 왼쪽에서 오른쪽으로 충돌
+        if (collision.contacts[0].normal.x < -0.7f)
+        {
+            if (animator.GetBool("isJumping")){
+                rigid.velocity = new Vector2(-1.5f, rigid.velocity.y/3);
+                animator.SetTrigger("doCrashing");
+                animator.SetBool("isCrashing", true);
+                animator.SetInteger("lookAt", 1);
+            }
+            else if (animator.GetBool("isFalling")){
+                rigid.velocity = new Vector2(-0.75f, rigid.velocity.y);
+                animator.SetTrigger("doCrashing");
+                animator.SetBool("isCrashing", true);
+                animator.SetInteger("lookAt", 1);
+            }
+        }
+        // 플레이어가 오른쪽에서 왼쪽으로 충돌
+        else if (collision.contacts[0].normal.x > 0.7f)
+        {
+            if (animator.GetBool("isJumping")){
+                rigid.velocity = new Vector2(1.5f, rigid.velocity.y/3);
+                animator.SetTrigger("doCrashing");
+                animator.SetBool("isCrashing", true);
+                animator.SetInteger("lookAt", -1);
+            }
+            else if (animator.GetBool("isFalling")){
+                rigid.velocity = new Vector2(0.75f, rigid.velocity.y);
+                animator.SetTrigger("doCrashing");
+                animator.SetBool("isCrashing", true);
+                animator.SetInteger("lookAt", -1);
+            }
+        }
+
     }
 
     private void Move()
@@ -329,13 +384,14 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void Landing()
+    private void Landing(bool playParticle = true)
     {
         animator.SetBool("isFalling", false);
         animator.SetBool("isJumping", false);
         animator.SetBool("isFirstJump", true);
         rigid.velocity = Vector2.zero;
         animator.SetBool("onGround", true);
+        animator.SetBool("isCrashing", false);
         Destroy(gaugeObject);
 
         // 동기화 원리 : 점프 키를 떼는 순간, jumpHoldTime은 0이 되지만, gaugeBar의 jumpGauge는 점프 키를 떼기 직전의 jumpHoldTime을 가지고 있으므로
@@ -351,7 +407,7 @@ public class PlayerController : MonoBehaviour
         // 착지 후 일시적으로 멈추는 타이머 시작
         landingFreezeTimer = landingFreezeDuration;
 
-        landingPtc.Play();
+        if (playParticle) landingPtc.Play();
     }
 
     private void OnTriggerStay2D(Collider2D other) {
