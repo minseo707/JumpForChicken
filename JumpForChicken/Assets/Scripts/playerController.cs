@@ -1,3 +1,4 @@
+
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -7,7 +8,7 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    private float height = -999;
+    private int height = 0;
     private float maxHeight = -999;
     private float width = -999;
     private float maxWidth = -999;
@@ -62,6 +63,15 @@ public class PlayerController : MonoBehaviour
     private float landingFreezeTimer = 0f; // 착지 후 타이머
 
     private bool isDead = false;
+
+    // 점프 최대 높이 오프셋 (보정치)
+    private float offest = 2.355f;
+
+
+    GameObject gm;
+    void Awake(){
+        gm = GameObject.Find("GameManager");
+    }
 
     // 시작될 때 실행되는 코드
     void Start()
@@ -151,8 +161,6 @@ public class PlayerController : MonoBehaviour
                     }
                     else {
                         Debug.Log(transform.position.y);
-                        height = transform.position.y;
-                        maxHeight = transform.position.y;
                         width = transform.position.x;
 
                         isJump = true;
@@ -191,14 +199,17 @@ public class PlayerController : MonoBehaviour
         Move(); // 움직임 담당 함수
         Jump(); // 점프 담당 함수
         Animations(); // 애니메이션 담당 함수
+        ScoreByHeight(); // 높이에 따른 점수 담당 함수
 
         if (isDead) rigid.velocity = Vector2.zero;
 
-        if (maxHeight < transform.position.y)
+        if (maxHeight - offest < transform.position.y)
         {
-            maxHeight = transform.position.y;
+            maxHeight = transform.position.y + offest;
             Debug.LogWarning(maxHeight - height);
         }
+
+        Debug.LogWarning($"MaxHeight: {maxHeight}");
     }
 
     // 낙하 감지
@@ -416,6 +427,14 @@ public class PlayerController : MonoBehaviour
         }
 
         Debug.LogError("died!");
+    }
+
+
+    private void ScoreByHeight(){
+        if (maxHeight - height >= 1f){
+            gm.GetComponent<ScoreManager>().AddScore(1);
+            height += 1;
+        }
     }
 
     private void MoveAnimRandom(){
