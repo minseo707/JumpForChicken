@@ -1,9 +1,12 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Rendering.Universal;
 using UnityEngine.SceneManagement;
+using UnityEngine.SocialPlatforms;
 using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
@@ -21,6 +24,8 @@ public class GameManager : MonoBehaviour
     float time;
 
     private float deltaTime = 0f;
+
+    private bool isPause;
 
     private void Awake() {
         platformData = GameObject.Find("Platform");
@@ -40,11 +45,20 @@ public class GameManager : MonoBehaviour
 
         deltaTime += (Time.unscaledDeltaTime - deltaTime) * 0.1f;
         fpsText.text = $"FPS: {Mathf.Floor(10f/deltaTime)*0.1f}";
+
+        if (isPause == true){
+            Time.timeScale = 0f;
+        } else {
+            Time.timeScale = 1f;
+        }
     }
 
-    public void OnClickRestart(){
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-        Debug.LogError($"{platformData.GetComponent<PlatformGenerator>().declineArea} {platformData.GetComponent<PlatformGenerator>().minTile} {platformData.GetComponent<PlatformGenerator>().minMove} {platformData.GetComponent<PlatformGenerator>().sideDecline} {platformData.GetComponent<PlatformGenerator>().minYSelect}");
+    public void OnclickPauseButton(){
+        if (isPause){
+            isPause = false;
+        } else {
+            isPause = true;
+        }
     }
 
     public void OnClickDADown(){

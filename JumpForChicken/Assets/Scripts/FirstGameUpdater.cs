@@ -60,7 +60,7 @@ public class FirstGameUpdater : MonoBehaviour
     }
 
     public void OnPlayerDead(){
-        canvas = GameObject.Find("Canvas");
+        canvas = GameObject.Find("UI Canvas");
         GameObject newgameoverUI = Instantiate(gameoverUI, canvas.transform);
         isGameover = true;
     }

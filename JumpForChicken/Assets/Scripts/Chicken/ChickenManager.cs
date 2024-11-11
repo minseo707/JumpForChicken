@@ -18,7 +18,7 @@ public class ChickenManager : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            gm.GetComponent<ScoreManager>().AddScore(1);
+            gm.GetComponent<ScoreManager>().AddChicken(1);
             Disappear();
         }
     }
