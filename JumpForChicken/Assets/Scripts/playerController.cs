@@ -67,6 +67,12 @@ public class PlayerController : MonoBehaviour
     // 점프 최대 높이 오프셋 (보정치)
     private float offest = 2.355f;
 
+    // 임시 소리 테스트
+    public AudioSource onceAudioSource;
+    public AudioSource loopAudioSource;
+    private bool isWalkingSoundPlaying = false; // 현재 걷는 소리가 재생 중인지 추적
+    public AudioClip[] audioClips;  // 여러 AudioClip
+
 
     GameObject gm;
     void Awake(){
@@ -81,6 +87,10 @@ public class PlayerController : MonoBehaviour
         animator.SetBool("isFirstJump", true);
         stopped = false;
         isDead = false;
+
+        loopAudioSource.loop = true;
+        onceAudioSource.clip = audioClips[0];
+        isWalkingSoundPlaying = false;
 
         spriteRendererGauge = gaugeBar.GetComponent<SpriteRenderer>();
 
@@ -128,10 +138,11 @@ public class PlayerController : MonoBehaviour
                         animator.ResetTrigger("doJumpCancel");
                         animator.SetTrigger("doJumpReady");
                         animator.SetBool("isFirstJump", false);
-                        
-                        // gaugeObject = Instantiate(gaugeBar, transform.position + new Vector3(animator.GetInteger("lookAt") * 0.7f, 0, 0), Quaternion.identity);
-                        // gaugeObject.transform.SetParent(transform);
-                        // gaugeAnim = gaugeObject.GetComponent<Animator>();
+
+                        onceAudioSource.clip = audioClips[2]; // jump Ready Sound
+                        onceAudioSource.volume = .8f;
+                        onceAudioSource.pitch = 1.5f;
+                        onceAudioSource.Play();
 
                         spriteRendererGauge.enabled = true;
                         MoveAnimRandom();
@@ -311,6 +322,23 @@ public class PlayerController : MonoBehaviour
             rigid.velocity = new Vector2(0, rigid.velocity.y);
             MoveAnimRandom();
         }
+
+        // 걷는 효과음
+        if (animator.GetBool("isMove") && !animator.GetBool("isJumping") && !animator.GetBool("isFalling")){
+            if (!isWalkingSoundPlaying)
+            {
+                loopAudioSource.Play();
+                isWalkingSoundPlaying = true;
+            }
+        }
+        else
+        {
+            if (isWalkingSoundPlaying)
+            {
+                loopAudioSource.Pause();
+                isWalkingSoundPlaying = false;
+            }
+        }
     }
 
     private void Jump()
@@ -351,7 +379,6 @@ public class PlayerController : MonoBehaviour
             case int n when n >= 90:
                 moveX = 2f;
                 moveY = 8.25f;
-                gaugeBar.GetComponent<GaugeBarManager>().jumpGauge = 90;
                 break;
         }
 
@@ -361,6 +388,11 @@ public class PlayerController : MonoBehaviour
 
         // 점프 속도 적용
         rigid.velocity += new Vector2(moveX * Mathf.Sqrt(gravity / (8 * moveY)) * animator.GetInteger("lookAt"), Mathf.Sqrt(2 * gravity * moveY));
+
+        // Play Jump Sound
+        onceAudioSource.clip = audioClips[0];
+        onceAudioSource.volume = 0.5f;
+        onceAudioSource.Play();
 
         // 점프 후 초기화
         isJump = false;
@@ -411,6 +443,10 @@ public class PlayerController : MonoBehaviour
 
         spriteRendererGauge.enabled = false;
 
+        onceAudioSource.clip = audioClips[1]; // Landing Sound
+        onceAudioSource.volume = 1f;
+        onceAudioSource.Play();
+
         maxWidth = transform.position.x;
         Debug.LogWarning(Mathf.Abs(width - maxWidth));
         Debug.LogError($"{jumpTime}s");
@@ -449,5 +485,7 @@ public class PlayerController : MonoBehaviour
         isDead = true;
         FirstGameUpdater.Instance.OnPlayerDead();
         rigid.velocity = Vector2.zero;
+
+        gm.GetComponent<GameManager>().EndingUIActive();
     }
 }

@@ -39,6 +39,6 @@ public class TileLoader : MonoBehaviour
 
         // 배열로 변환하여 외부에서 사용할 수 있도록 저장
         RandomTiles = selectedPrefabs.ToArray();
-        Debug.Log("Random prefabs loaded. Total count: " + RandomTiles.Length);
+        
     }
 }

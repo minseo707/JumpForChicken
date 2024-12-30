@@ -43,8 +43,8 @@ public class PigeonManager : MonoBehaviour
         transform.position = new Vector3(xPos, cameras.transform.position.y + 8f + objectSize/2, 0); // 화면 바로 위
     }
 
-    // Update is called once per frame
-    void Update()
+    // 일시정지 기능에 의해 Update -> FixedUpdate
+    void FixedUpdate()
     {
         transform.position = new Vector3(xPos, cameras.transform.position.y + 8f + objectSize/2 - yPosOffset, 0);
         Move();
