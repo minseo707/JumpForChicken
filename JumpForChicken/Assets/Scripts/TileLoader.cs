@@ -159,51 +159,58 @@ public class TileLoader : MonoBehaviour
     }
 
     public void LoadRandomTiles()
+{
+    List<GameObject> selectedPrefabs = new List<GameObject>();
+    GameObject[] allPrefabs;
+
+#if UNITY_EDITOR
+    // 에디터 환경에서 AssetDatabase 사용
+    string folderPath = "Assets/Resources/Prefabs/Tiles/CityTiles"; // 프리팹이 있는 폴더 경로
+    string[] prefabGUIDs = AssetDatabase.FindAssets("t:Prefab", new[] { folderPath });
+    allPrefabs = new GameObject[prefabGUIDs.Length];
+
+    for (int i = 0; i < prefabGUIDs.Length; i++)
     {
-        List<GameObject> selectedPrefabs = new List<GameObject>();
-
-        string folderPath = "Assets/Resources/Prefabs/Tiles/CityTiles"; // 프리팹이 있는 폴더 경로
-        string[] prefabGUIDs = AssetDatabase.FindAssets("t:Prefab", new[] { folderPath });
-        GameObject[] allPrefabs = new GameObject[prefabGUIDs.Length];
-
-        // 모든 프리팹을 배열에 로드
-        for (int i = 0; i < prefabGUIDs.Length; i++)
-        {
-            string prefabPath = AssetDatabase.GUIDToAssetPath(prefabGUIDs[i]);
-            allPrefabs[i] = AssetDatabase.LoadAssetAtPath<GameObject>(prefabPath);
-        }
-
-        Debug.Log($"{allPrefabs.Length}개의 프리팹을 로드했습니다.");
-
-        // 가중치를 적용하여 프리팹 선택
-        for (int i = 0; i < tileCount; i++)
-        {
-            float rScore = Random.Range(0f, SumWeights());
-            int[] blockIndex = RandomTile(rScore);
-            AdjustWeights(blockIndex);
-
-            string tileType = tileTypeCodes[blockIndex[0]];
-            string prefabName = tileType.EndsWith("L")  // 종류가 L로 끝나는 거 구분
-                ? $"cityBlock_{tileType}{blockIndex[1] + 1}"
-                : $"cityBlock_{tileType}_{blockIndex[1] + 1}";
-
-            GameObject selectedPrefab = System.Array.Find(allPrefabs, prefab => prefab != null && prefab.name == prefabName);
-
-            if (selectedPrefab != null)
-            {
-                selectedPrefabs.Add(selectedPrefab);
-                Debug.Log($"선택된 프리팹: {selectedPrefab.name}");
-            }
-            else
-            {
-                Debug.LogWarning($"프리팹을 찾을 수 없습니다: {prefabName}");
-            }
-        }
-
-        // 배열로 변환하여 외부에서 사용할 수 있도록 저장
-        RandomTiles = selectedPrefabs.ToArray();
-        Debug.Log($"총 선택된 프리팹 수: {RandomTiles.Length}");
+        string prefabPath = AssetDatabase.GUIDToAssetPath(prefabGUIDs[i]);
+        allPrefabs[i] = AssetDatabase.LoadAssetAtPath<GameObject>(prefabPath);
     }
+
+    Debug.Log($"{allPrefabs.Length}개의 프리팹을 로드했습니다. (에디터 환경)");
+#else
+    // 빌드 환경에서 Resources.Load 사용
+    allPrefabs = Resources.LoadAll<GameObject>("Prefabs/Tiles/CityTiles");
+    Debug.Log($"{allPrefabs.Length}개의 프리팹을 로드했습니다. (빌드 환경)");
+#endif
+
+    // 가중치를 적용하여 프리팹 선택
+    for (int i = 0; i < tileCount; i++)
+    {
+        float rScore = Random.Range(0f, SumWeights());
+        int[] blockIndex = RandomTile(rScore);
+        AdjustWeights(blockIndex);
+
+        string tileType = tileTypeCodes[blockIndex[0]];
+        string prefabName = tileType.EndsWith("L")  // 종류가 L로 끝나는 거 구분
+            ? $"cityBlock_{tileType}{blockIndex[1] + 1}"
+            : $"cityBlock_{tileType}_{blockIndex[1] + 1}";
+
+        GameObject selectedPrefab = System.Array.Find(allPrefabs, prefab => prefab != null && prefab.name == prefabName);
+
+        if (selectedPrefab != null)
+        {
+            selectedPrefabs.Add(selectedPrefab);
+            Debug.Log($"선택된 프리팹: {selectedPrefab.name}");
+        }
+        else
+        {
+            Debug.LogWarning($"프리팹을 찾을 수 없습니다: {prefabName}");
+        }
+    }
+
+    // 배열로 변환하여 외부에서 사용할 수 있도록 저장
+    RandomTiles = selectedPrefabs.ToArray();
+    Debug.Log($"총 선택된 프리팹 수: {RandomTiles.Length}");
+}
 
     private void PrintRandomTiles()
     {
