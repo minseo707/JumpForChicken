@@ -44,20 +44,23 @@ public class PigeonManager : MonoBehaviour
     }
 
     // 일시정지 기능에 의해 Update -> FixedUpdate
-    void FixedUpdate()
+    // FixedUpdate로 설정하면, 비둘기가 카메라 상단에 고정되지 않음
+    void Update()
     {
-        transform.position = new Vector3(xPos, cameras.transform.position.y + 8f + objectSize/2 - yPosOffset, 0);
-        Move();
+        if (Time.timeScale > 0f){
+            transform.position = new Vector3(xPos, cameras.transform.position.y + 8f + objectSize/2 - yPosOffset, 0);
+            Move();
 
-        if (surviveTime > 0){ 
-            surviveTime -= Time.deltaTime;
-            if (randomDropTime > surviveTime){
-                ChickenDrop();
-                randomDropTime = -1f; // 재실행 방지
+            if (surviveTime > 0){ 
+                surviveTime -= Time.deltaTime;
+                if (randomDropTime > surviveTime){
+                    ChickenDrop();
+                    randomDropTime = -1f; // 재실행 방지
+                }
+            } else {
+                // 예상 개발 기능을 위해 함수화 (여러 번 실행)
+                Disappear();
             }
-        } else {
-            // 예상 개발 기능을 위해 함수화 (여러 번 실행)
-            Disappear();
         }
     }
 

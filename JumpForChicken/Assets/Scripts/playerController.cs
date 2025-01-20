@@ -35,6 +35,9 @@ public class PlayerController : MonoBehaviour
     // 사라지는 파티클 프리팹
     public GameObject daParticle;
 
+    // Trail 파티클
+    public GameObject trailParticle;
+
     public ParticleSystem landingPtc;
 
     private SpriteRenderer spriteRendererGauge;
@@ -202,6 +205,9 @@ public class PlayerController : MonoBehaviour
         }
 
         jumpTime += Time.deltaTime;
+
+        // Trail Particle Management
+        TrailManager();
     }
 
 
@@ -429,6 +435,13 @@ public class PlayerController : MonoBehaviour
 
     private void Landing(bool playParticle = true)
     {
+        // 떨어질 때만 효과음 재생 (점프 취소 시 재생되는 오류 해결)
+        if (animator.GetBool("isFalling")){
+            onceAudioSource.clip = audioClips[1]; // Landing Sound
+            onceAudioSource.volume = 1f;
+            onceAudioSource.Play();
+        }
+
         animator.SetBool("isFalling", false);
         animator.SetBool("isJumping", false);
         animator.SetBool("isFirstJump", true);
@@ -442,10 +455,6 @@ public class PlayerController : MonoBehaviour
         gaugeBar.GetComponent<GaugeBarManager>().jumpGauge = jumpHoldTime;
 
         spriteRendererGauge.enabled = false;
-
-        onceAudioSource.clip = audioClips[1]; // Landing Sound
-        onceAudioSource.volume = 1f;
-        onceAudioSource.Play();
 
         maxWidth = transform.position.x;
         Debug.LogWarning(Mathf.Abs(width - maxWidth));
@@ -478,6 +487,14 @@ public class PlayerController : MonoBehaviour
             animator.SetBool("isIDLE1", true);
         } else {
             animator.SetBool("isIDLE1", false);
+        }
+    }
+
+    private void TrailManager(){
+        if (animator.GetBool("isJumping") || animator.GetBool("isFalling")){
+            trailParticle.SetActive(true);
+        } else {
+            trailParticle.SetActive(false);
         }
     }
 

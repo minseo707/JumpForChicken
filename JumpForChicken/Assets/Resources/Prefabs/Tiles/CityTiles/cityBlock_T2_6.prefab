@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 686709100287410333}
   m_Layer: 0
   m_Name: cityBlock_T2_6
-  m_TagString: Untagged
+  m_TagString: Block
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
