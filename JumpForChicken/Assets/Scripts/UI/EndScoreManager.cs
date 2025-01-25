@@ -15,6 +15,5 @@ public class EndScoreManager : MonoBehaviour
 
     void OnEnable() {
         scoreText.text = gm.GetComponent<ScoreManager>().score.ToString();
-        Debug.LogError("초기화 되었습니다.");
     }
 }

@@ -5,12 +5,14 @@ using UnityEngine;
 public class ChickenManager : MonoBehaviour
 {
 
+    GameObject soundPlayManager;
     GameObject gm;
 
     Collider2D col;
 
     private void Awake() {
         gm = GameObject.Find("GameManager");
+        soundPlayManager = GameObject.Find("Sound Player");
         col = gameObject.GetComponent<Collider2D>();
     }
 
@@ -25,6 +27,7 @@ public class ChickenManager : MonoBehaviour
 
     void Disappear(){
         col.enabled = false; // 유지보수
+        soundPlayManager.GetComponent<SoundPlayManager>().PlaySound("acquire");
         Destroy(transform.parent.gameObject);
     }
 }

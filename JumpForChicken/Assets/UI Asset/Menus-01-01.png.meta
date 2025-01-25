@@ -1,0 +1,4210 @@
+fileFormatVersion: 2
+guid: 51b5acc9a0d454c66969e1d6e04a4673
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 32
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Menus-01-01_0
+      rect:
+        serializedVersion: 2
+        x: 238
+        y: 11509
+        width: 1375
+        height: 1401
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2e21c95fc23c5447cb881c33cd97eecf
+      internalID: -594922586
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Menus-01-01_1
+      rect:
+        serializedVersion: 2
+        x: 1891
+        y: 12765
+        width: 800
+        height: 284
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4354d9a685f6f40ce9022fd371e2aac2
+      internalID: 1064940861
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Menus-01-01_2
+      rect:
+        serializedVersion: 2
+        x: 3074
+        y: 11509
+        width: 1369
+        height: 1401
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 15774e2482f7847b882965d622150dcb
+      internalID: -900201401
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Menus-01-01_3
+      rect:
+        serializedVersion: 2
+        x: 4806
+        y: 12765
+        width: 794
+        height: 284
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a9287c40a28314cd585697ce5935ed3a
+      internalID: 342748780
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Menus-01-01_4
+      rect:
+        serializedVersion: 2
+        x: 5970
+        y: 11509
+        width: 1375
+        height: 1401
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: efce8fa6daa934c93a55bd8dd68f5273
+      internalID: -65015919
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Menus-01-01_5
+      rect:
+        serializedVersion: 2
+        x: 7676
+        y: 12765
+        width: 793
+        height: 284
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 20fc7803d78da4f249af05c042b8ddfa
+      internalID: -1618751289
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Menus-01-01_6
+      rect:
+        serializedVersion: 2
+        x: 2135
+        y: 12632
+        width: 311
+        height: 86
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6f31117994f3c421ab50da7909cea207
+      internalID: 1355370029
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Menus-01-01_7
+      rect:
+        serializedVersion: 2
+        x: 5044
+        y: 12632
+        width: 252
+        height: 86
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d83684c34ac6c4bfcad7f5d950258a61
+      internalID: 1725783108
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Menus-01-01_8
+      rect:
+        serializedVersion: 2
+        x: 5302
+        y: 12632
+        width: 60
+        height: 86
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8aae0ac8ebbd5409ea770c9fa7dfc478
+      internalID: 1136167594
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Menus-01-01_9
+      rect:
+        serializedVersion: 2
+        x: 7914
+        y: 12632
+        width: 251
+        height: 86
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 938fd58d1451947d69bee70d85532ff4
+      internalID: -1871919102
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Menus-01-01_10
+      rect:
+        serializedVersion: 2
+        x: 8172
+        y: 12632
+        width: 59
+        height: 86
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7933cf8514bc2417ebcc4128c70c1d0d
+      internalID: -27216048
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Menus-01-01_11
+      rect:
+        serializedVersion: 2
+        x: 1726
+        y: 12388
+        width: 1150
+        height: 198
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 74cdf20b332874fc1a905cb440d54223
+      internalID: -2107988975
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Menus-01-01_12
+      rect:
+        serializedVersion: 2
+        x: 4635
+        y: 12388
+        width: 1156
+        height: 198
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 292bdd2ae18c941deafe79a0af2aaa7f
+      internalID: -87418824
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Menus-01-01_13
+      rect:
+        serializedVersion: 2
+        x: 7504
+        y: 12388
+        width: 1157
+        height: 198
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: af52b15e50f5c4979934d9a875d7bc4d
+      internalID: -2087388803
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Menus-01-01_14
+      rect:
+        serializedVersion: 2
+        x: 2003
+        y: 12242
+        width: 516
+        height: 93
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 88aa87e5934ad480e907ca10f3633315
+      internalID: -1284757224
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Menus-01-01_15
+      rect:
+        serializedVersion: 2
+        x: 2526
+        y: 12242
+        width: 72
+        height: 86
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4145c6bd8b98249529a639b25ebd110e
+      internalID: -225801629
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Menus-01-01_16
+      rect:
+        serializedVersion: 2
+        x: 4912
+        y: 12242
+        width: 265
+        height: 93
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3268a3465f1084c149c79ce148d39a4b
+      internalID: 1640445826
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Menus-01-01_17
+      rect:
+        serializedVersion: 2
+        x: 5177
+        y: 12242
+        width: 185
+        height: 93
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 226393c3916304d28996a35d730f1e3c
+      internalID: 1020668004
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Menus-01-01_18
+      rect:
+        serializedVersion: 2
+        x: 5368
+        y: 12242
+        width: 146
+        height: 86
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 055f7ef2ec08d404e86e029e7aa4fde1
+      internalID: 133782415
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Menus-01-01_19
+      rect:
+        serializedVersion: 2
+        x: 7788
+        y: 12242
+        width: 443
+        height: 93
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b0321361aa58f432d846cdee5a07371a
+      internalID: 1597744089
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Menus-01-01_20
+      rect:
+        serializedVersion: 2
+        x: 8238
+        y: 12242
+        width: 145
+        height: 86
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3f277476dc34c4783af98151e9c2c397
+      internalID: -933446877
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Menus-01-01_21
+      rect:
+        serializedVersion: 2
+        x: 1726
+        y: 11998
+        width: 1150
+        height: 191
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 929e62993a3f14614af6baa2662baa62
+      internalID: -91412684
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Menus-01-01_22
+      rect:
+        serializedVersion: 2
+        x: 4635
+        y: 11998
+        width: 1156
+        height: 191
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 593ec138c5248430e96e2a2d2b3dc872
+      internalID: 1455948729
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Menus-01-01_23
+      rect:
+        serializedVersion: 2
+        x: 7504
+        y: 11998
+        width: 1157
+        height: 191
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 928edc3a513d04bfe992401b6838176f
+      internalID: -1958251008
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Menus-01-01_24
+      rect:
+        serializedVersion: 2
+        x: 2023
+        y: 11846
+        width: 73
+        height: 79
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a2863eb92d55649f8999075e58659014
+      internalID: 231489293
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Menus-01-01_25
+      rect:
+        serializedVersion: 2
+        x: 2122
+        y: 11866
+        width: 331
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 87aaef3fcb0a046d492942c283f76787
+      internalID: 1113120504
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Menus-01-01_26
+      rect:
+        serializedVersion: 2
+        x: 2459
+        y: 11866
+        width: 93
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e3e8bc69893f844d394418ce2acfb500
+      internalID: -612924013
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Menus-01-01_27
+      rect:
+        serializedVersion: 2
+        x: 4932
+        y: 11846
+        width: 79
+        height: 79
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1ce1aaee961b349e99bd319ee3a303cb
+      internalID: -1675409065
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Menus-01-01_28
+      rect:
+        serializedVersion: 2
+        x: 5038
+        y: 11866
+        width: 330
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0413269ec919548ee8b04ff1fb93bab4
+      internalID: 681769349
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Menus-01-01_29
+      rect:
+        serializedVersion: 2
+        x: 5375
+        y: 11866
+        width: 93
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9fcc50279ce684aaf8252c7d51a2ad08
+      internalID: -161751230
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Menus-01-01_30
+      rect:
+        serializedVersion: 2
+        x: 7808
+        y: 11846
+        width: 73
+        height: 79
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b52aef3cd80334159a5d9b268f22f694
+      internalID: 792143007
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Menus-01-01_31
+      rect:
+        serializedVersion: 2
+        x: 7907
+        y: 11866
+        width: 331
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a4dacd76d5af54812b190d3d8d989d2c
+      internalID: 1196217589
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Menus-01-01_32
+      rect:
+        serializedVersion: 2
+        x: 8244
+        y: 11866
+        width: 93
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1788bca7f66fb46bf95912593676ec6d
+      internalID: 1680923346
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Menus-01-01_33
+      rect:
+        serializedVersion: 2
+        x: 1983
+        y: 11595
+        width: 635
+        height: 185
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 83ec426dd7dd6407185d70a1ac401471
+      internalID: 1443171626
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Menus-01-01_34
+      rect:
+        serializedVersion: 2
+        x: 4899
+        y: 11595
+        width: 635
+        height: 185
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3d28b77777b5b4d8aaf92d6391588275
+      internalID: 1934928379
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Menus-01-01_35
+      rect:
+        serializedVersion: 2
+        x: 7768
+        y: 11595
+        width: 635
+        height: 185
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2e88993cf77e74fab9dc60aacaac0e5f
+      internalID: -1069417922
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Menus-01-01_36
+      rect:
+        serializedVersion: 2
+        x: 212
+        y: 9869
+        width: 1375
+        height: 1402
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 794a312ae755d4b1b924c470fa53746c
+      internalID: -782706835
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Menus-01-01_37
+      rect:
+        serializedVersion: 2
+        x: 1864
+        y: 11119
+        width: 800
+        height: 284
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cafd45c050a214290904ceacd01269e3
+      internalID: -1606374532
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Menus-01-01_38
+      rect:
+        serializedVersion: 2
+        x: 3074
+        y: 9882
+        width: 1369
+        height: 1402
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b2a84181e808e4e69a308a4e3a1f7496
+      internalID: -404532969
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Menus-01-01_39
+      rect:
+        serializedVersion: 2
+        x: 4806
+        y: 11132
+        width: 794
+        height: 284
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cdb9103db388c48f290fb6f9964718ea
+      internalID: 905404172
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Menus-01-01_40
+      rect:
+        serializedVersion: 2
+        x: 5983
+        y: 9882
+        width: 1369
+        height: 1402
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 840c97c1c49cc48e9add48b4e15cd2e3
+      internalID: -1810444921
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Menus-01-01_41
+      rect:
+        serializedVersion: 2
+        x: 7689
+        y: 11132
+        width: 793
+        height: 284
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 221c5066b45c94673a744497a2c72f52
+      internalID: 1487108268
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Menus-01-01_42
+      rect:
+        serializedVersion: 2
+        x: 2109
+        y: 10993
+        width: 311
+        height: 86
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: eeefcb83a05414204beacbf083c1f704
+      internalID: 2135839168
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Menus-01-01_43
+      rect:
+        serializedVersion: 2
+        x: 5044
+        y: 11006
+        width: 252
+        height: 86
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cf19fc602a4a941358308932f43713ff
+      internalID: -227485640
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Menus-01-01_44
+      rect:
+        serializedVersion: 2
+        x: 5302
+        y: 11006
+        width: 60
+        height: 86
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9a2d561613238460990082e5eacf30e2
+      internalID: 2138794183
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Menus-01-01_45
+      rect:
+        serializedVersion: 2
+        x: 7927
+        y: 11006
+        width: 251
+        height: 86
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a11be241bdae74598b2ea66a0ac2e9cd
+      internalID: 1159971401
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Menus-01-01_46
+      rect:
+        serializedVersion: 2
+        x: 8185
+        y: 11006
+        width: 59
+        height: 86
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 557b5d604164143dda066f576fbbb6b2
+      internalID: -1411460406
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Menus-01-01_47
+      rect:
+        serializedVersion: 2
+        x: 1699
+        y: 10748
+        width: 1150
+        height: 192
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0689764d2d2c74ad793ab04de6c0b4dd
+      internalID: -298336105
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Menus-01-01_48
+      rect:
+        serializedVersion: 2
+        x: 4635
+        y: 10762
+        width: 1156
+        height: 191
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 34112e99005cd4d3eb0ce89ce1cb7aab
+      internalID: 467884383
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Menus-01-01_49
+      rect:
+        serializedVersion: 2
+        x: 7517
+        y: 10762
+        width: 1157
+        height: 191
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 256ecb83bec81452aa2d0a59885e3c48
+      internalID: -1659826765
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Menus-01-01_50
+      rect:
+        serializedVersion: 2
+        x: 1977
+        y: 10596
+        width: 515
+        height: 93
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e91e652d8afd7489eadbc429f10aa8d8
+      internalID: -1787873017
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Menus-01-01_51
+      rect:
+        serializedVersion: 2
+        x: 2499
+        y: 10596
+        width: 79
+        height: 93
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7cde4e32d1c5f4106ab786456e3e7cf1
+      internalID: 2129584046
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Menus-01-01_52
+      rect:
+        serializedVersion: 2
+        x: 4912
+        y: 10610
+        width: 450
+        height: 92
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 725a1afc1bdfb4158aa775a3c2e64bf7
+      internalID: -1238491186
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Menus-01-01_53
+      rect:
+        serializedVersion: 2
+        x: 5368
+        y: 10610
+        width: 146
+        height: 92
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 22856cc1eb2604fd6b27306b252d98c3
+      internalID: -1860850232
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Menus-01-01_54
+      rect:
+        serializedVersion: 2
+        x: 7801
+        y: 10610
+        width: 443
+        height: 92
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a9cb22da377ee405e95acf495012e515
+      internalID: 167484178
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Menus-01-01_55
+      rect:
+        serializedVersion: 2
+        x: 8251
+        y: 10610
+        width: 145
+        height: 92
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d0485b4b7dd684c0d97a11286ac7d1b8
+      internalID: 1788402457
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Menus-01-01_56
+      rect:
+        serializedVersion: 2
+        x: 1699
+        y: 10352
+        width: 1150
+        height: 198
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 37136d7a9335543caa7b899e90456812
+      internalID: 389283333
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Menus-01-01_57
+      rect:
+        serializedVersion: 2
+        x: 4635
+        y: 10365
+        width: 1156
+        height: 198
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3aa73f6cb48c44bd69280f71a201a9df
+      internalID: -1555527896
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Menus-01-01_58
+      rect:
+        serializedVersion: 2
+        x: 7517
+        y: 10365
+        width: 1157
+        height: 198
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 29be091c36ec048baae78bac10821a82
+      internalID: -1195183790
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Menus-01-01_59
+      rect:
+        serializedVersion: 2
+        x: 1997
+        y: 10206
+        width: 72
+        height: 73
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f1e714cce94ff44b3bd85e444a8381e5
+      internalID: -1042803210
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Menus-01-01_60
+      rect:
+        serializedVersion: 2
+        x: 2096
+        y: 10220
+        width: 330
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7ace7fd400a434a2f860a7cd9fb072d7
+      internalID: 1239906313
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Menus-01-01_61
+      rect:
+        serializedVersion: 2
+        x: 2433
+        y: 10220
+        width: 93
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3d7ec15367bd04e86be0abd7be117ec1
+      internalID: -1762105260
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Menus-01-01_62
+      rect:
+        serializedVersion: 2
+        x: 4932
+        y: 10220
+        width: 79
+        height: 72
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a28bee44b45a44a8cb88f312e6364a03
+      internalID: -301796421
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Menus-01-01_63
+      rect:
+        serializedVersion: 2
+        x: 5038
+        y: 10233
+        width: 330
+        height: 53
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 94dce235f9d4d4db4bfa7752c307051a
+      internalID: -1172083934
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Menus-01-01_64
+      rect:
+        serializedVersion: 2
+        x: 5375
+        y: 10233
+        width: 93
+        height: 53
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e219da0e47cf64940a350097fbd607db
+      internalID: 1105491693
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Menus-01-01_65
+      rect:
+        serializedVersion: 2
+        x: 7815
+        y: 10220
+        width: 79
+        height: 72
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 911be7775bd56484280d7b11ba39aba6
+      internalID: -1090935007
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Menus-01-01_66
+      rect:
+        serializedVersion: 2
+        x: 7920
+        y: 10233
+        width: 331
+        height: 53
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ccdc51eb85857433aa34afef79300e36
+      internalID: 1894834833
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Menus-01-01_67
+      rect:
+        serializedVersion: 2
+        x: 8257
+        y: 10233
+        width: 93
+        height: 53
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a1cfa7d1e0e6e4822a5a13afc7ec62df
+      internalID: 66803914
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Menus-01-01_68
+      rect:
+        serializedVersion: 2
+        x: 1957
+        y: 9955
+        width: 635
+        height: 179
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f90bc39817a0a4952ad7c3f54ea5190f
+      internalID: 536515356
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Menus-01-01_69
+      rect:
+        serializedVersion: 2
+        x: 4899
+        y: 9962
+        width: 635
+        height: 185
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b0b83390497d84aa290f2675ff9d678a
+      internalID: 1185879318
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Menus-01-01_70
+      rect:
+        serializedVersion: 2
+        x: 7781
+        y: 9962
+        width: 635
+        height: 185
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: abee1aa1c3bb14b319b44ce8d8b5c400
+      internalID: 587881014
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Menus-01-01_71
+      rect:
+        serializedVersion: 2
+        x: 212
+        y: 7483
+        width: 1586
+        height: 1421
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 580ac844c77ba4c4fa30487997f37d1b
+      internalID: 2039352519
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Menus-01-01_72
+      rect:
+        serializedVersion: 2
+        x: 2182
+        y: 8765
+        width: 1024
+        height: 285
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2f01fcfe106b942d883c520cc9ea0805
+      internalID: 1435226119
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Menus-01-01_73
+      rect:
+        serializedVersion: 2
+        x: 3881
+        y: 7483
+        width: 1587
+        height: 1421
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fae22c8d06eab4cb3b69efbb9b33bbc2
+      internalID: -1936518211
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Menus-01-01_74
+      rect:
+        serializedVersion: 2
+        x: 5924
+        y: 8765
+        width: 1024
+        height: 285
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f856b59861ffe45f9b7b247d03b5cc63
+      internalID: -197813000
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Menus-01-01_75
+      rect:
+        serializedVersion: 2
+        x: 7781
+        y: 7483
+        width: 1581
+        height: 1421
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d78269240a7524eb4bb5818cbfaac2da
+      internalID: -119978330
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Menus-01-01_76
+      rect:
+        serializedVersion: 2
+        x: 9805
+        y: 8765
+        width: 1024
+        height: 285
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e4b38fa4b277b49c48f7160cb01f8b9e
+      internalID: 617906834
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Menus-01-01_77
+      rect:
+        serializedVersion: 2
+        x: 2023
+        y: 8283
+        width: 284
+        height: 271
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2d0254de1a9f2440ab56df3aa5219308
+      internalID: -1290910997
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Menus-01-01_78
+      rect:
+        serializedVersion: 2
+        x: 2373
+        y: 8283
+        width: 285
+        height: 271
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 139348092013c48379e893165e2aa2d6
+      internalID: -205922959
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Menus-01-01_79
+      rect:
+        serializedVersion: 2
+        x: 2724
+        y: 8283
+        width: 284
+        height: 271
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bf167b11a2bdb4cf8b837a1d7f153410
+      internalID: 1366473058
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Menus-01-01_80
+      rect:
+        serializedVersion: 2
+        x: 3074
+        y: 8283
+        width: 291
+        height: 271
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 01fcb86689b614fd786ad95533d1edf7
+      internalID: 1172517072
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Menus-01-01_81
+      rect:
+        serializedVersion: 2
+        x: 5758
+        y: 8283
+        width: 291
+        height: 271
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0540a9ceffc064bd58b73d7a0de674d4
+      internalID: -1951132354
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Menus-01-01_82
+      rect:
+        serializedVersion: 2
+        x: 6115
+        y: 8283
+        width: 285
+        height: 271
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 66d0f45093af34cb69e5356b361d5b7a
+      internalID: 1026427386
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Menus-01-01_83
+      rect:
+        serializedVersion: 2
+        x: 6466
+        y: 8283
+        width: 284
+        height: 271
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 514006ca099ec4c20af9fe38f9f2e25e
+      internalID: 1291364694
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Menus-01-01_84
+      rect:
+        serializedVersion: 2
+        x: 6816
+        y: 8283
+        width: 285
+        height: 271
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6cc20750114ba460faca33c980367197
+      internalID: -614676092
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Menus-01-01_85
+      rect:
+        serializedVersion: 2
+        x: 9646
+        y: 8283
+        width: 284
+        height: 271
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 23bd88b3ab4e24425a5290f80dc4d128
+      internalID: 1365129601
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Menus-01-01_86
+      rect:
+        serializedVersion: 2
+        x: 9996
+        y: 8283
+        width: 285
+        height: 271
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 742a5db85acf941098159ee69b2bc66e
+      internalID: 667448666
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Menus-01-01_87
+      rect:
+        serializedVersion: 2
+        x: 10347
+        y: 8283
+        width: 284
+        height: 271
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8a850cdbd945e48ecadcbcd1ff9a6312
+      internalID: -482617754
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Menus-01-01_88
+      rect:
+        serializedVersion: 2
+        x: 10697
+        y: 8283
+        width: 284
+        height: 271
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 43c1e429afb194a4f964a818f737c4b5
+      internalID: -1312112774
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Menus-01-01_89
+      rect:
+        serializedVersion: 2
+        x: 2023
+        y: 7926
+        width: 284
+        height: 277
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ba5ae287362174e7d8e116f7c6e07e54
+      internalID: 733477617
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Menus-01-01_90
+      rect:
+        serializedVersion: 2
+        x: 2373
+        y: 7926
+        width: 285
+        height: 277
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ea8ff5fadb8f347b7a38410f2df0ca7d
+      internalID: -161503366
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Menus-01-01_91
+      rect:
+        serializedVersion: 2
+        x: 2724
+        y: 7926
+        width: 284
+        height: 277
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 82df4c0805f1344e9a66bdd7d4a41537
+      internalID: -183687088
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Menus-01-01_92
+      rect:
+        serializedVersion: 2
+        x: 3074
+        y: 7926
+        width: 291
+        height: 277
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2e5966c7656b840aea2963dc82fbfff5
+      internalID: 1255259714
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Menus-01-01_93
+      rect:
+        serializedVersion: 2
+        x: 5758
+        y: 7926
+        width: 291
+        height: 277
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 067cc63da751a418dade866b0d32102b
+      internalID: 2094059043
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Menus-01-01_94
+      rect:
+        serializedVersion: 2
+        x: 6115
+        y: 7926
+        width: 285
+        height: 277
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ceb084a23ffc5486aacd7a24adf6d8e2
+      internalID: 236477583
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Menus-01-01_95
+      rect:
+        serializedVersion: 2
+        x: 6466
+        y: 7926
+        width: 284
+        height: 277
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3e741d3ea566149409fa0cf1102e1aec
+      internalID: -1447553516
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Menus-01-01_96
+      rect:
+        serializedVersion: 2
+        x: 6816
+        y: 7926
+        width: 285
+        height: 277
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b41447671410d40c8938bcd01a5d32d3
+      internalID: 1977348343
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Menus-01-01_97
+      rect:
+        serializedVersion: 2
+        x: 9646
+        y: 7926
+        width: 284
+        height: 277
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5c01962c6e35d49b6b1d575e9f8d047b
+      internalID: 918656208
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Menus-01-01_98
+      rect:
+        serializedVersion: 2
+        x: 9996
+        y: 7926
+        width: 285
+        height: 277
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 94a206cd8a10b4d5eb3de0a1ca4c0459
+      internalID: -1855148489
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Menus-01-01_99
+      rect:
+        serializedVersion: 2
+        x: 10347
+        y: 7926
+        width: 284
+        height: 277
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 79362d5a1038a44649103ecc78433823
+      internalID: -120706887
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Menus-01-01_100
+      rect:
+        serializedVersion: 2
+        x: 10697
+        y: 7926
+        width: 284
+        height: 277
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a8234478b28d34f289d9d0c462113084
+      internalID: 1753843471
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Menus-01-01_101
+      rect:
+        serializedVersion: 2
+        x: 2069
+        y: 7628
+        width: 238
+        height: 185
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5222998498f6f4a0ba3003c330b5d09c
+      internalID: -1367018876
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Menus-01-01_102
+      rect:
+        serializedVersion: 2
+        x: 2433
+        y: 7628
+        width: 522
+        height: 185
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7e3408599beff4600a0fb2d0af418121
+      internalID: -396706552
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Menus-01-01_103
+      rect:
+        serializedVersion: 2
+        x: 3061
+        y: 7628
+        width: 238
+        height: 185
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 085d5b91a47674d74bb907132dbc2bfa
+      internalID: -522613588
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Menus-01-01_104
+      rect:
+        serializedVersion: 2
+        x: 5811
+        y: 7628
+        width: 238
+        height: 185
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3365b284170784d76bde4cd70921a219
+      internalID: -873050328
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Menus-01-01_105
+      rect:
+        serializedVersion: 2
+        x: 6175
+        y: 7628
+        width: 522
+        height: 185
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f6a814d7d08d34f148ac49852de65841
+      internalID: -41720200
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Menus-01-01_106
+      rect:
+        serializedVersion: 2
+        x: 6803
+        y: 7628
+        width: 238
+        height: 185
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 08db4291e215441c6b9a3d469cf68911
+      internalID: 441719081
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Menus-01-01_107
+      rect:
+        serializedVersion: 2
+        x: 9692
+        y: 7628
+        width: 238
+        height: 185
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fbca42865dc694afea920e3005d89677
+      internalID: 1819225168
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Menus-01-01_108
+      rect:
+        serializedVersion: 2
+        x: 10056
+        y: 7628
+        width: 522
+        height: 185
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a423e9a27f3e94fdabb709968efc5462
+      internalID: -1487105433
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Menus-01-01_109
+      rect:
+        serializedVersion: 2
+        x: 10684
+        y: 7628
+        width: 238
+        height: 185
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 640098fed37e843ecae6eaa27835e54e
+      internalID: -195899656
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Menus-01-01_110
+      rect:
+        serializedVersion: 2
+        x: 225
+        y: 5692
+        width: 1580
+        height: 1427
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: de8bd7b471f7d40d0ab5dae9fc4a7968
+      internalID: 137083809
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Menus-01-01_111
+      rect:
+        serializedVersion: 2
+        x: 2195
+        y: 6974
+        width: 1025
+        height: 284
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 70eaed4fc85cb40cd82f4b860f620333
+      internalID: -57538082
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Menus-01-01_112
+      rect:
+        serializedVersion: 2
+        x: 3894
+        y: 5718
+        width: 1580
+        height: 1421
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 76792630773a6416983522d06836c696
+      internalID: -1973434409
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Menus-01-01_113
+      rect:
+        serializedVersion: 2
+        x: 5930
+        y: 6994
+        width: 1025
+        height: 284
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b5a632ba784834192bdb7cf1c5282c11
+      internalID: 1983269086
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Menus-01-01_114
+      rect:
+        serializedVersion: 2
+        x: 7815
+        y: 5718
+        width: 1580
+        height: 1421
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5dc6f428cad004781b6230c6a1f0c3a3
+      internalID: 763669458
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Menus-01-01_115
+      rect:
+        serializedVersion: 2
+        x: 9838
+        y: 6994
+        width: 1024
+        height: 284
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 864b585b754854f8b9c8b3cbbdfff3c2
+      internalID: -689835981
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Menus-01-01_116
+      rect:
+        serializedVersion: 2
+        x: 2030
+        y: 6491
+        width: 291
+        height: 271
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f4c3f571a957a45569fc5f443c35e409
+      internalID: 1517246836
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Menus-01-01_117
+      rect:
+        serializedVersion: 2
+        x: 2387
+        y: 6491
+        width: 284
+        height: 271
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c52227a7b3463495aa1d743da2b0a1f9
+      internalID: 940038183
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Menus-01-01_118
+      rect:
+        serializedVersion: 2
+        x: 2737
+        y: 6491
+        width: 284
+        height: 271
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 68c2115f4da2a49cc8cb935e97b75911
+      internalID: -1814964673
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Menus-01-01_119
+      rect:
+        serializedVersion: 2
+        x: 3087
+        y: 6491
+        width: 285
+        height: 271
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d90fadb18a66b4441852e156228add32
+      internalID: -1129416242
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Menus-01-01_120
+      rect:
+        serializedVersion: 2
+        x: 5772
+        y: 6511
+        width: 284
+        height: 278
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9d97a83ed66214421bb78aca08ce715d
+      internalID: -1026740187
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Menus-01-01_121
+      rect:
+        serializedVersion: 2
+        x: 6122
+        y: 6511
+        width: 284
+        height: 278
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6c82f902e49e3403695f77b77acf87f7
+      internalID: 1304239993
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Menus-01-01_122
+      rect:
+        serializedVersion: 2
+        x: 6472
+        y: 6511
+        width: 285
+        height: 278
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ba82ecd24e2154563b8e681edb72baaf
+      internalID: -82930959
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Menus-01-01_123
+      rect:
+        serializedVersion: 2
+        x: 6823
+        y: 6511
+        width: 284
+        height: 278
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 87635ff56790d4f4fa68a823ba9a023e
+      internalID: -1003524914
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Menus-01-01_124
+      rect:
+        serializedVersion: 2
+        x: 9679
+        y: 6511
+        width: 284
+        height: 278
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d654c2609179c46f7a03aff3cefe241a
+      internalID: 676407911
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Menus-01-01_125
+      rect:
+        serializedVersion: 2
+        x: 10029
+        y: 6511
+        width: 285
+        height: 278
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7f59b1e6202034d73b3d125310fde3eb
+      internalID: -302571633
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Menus-01-01_126
+      rect:
+        serializedVersion: 2
+        x: 10380
+        y: 6511
+        width: 284
+        height: 278
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 883f56286d1534a6b9b165c8e1a4e7a4
+      internalID: -404331001
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Menus-01-01_127
+      rect:
+        serializedVersion: 2
+        x: 10730
+        y: 6511
+        width: 291
+        height: 278
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 313976b033d794aa9b9d5d4b961fd0b0
+      internalID: 1671858560
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Menus-01-01_128
+      rect:
+        serializedVersion: 2
+        x: 2030
+        y: 6141
+        width: 291
+        height: 271
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9ddc212ee6cca49bf95e564312289058
+      internalID: -1652404719
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Menus-01-01_129
+      rect:
+        serializedVersion: 2
+        x: 2387
+        y: 6141
+        width: 284
+        height: 271
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: de3363e9ecb054a5bb6676cbc5a72e6b
+      internalID: -1678028932
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Menus-01-01_130
+      rect:
+        serializedVersion: 2
+        x: 2737
+        y: 6141
+        width: 284
+        height: 271
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ca45382ee46c64bbf94264bdb83f64fe
+      internalID: 1125710554
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Menus-01-01_131
+      rect:
+        serializedVersion: 2
+        x: 3087
+        y: 6141
+        width: 285
+        height: 271
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 51daea864dc814728b8ed0beb421e6bc
+      internalID: 108601518
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Menus-01-01_132
+      rect:
+        serializedVersion: 2
+        x: 5772
+        y: 6161
+        width: 284
+        height: 271
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 63fcd30271fd1416f8e9a5174c369698
+      internalID: -258773994
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Menus-01-01_133
+      rect:
+        serializedVersion: 2
+        x: 6122
+        y: 6161
+        width: 284
+        height: 271
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1105383d2817249de8fb8fa136c7b575
+      internalID: 755455834
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Menus-01-01_134
+      rect:
+        serializedVersion: 2
+        x: 6472
+        y: 6161
+        width: 285
+        height: 271
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 50189874080cf4c18a79e1bd81b3d0cf
+      internalID: 2052912313
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Menus-01-01_135
+      rect:
+        serializedVersion: 2
+        x: 6823
+        y: 6161
+        width: 284
+        height: 271
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 26768b650bd274cf49055b8703e58ea5
+      internalID: -330045330
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Menus-01-01_136
+      rect:
+        serializedVersion: 2
+        x: 9679
+        y: 6161
+        width: 284
+        height: 271
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8679c6d31fd384dd5aa2ba4564ec978d
+      internalID: 1497951750
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Menus-01-01_137
+      rect:
+        serializedVersion: 2
+        x: 10029
+        y: 6161
+        width: 285
+        height: 271
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fbf7a9f96061d4b5ca9cc767d19848f6
+      internalID: 1667069028
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Menus-01-01_138
+      rect:
+        serializedVersion: 2
+        x: 10380
+        y: 6161
+        width: 284
+        height: 271
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 15f6363e6f7c74d4e9c06400fd3aba05
+      internalID: 1294567650
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Menus-01-01_139
+      rect:
+        serializedVersion: 2
+        x: 10730
+        y: 6161
+        width: 291
+        height: 271
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9cc7bb3f775904f2fb51be05aff01ae5
+      internalID: -1969561509
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Menus-01-01_140
+      rect:
+        serializedVersion: 2
+        x: 2083
+        y: 5837
+        width: 238
+        height: 185
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 096fb5fd700984acdbd93049cf38d7c5
+      internalID: -1393668958
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Menus-01-01_141
+      rect:
+        serializedVersion: 2
+        x: 2446
+        y: 5837
+        width: 522
+        height: 185
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 527bb2849db9e42a6bb6858d3c974824
+      internalID: -2135856683
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Menus-01-01_142
+      rect:
+        serializedVersion: 2
+        x: 3074
+        y: 5837
+        width: 238
+        height: 185
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3460849c4aaae44a5a860cfd76ab926a
+      internalID: -74782147
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Menus-01-01_143
+      rect:
+        serializedVersion: 2
+        x: 5818
+        y: 5857
+        width: 238
+        height: 185
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b0aeaff1ce18a4616813ee7a789f287c
+      internalID: -1366139254
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Menus-01-01_144
+      rect:
+        serializedVersion: 2
+        x: 6182
+        y: 5857
+        width: 522
+        height: 185
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c2b889479d5e240438452d7e4eee95ec
+      internalID: -1913945378
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Menus-01-01_145
+      rect:
+        serializedVersion: 2
+        x: 6810
+        y: 5857
+        width: 238
+        height: 185
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8442f4c6a1a50451ea7666b2ae2b787e
+      internalID: 463476414
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Menus-01-01_146
+      rect:
+        serializedVersion: 2
+        x: 9725
+        y: 5857
+        width: 238
+        height: 185
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c983671b78e1d4df3b0b8d6b26c2894a
+      internalID: 1059488462
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Menus-01-01_147
+      rect:
+        serializedVersion: 2
+        x: 10089
+        y: 5857
+        width: 522
+        height: 185
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f8945240a60444d4ea5c7c8936c89e0c
+      internalID: 1376820892
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Menus-01-01_148
+      rect:
+        serializedVersion: 2
+        x: 10717
+        y: 5857
+        width: 238
+        height: 185
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c7446dd18137f4b9ca93bcbd3c50c190
+      internalID: -981090805
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Menus-01-01_149
+      rect:
+        serializedVersion: 2
+        x: 212
+        y: 3503
+        width: 1018
+        height: 1329
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 159f6345245794160aaab0e7d7fce0c5
+      internalID: -1453488342
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Menus-01-01_150
+      rect:
+        serializedVersion: 2
+        x: 1435
+        y: 4687
+        width: 800
+        height: 284
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4244272120728408dab70a595d8f8788
+      internalID: -269883774
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Menus-01-01_151
+      rect:
+        serializedVersion: 2
+        x: 2565
+        y: 3503
+        width: 1012
+        height: 1329
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 43be821c2ec9540868fb66b376b70bff
+      internalID: 1163121423
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Menus-01-01_152
+      rect:
+        serializedVersion: 2
+        x: 3749
+        y: 4687
+        width: 793
+        height: 284
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b4b167612fb81461da99c4b989d8b6ba
+      internalID: 1489585852
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Menus-01-01_153
+      rect:
+        serializedVersion: 2
+        x: 1441
+        y: 4416
+        width: 807
+        height: 198
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 30bf07c970def4478a9638099c676ad4
+      internalID: -1580418271
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Menus-01-01_154
+      rect:
+        serializedVersion: 2
+        x: 3755
+        y: 4416
+        width: 800
+        height: 198
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 69424ea87b74f4674a1aa1610a3088c0
+      internalID: 1712332125
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Menus-01-01_155
+      rect:
+        serializedVersion: 2
+        x: 1441
+        y: 4145
+        width: 807
+        height: 198
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0be6b3cd6d404495581a76cfe51f939b
+      internalID: -1678702671
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Menus-01-01_156
+      rect:
+        serializedVersion: 2
+        x: 3755
+        y: 4145
+        width: 800
+        height: 198
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 71c11f9a51538451ca52017ccfd1a71f
+      internalID: 1018705278
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Menus-01-01_157
+      rect:
+        serializedVersion: 2
+        x: 1441
+        y: 3874
+        width: 807
+        height: 198
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7aec2ff58af2842f8adc67882f62d89a
+      internalID: -551438111
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Menus-01-01_158
+      rect:
+        serializedVersion: 2
+        x: 3755
+        y: 3874
+        width: 800
+        height: 198
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 383df852666ac43e99cf6fb1e7cbc074
+      internalID: 2063616570
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Menus-01-01_159
+      rect:
+        serializedVersion: 2
+        x: 1441
+        y: 3603
+        width: 807
+        height: 198
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9969ebbb5652943f1ab373b4b320b25b
+      internalID: 203886518
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Menus-01-01_160
+      rect:
+        serializedVersion: 2
+        x: 3755
+        y: 3603
+        width: 800
+        height: 198
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9658bf209ee4a486ea42e0d38b022814
+      internalID: -1545751166
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Menus-01-01_161
+      rect:
+        serializedVersion: 2
+        x: 212
+        y: 1884
+        width: 1018
+        height: 1335
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b8a31de298a4f4796bb2297c794e79f9
+      internalID: -121652465
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Menus-01-01_162
+      rect:
+        serializedVersion: 2
+        x: 1461
+        y: 3067
+        width: 793
+        height: 284
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 379d6ee4b5be040bbadf1bcdd85f6e40
+      internalID: -915060282
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Menus-01-01_163
+      rect:
+        serializedVersion: 2
+        x: 2565
+        y: 1884
+        width: 1012
+        height: 1335
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 753993f9fec17488d87ba817ca577166
+      internalID: 891840329
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Menus-01-01_164
+      rect:
+        serializedVersion: 2
+        x: 3768
+        y: 3067
+        width: 794
+        height: 284
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f8cadd10b0a6d4309b90ea67564c2c70
+      internalID: -1793666888
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Menus-01-01_165
+      rect:
+        serializedVersion: 2
+        x: 1468
+        y: 2796
+        width: 800
+        height: 205
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b8a7f15246a204438b4577a1231449fa
+      internalID: 1031457113
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Menus-01-01_166
+      rect:
+        serializedVersion: 2
+        x: 3775
+        y: 2796
+        width: 800
+        height: 205
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 39585cc0134944339b57213b352f1c46
+      internalID: 746294168
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Menus-01-01_167
+      rect:
+        serializedVersion: 2
+        x: 1468
+        y: 2525
+        width: 800
+        height: 205
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 85dd5fd9ce8b1427a986a082299ce71a
+      internalID: -2128813804
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Menus-01-01_168
+      rect:
+        serializedVersion: 2
+        x: 3775
+        y: 2525
+        width: 800
+        height: 205
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f9023d56744914eadb74d72bea26bcb6
+      internalID: 2126282251
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Menus-01-01_169
+      rect:
+        serializedVersion: 2
+        x: 1468
+        y: 2254
+        width: 800
+        height: 205
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 99178efcd8a264e7ea950d1257395a34
+      internalID: 1276273083
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Menus-01-01_170
+      rect:
+        serializedVersion: 2
+        x: 3775
+        y: 2254
+        width: 800
+        height: 205
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 54d97f8679f374592b9835569d59a256
+      internalID: -497192987
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Menus-01-01_171
+      rect:
+        serializedVersion: 2
+        x: 1468
+        y: 1983
+        width: 800
+        height: 198
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8ef755eb7f87b4c65a552fabf6f00140
+      internalID: -312469647
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Menus-01-01_172
+      rect:
+        serializedVersion: 2
+        x: 3775
+        y: 1983
+        width: 800
+        height: 198
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b096056a3da834e04a10af414a779721
+      internalID: 1873745228
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Menus-01-01_173
+      rect:
+        serializedVersion: 2
+        x: 225
+        y: 284
+        width: 1011
+        height: 1329
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e4890486f45da4b7ab4587918cba57fb
+      internalID: 1576872347
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Menus-01-01_174
+      rect:
+        serializedVersion: 2
+        x: 1441
+        y: 1467
+        width: 800
+        height: 285
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: da3506fbb9e714a5c8bd5a83a888ab06
+      internalID: -1896877212
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Menus-01-01_175
+      rect:
+        serializedVersion: 2
+        x: 2565
+        y: 284
+        width: 1012
+        height: 1329
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e1b2991f6cb124d419171182b17e8b1c
+      internalID: -1051024634
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Menus-01-01_176
+      rect:
+        serializedVersion: 2
+        x: 3768
+        y: 1467
+        width: 794
+        height: 285
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 950507f734ebe45a18f5397026bc67fe
+      internalID: 665575713
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Menus-01-01_177
+      rect:
+        serializedVersion: 2
+        x: 1448
+        y: 1196
+        width: 806
+        height: 199
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: be764a344524b4bcda14cf0e128ad666
+      internalID: -962464117
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Menus-01-01_178
+      rect:
+        serializedVersion: 2
+        x: 3775
+        y: 1196
+        width: 800
+        height: 199
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f918af035f75b4ffeb68ad235aa94a36
+      internalID: 1309108725
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Menus-01-01_179
+      rect:
+        serializedVersion: 2
+        x: 1448
+        y: 925
+        width: 806
+        height: 199
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fc319e9b82ef54032a14a28f2592ece9
+      internalID: -1003562885
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Menus-01-01_180
+      rect:
+        serializedVersion: 2
+        x: 3775
+        y: 925
+        width: 800
+        height: 199
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3be20307b616a4f46b3b274ec4e07576
+      internalID: -69160322
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Menus-01-01_181
+      rect:
+        serializedVersion: 2
+        x: 1448
+        y: 654
+        width: 806
+        height: 199
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f743ba66f4790410a94d75e18293b171
+      internalID: 576603446
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Menus-01-01_182
+      rect:
+        serializedVersion: 2
+        x: 3775
+        y: 654
+        width: 800
+        height: 199
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 02953d62868814584a05aee9d02102ec
+      internalID: -1016928495
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Menus-01-01_183
+      rect:
+        serializedVersion: 2
+        x: 1448
+        y: 383
+        width: 806
+        height: 199
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f8f14ff90b818407486dec07775ed75c
+      internalID: 451143232
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Menus-01-01_184
+      rect:
+        serializedVersion: 2
+        x: 3775
+        y: 383
+        width: 800
+        height: 199
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f029b2491503e4d9a9154b236cab6482
+      internalID: -325855114
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      Menus-01-01_0: -594922586
+      Menus-01-01_1: 1064940861
+      Menus-01-01_10: -27216048
+      Menus-01-01_100: 1753843471
+      Menus-01-01_101: -1367018876
+      Menus-01-01_102: -396706552
+      Menus-01-01_103: -522613588
+      Menus-01-01_104: -873050328
+      Menus-01-01_105: -41720200
+      Menus-01-01_106: 441719081
+      Menus-01-01_107: 1819225168
+      Menus-01-01_108: -1487105433
+      Menus-01-01_109: -195899656
+      Menus-01-01_11: -2107988975
+      Menus-01-01_110: 137083809
+      Menus-01-01_111: -57538082
+      Menus-01-01_112: -1973434409
+      Menus-01-01_113: 1983269086
+      Menus-01-01_114: 763669458
+      Menus-01-01_115: -689835981
+      Menus-01-01_116: 1517246836
+      Menus-01-01_117: 940038183
+      Menus-01-01_118: -1814964673
+      Menus-01-01_119: -1129416242
+      Menus-01-01_12: -87418824
+      Menus-01-01_120: -1026740187
+      Menus-01-01_121: 1304239993
+      Menus-01-01_122: -82930959
+      Menus-01-01_123: -1003524914
+      Menus-01-01_124: 676407911
+      Menus-01-01_125: -302571633
+      Menus-01-01_126: -404331001
+      Menus-01-01_127: 1671858560
+      Menus-01-01_128: -1652404719
+      Menus-01-01_129: -1678028932
+      Menus-01-01_13: -2087388803
+      Menus-01-01_130: 1125710554
+      Menus-01-01_131: 108601518
+      Menus-01-01_132: -258773994
+      Menus-01-01_133: 755455834
+      Menus-01-01_134: 2052912313
+      Menus-01-01_135: -330045330
+      Menus-01-01_136: 1497951750
+      Menus-01-01_137: 1667069028
+      Menus-01-01_138: 1294567650
+      Menus-01-01_139: -1969561509
+      Menus-01-01_14: -1284757224
+      Menus-01-01_140: -1393668958
+      Menus-01-01_141: -2135856683
+      Menus-01-01_142: -74782147
+      Menus-01-01_143: -1366139254
+      Menus-01-01_144: -1913945378
+      Menus-01-01_145: 463476414
+      Menus-01-01_146: 1059488462
+      Menus-01-01_147: 1376820892
+      Menus-01-01_148: -981090805
+      Menus-01-01_149: -1453488342
+      Menus-01-01_15: -225801629
+      Menus-01-01_150: -269883774
+      Menus-01-01_151: 1163121423
+      Menus-01-01_152: 1489585852
+      Menus-01-01_153: -1580418271
+      Menus-01-01_154: 1712332125
+      Menus-01-01_155: -1678702671
+      Menus-01-01_156: 1018705278
+      Menus-01-01_157: -551438111
+      Menus-01-01_158: 2063616570
+      Menus-01-01_159: 203886518
+      Menus-01-01_16: 1640445826
+      Menus-01-01_160: -1545751166
+      Menus-01-01_161: -121652465
+      Menus-01-01_162: -915060282
+      Menus-01-01_163: 891840329
+      Menus-01-01_164: -1793666888
+      Menus-01-01_165: 1031457113
+      Menus-01-01_166: 746294168
+      Menus-01-01_167: -2128813804
+      Menus-01-01_168: 2126282251
+      Menus-01-01_169: 1276273083
+      Menus-01-01_17: 1020668004
+      Menus-01-01_170: -497192987
+      Menus-01-01_171: -312469647
+      Menus-01-01_172: 1873745228
+      Menus-01-01_173: 1576872347
+      Menus-01-01_174: -1896877212
+      Menus-01-01_175: -1051024634
+      Menus-01-01_176: 665575713
+      Menus-01-01_177: -962464117
+      Menus-01-01_178: 1309108725
+      Menus-01-01_179: -1003562885
+      Menus-01-01_18: 133782415
+      Menus-01-01_180: -69160322
+      Menus-01-01_181: 576603446
+      Menus-01-01_182: -1016928495
+      Menus-01-01_183: 451143232
+      Menus-01-01_184: -325855114
+      Menus-01-01_19: 1597744089
+      Menus-01-01_2: -900201401
+      Menus-01-01_20: -933446877
+      Menus-01-01_21: -91412684
+      Menus-01-01_22: 1455948729
+      Menus-01-01_23: -1958251008
+      Menus-01-01_24: 231489293
+      Menus-01-01_25: 1113120504
+      Menus-01-01_26: -612924013
+      Menus-01-01_27: -1675409065
+      Menus-01-01_28: 681769349
+      Menus-01-01_29: -161751230
+      Menus-01-01_3: 342748780
+      Menus-01-01_30: 792143007
+      Menus-01-01_31: 1196217589
+      Menus-01-01_32: 1680923346
+      Menus-01-01_33: 1443171626
+      Menus-01-01_34: 1934928379
+      Menus-01-01_35: -1069417922
+      Menus-01-01_36: -782706835
+      Menus-01-01_37: -1606374532
+      Menus-01-01_38: -404532969
+      Menus-01-01_39: 905404172
+      Menus-01-01_4: -65015919
+      Menus-01-01_40: -1810444921
+      Menus-01-01_41: 1487108268
+      Menus-01-01_42: 2135839168
+      Menus-01-01_43: -227485640
+      Menus-01-01_44: 2138794183
+      Menus-01-01_45: 1159971401
+      Menus-01-01_46: -1411460406
+      Menus-01-01_47: -298336105
+      Menus-01-01_48: 467884383
+      Menus-01-01_49: -1659826765
+      Menus-01-01_5: -1618751289
+      Menus-01-01_50: -1787873017
+      Menus-01-01_51: 2129584046
+      Menus-01-01_52: -1238491186
+      Menus-01-01_53: -1860850232
+      Menus-01-01_54: 167484178
+      Menus-01-01_55: 1788402457
+      Menus-01-01_56: 389283333
+      Menus-01-01_57: -1555527896
+      Menus-01-01_58: -1195183790
+      Menus-01-01_59: -1042803210
+      Menus-01-01_6: 1355370029
+      Menus-01-01_60: 1239906313
+      Menus-01-01_61: -1762105260
+      Menus-01-01_62: -301796421
+      Menus-01-01_63: -1172083934
+      Menus-01-01_64: 1105491693
+      Menus-01-01_65: -1090935007
+      Menus-01-01_66: 1894834833
+      Menus-01-01_67: 66803914
+      Menus-01-01_68: 536515356
+      Menus-01-01_69: 1185879318
+      Menus-01-01_7: 1725783108
+      Menus-01-01_70: 587881014
+      Menus-01-01_71: 2039352519
+      Menus-01-01_72: 1435226119
+      Menus-01-01_73: -1936518211
+      Menus-01-01_74: -197813000
+      Menus-01-01_75: -119978330
+      Menus-01-01_76: 617906834
+      Menus-01-01_77: -1290910997
+      Menus-01-01_78: -205922959
+      Menus-01-01_79: 1366473058
+      Menus-01-01_8: 1136167594
+      Menus-01-01_80: 1172517072
+      Menus-01-01_81: -1951132354
+      Menus-01-01_82: 1026427386
+      Menus-01-01_83: 1291364694
+      Menus-01-01_84: -614676092
+      Menus-01-01_85: 1365129601
+      Menus-01-01_86: 667448666
+      Menus-01-01_87: -482617754
+      Menus-01-01_88: -1312112774
+      Menus-01-01_89: 733477617
+      Menus-01-01_9: -1871919102
+      Menus-01-01_90: -161503366
+      Menus-01-01_91: -183687088
+      Menus-01-01_92: 1255259714
+      Menus-01-01_93: 2094059043
+      Menus-01-01_94: 236477583
+      Menus-01-01_95: -1447553516
+      Menus-01-01_96: 1977348343
+      Menus-01-01_97: 918656208
+      Menus-01-01_98: -1855148489
+      Menus-01-01_99: -120706887
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

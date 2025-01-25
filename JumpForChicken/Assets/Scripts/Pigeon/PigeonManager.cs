@@ -9,6 +9,7 @@ public class PigeonManager : MonoBehaviour
     public GameObject chickenPrefab;
 
     GameObject cameras;
+    private GameObject soundPlayManager;
 
     public float moveSpeed = 0.06f;
 
@@ -26,6 +27,12 @@ public class PigeonManager : MonoBehaviour
     private float yPosOffset = 0;
     private float yPosCurve = 0;
 
+    private bool isDisappearing = false;
+
+    void Awake() {
+        soundPlayManager = GameObject.Find("Sound Player");
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -41,6 +48,8 @@ public class PigeonManager : MonoBehaviour
         randomDropTime = Random.Range(1f, 5f); // 치킨을 떨어뜨릴 시간을 float로 구함
 
         transform.position = new Vector3(xPos, cameras.transform.position.y + 8f + objectSize/2, 0); // 화면 바로 위
+
+        soundPlayManager.GetComponent<SoundPlayManager>().PlaySound("flap"); // 비둘기 등-퇴장 효과음 재생
     }
 
     // 일시정지 기능에 의해 Update -> FixedUpdate
@@ -60,6 +69,13 @@ public class PigeonManager : MonoBehaviour
             } else {
                 // 예상 개발 기능을 위해 함수화 (여러 번 실행)
                 Disappear();
+
+                // 한 번만 실행
+                if (!isDisappearing) {
+                    isDisappearing = true;
+                    soundPlayManager.GetComponent<SoundPlayManager>().PlaySound("flap"); // 비둘기 등-퇴장 효과음 재생
+                    Destroy(gameObject, 1.5f); // 0.25초보다 크게
+                }
             }
         }
     }
@@ -98,6 +114,5 @@ public class PigeonManager : MonoBehaviour
     void Disappear(){
         yPosCurve = -1; // 변수량을 줄이기 위해 주어진 상황에서 사용하지 않는 변수를 사용
         moveSpeed *= 0.96f; // 올라갈 때에는 x축 이동속도를 늦춤, 약 0.54배 조정
-        Destroy(gameObject, 0.3f); // 0.25초보다 크게
     }
 }

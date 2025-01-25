@@ -51,8 +51,6 @@ public class FirstGameUpdater : MonoBehaviour
         PlayerPrefs.SetFloat("minYSelect", 2.0f);
         PlayerPrefs.SetFloat("minMove", 16f);
         PlayerPrefs.SetInt("minTile", 4);
-
-        Debug.LogError("init");
     }
 
     private void Update() {

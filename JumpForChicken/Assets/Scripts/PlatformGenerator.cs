@@ -53,7 +53,7 @@ public class PlatformGenerator : MonoBehaviour
             nextTile();
         }*/
 
-        Debug.LogError($"{declineArea} {minTile} {minMove} {sideDecline} {minYSelect}");
+        Debug.Log($"Spawn Rule: {declineArea} {minTile} {minMove} {sideDecline} {minYSelect}");
     }
 
     public void nextTile(GameObject prefab)

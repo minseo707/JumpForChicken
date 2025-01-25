@@ -17,6 +17,8 @@ public class GameManager : MonoBehaviour
 
     public GameObject endingUICanvas;
 
+    public GameObject realExitContainer;
+
     public TextMeshProUGUI fpsText;
 
     private float deltaTime = 0f;
@@ -43,6 +45,18 @@ public class GameManager : MonoBehaviour
     public void OnclickPauseButton(){
         isPause = true;
         pauseUICanvas.SetActive(true);
+    }
+
+    public void OnClickExitButton(){
+        realExitContainer.SetActive(true);
+    }
+
+    public void OnClickRealExitButton(){
+        SceneManager.LoadScene("MainTitle");
+    }
+
+    public void OnClickExitCancelButton(){
+        realExitContainer.SetActive(false);
     }
 
     public void OnclickStartButton(){

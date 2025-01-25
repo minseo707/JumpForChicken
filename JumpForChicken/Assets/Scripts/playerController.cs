@@ -38,7 +38,8 @@ public class PlayerController : MonoBehaviour
     // Trail 파티클
     public GameObject trailParticle;
 
-    public ParticleSystem landingPtc;
+    // 착지 먼지 프리팹
+    public GameObject landingParticle;
 
     private SpriteRenderer spriteRendererGauge;
     private GameObject gaugeObject;
@@ -70,12 +71,8 @@ public class PlayerController : MonoBehaviour
     // 점프 최대 높이 오프셋 (보정치)
     private float offest = 2.355f;
 
-    // 임시 소리 테스트
-    public AudioSource onceAudioSource;
-    public AudioSource loopAudioSource;
+    private GameObject soundPlayManager;
     private bool isWalkingSoundPlaying = false; // 현재 걷는 소리가 재생 중인지 추적
-    public AudioClip[] audioClips;  // 여러 AudioClip
-
 
     GameObject gm;
     void Awake(){
@@ -91,14 +88,16 @@ public class PlayerController : MonoBehaviour
         stopped = false;
         isDead = false;
 
-        loopAudioSource.loop = true;
-        onceAudioSource.clip = audioClips[0];
+        soundPlayManager = GameObject.Find("Sound Player");
+
         isWalkingSoundPlaying = false;
 
         spriteRendererGauge = gaugeBar.GetComponent<SpriteRenderer>();
 
         // 고정 프레임 60
         Application.targetFrameRate = 60;
+        // Vsync 비활성화
+        QualitySettings.vSyncCount = 0;
 
         gravity *= gameSpeed;
 
@@ -142,10 +141,7 @@ public class PlayerController : MonoBehaviour
                         animator.SetTrigger("doJumpReady");
                         animator.SetBool("isFirstJump", false);
 
-                        onceAudioSource.clip = audioClips[2]; // jump Ready Sound
-                        onceAudioSource.volume = .8f;
-                        onceAudioSource.pitch = 1.5f;
-                        onceAudioSource.Play();
+                        soundPlayManager.GetComponent<SoundPlayManager>().PlaySound("jumpReady", 2f, 1.5f);
 
                         spriteRendererGauge.enabled = true;
                         MoveAnimRandom();
@@ -174,7 +170,6 @@ public class PlayerController : MonoBehaviour
                         Landing(false);
                     }
                     else {
-                        Debug.Log(transform.position.y);
                         width = transform.position.x;
 
                         isJump = true;
@@ -223,10 +218,7 @@ public class PlayerController : MonoBehaviour
         if (maxHeight - offest < transform.position.y)
         {
             maxHeight = transform.position.y + offest;
-            Debug.LogWarning(maxHeight - height);
         }
-
-        Debug.LogWarning($"MaxHeight: {maxHeight}");
     }
 
     // 낙하 감지
@@ -238,6 +230,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    // 벽 충돌 시 실행
     private void OnCollisionEnter2D(Collision2D collision) {
         // 플레이어가 왼쪽에서 오른쪽으로 충돌
         if (collision.contacts[0].normal.x < -0.7f)
@@ -247,12 +240,14 @@ public class PlayerController : MonoBehaviour
                 animator.SetTrigger("doCrashing");
                 animator.SetBool("isCrashing", true);
                 animator.SetInteger("lookAt", 1);
+                soundPlayManager.GetComponent<SoundPlayManager>().PlaySound("breakFx");
             }
             else if (animator.GetBool("isFalling")){
                 rigid.velocity = new Vector2(-0.75f, rigid.velocity.y);
                 animator.SetTrigger("doCrashing");
                 animator.SetBool("isCrashing", true);
                 animator.SetInteger("lookAt", 1);
+                soundPlayManager.GetComponent<SoundPlayManager>().PlaySound("breakFx");
             }
         }
         // 플레이어가 오른쪽에서 왼쪽으로 충돌
@@ -263,12 +258,14 @@ public class PlayerController : MonoBehaviour
                 animator.SetTrigger("doCrashing");
                 animator.SetBool("isCrashing", true);
                 animator.SetInteger("lookAt", -1);
+                soundPlayManager.GetComponent<SoundPlayManager>().PlaySound("breakFx");
             }
             else if (animator.GetBool("isFalling")){
                 rigid.velocity = new Vector2(0.75f, rigid.velocity.y);
                 animator.SetTrigger("doCrashing");
                 animator.SetBool("isCrashing", true);
                 animator.SetInteger("lookAt", -1);
+                soundPlayManager.GetComponent<SoundPlayManager>().PlaySound("breakFx");
             }
         }
 
@@ -309,14 +306,12 @@ public class PlayerController : MonoBehaviour
             rigid.velocity = currentVelocity;
         }
 
-        // inputAxis가 0인 상황에서 떨어지기 시작했을 때. 이론 상은 문제 없지만, 프레임 차이로 발생하는 버그 수정
+        // inputAxis가 0인 상황에서 떨어지기 시작했을 때 이론 상은 문제 없지만, 프레임 차이로 발생하는 버그 수정
         if (animator.GetBool("isFalling") && rigid.velocity.x == 0 && stopped)
         {
             currentVelocity.x = movePower * animator.GetInteger("lookAt");
             rigid.velocity = currentVelocity;
             stopped = false;
-
-            Debug.Log("get");
         }
 
         // 플레이어 좌우 반전
@@ -333,7 +328,7 @@ public class PlayerController : MonoBehaviour
         if (animator.GetBool("isMove") && !animator.GetBool("isJumping") && !animator.GetBool("isFalling")){
             if (!isWalkingSoundPlaying)
             {
-                loopAudioSource.Play();
+                soundPlayManager.GetComponent<SoundPlayManager>().PlaySound("walking");
                 isWalkingSoundPlaying = true;
             }
         }
@@ -341,7 +336,7 @@ public class PlayerController : MonoBehaviour
         {
             if (isWalkingSoundPlaying)
             {
-                loopAudioSource.Pause();
+                soundPlayManager.GetComponent<SoundPlayManager>().StopSound("walking");
                 isWalkingSoundPlaying = false;
             }
         }
@@ -396,9 +391,11 @@ public class PlayerController : MonoBehaviour
         rigid.velocity += new Vector2(moveX * Mathf.Sqrt(gravity / (8 * moveY)) * animator.GetInteger("lookAt"), Mathf.Sqrt(2 * gravity * moveY));
 
         // Play Jump Sound
-        onceAudioSource.clip = audioClips[0];
-        onceAudioSource.volume = 0.5f;
-        onceAudioSource.Play();
+        if (jumpHoldTime < 54) soundPlayManager.GetComponent<SoundPlayManager>().PlaySound("jump1");
+        else soundPlayManager.GetComponent<SoundPlayManager>().PlaySound("jump2");;
+
+        jumpHoldTime = Math.Min(jumpHoldTime, 119);
+        gaugeBar.GetComponent<GaugeBarManager>().jumpGauge = jumpHoldTime;
 
         // 점프 후 초기화
         isJump = false;
@@ -437,9 +434,7 @@ public class PlayerController : MonoBehaviour
     {
         // 떨어질 때만 효과음 재생 (점프 취소 시 재생되는 오류 해결)
         if (animator.GetBool("isFalling")){
-            onceAudioSource.clip = audioClips[1]; // Landing Sound
-            onceAudioSource.volume = 1f;
-            onceAudioSource.Play();
+            soundPlayManager.GetComponent<SoundPlayManager>().PlaySound("landing");
         }
 
         animator.SetBool("isFalling", false);
@@ -457,23 +452,21 @@ public class PlayerController : MonoBehaviour
         spriteRendererGauge.enabled = false;
 
         maxWidth = transform.position.x;
-        Debug.LogWarning(Mathf.Abs(width - maxWidth));
-        Debug.LogError($"{jumpTime}s");
 
         // 착지 후 일시적으로 멈추는 타이머 시작
         landingFreezeTimer = landingFreezeDuration;
 
-        if (playParticle) landingPtc.Play();
+        if (playParticle){
+            GameObject landingPtcInstance = Instantiate(landingParticle);
+            landingPtcInstance.transform.position = new Vector3(transform.position.x, transform.position.y - 0.1f, transform.position.z);
+        }
     }
 
     private void OnTriggerStay2D(Collider2D other) {
         if (other.tag == "Dead" && !isDead){
             Die();
         }
-
-        Debug.LogError("died!");
     }
-
 
     private void ScoreByHeight(){
         if (maxHeight - height >= 1f){
@@ -502,6 +495,8 @@ public class PlayerController : MonoBehaviour
         isDead = true;
         FirstGameUpdater.Instance.OnPlayerDead();
         rigid.velocity = Vector2.zero;
+
+        soundPlayManager.GetComponent<SoundPlayManager>().PlaySound("failed");
 
         gm.GetComponent<GameManager>().EndingUIActive();
     }

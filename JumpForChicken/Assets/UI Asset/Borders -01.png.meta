@@ -1,0 +1,1196 @@
+fileFormatVersion: 2
+guid: 0393ca17d95d0462aa6c9cb4bacbacca
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 2
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Borders -01_0
+      rect:
+        serializedVersion: 2
+        x: 385
+        y: 9281
+        width: 1141
+        height: 1392
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 12280d083607f4d63929edda10817618
+      internalID: -1239852128
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Borders -01_1
+      rect:
+        serializedVersion: 2
+        x: 1911
+        y: 10256
+        width: 1649
+        height: 417
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f1c9bd197c55148cabf658372ba5610d
+      internalID: 1617033172
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Borders -01_2
+      rect:
+        serializedVersion: 2
+        x: 3874
+        y: 10218
+        width: 372
+        height: 481
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f9b4d05afbbe243ab9b8c63d1ac38f43
+      internalID: 1976034138
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Borders -01_3
+      rect:
+        serializedVersion: 2
+        x: 4791
+        y: 9281
+        width: 1135
+        height: 1392
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 950d65b0a701c4868b207d87e4587763
+      internalID: 1596484865
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Borders -01_4
+      rect:
+        serializedVersion: 2
+        x: 6311
+        y: 10256
+        width: 1648
+        height: 417
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ebd0b57739b6644ea870125ce4f97b9e
+      internalID: 1741476273
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Borders -01_5
+      rect:
+        serializedVersion: 2
+        x: 8274
+        y: 10218
+        width: 371
+        height: 481
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c6bd3cb3427d4466babbf5196b149828
+      internalID: -236860287
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Borders -01_6
+      rect:
+        serializedVersion: 2
+        x: 1796
+        y: 9698
+        width: 1064
+        height: 276
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 275656e6413684db6ae0cb0eb1b4cdc1
+      internalID: -2109531013
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Borders -01_7
+      rect:
+        serializedVersion: 2
+        x: 6196
+        y: 9698
+        width: 1064
+        height: 276
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5cba9c59dc8564f3f80e62fec32b03fc
+      internalID: 1622047627
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Borders -01_8
+      rect:
+        serializedVersion: 2
+        x: 1719
+        y: 9166
+        width: 1238
+        height: 455
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 78ef42ea7b8954eff9f63bc1ee119d6b
+      internalID: -1729274519
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Borders -01_9
+      rect:
+        serializedVersion: 2
+        x: 6119
+        y: 9166
+        width: 1237
+        height: 455
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 152c0e5ec1a4842e5bd3576db6da5223
+      internalID: 218317875
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Borders -01_10
+      rect:
+        serializedVersion: 2
+        x: 385
+        y: 6799
+        width: 1141
+        height: 1392
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3d07ea0b246de448590ae33428cc0db7
+      internalID: 124155670
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Borders -01_11
+      rect:
+        serializedVersion: 2
+        x: 1911
+        y: 7774
+        width: 1649
+        height: 417
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ec2377643a2994c438fe7a1d7b7e32f5
+      internalID: -212470755
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Borders -01_12
+      rect:
+        serializedVersion: 2
+        x: 3874
+        y: 7736
+        width: 372
+        height: 481
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1de93925608614e5eb4d5d8da62f0c7c
+      internalID: -730459385
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Borders -01_13
+      rect:
+        serializedVersion: 2
+        x: 4971
+        y: 6799
+        width: 1135
+        height: 1392
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e1a3f5018dc054bacab6e0a9cd81eced
+      internalID: 1490160318
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Borders -01_14
+      rect:
+        serializedVersion: 2
+        x: 6491
+        y: 7774
+        width: 1648
+        height: 417
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 43d48ec24e0e3436585d018ea22e1adf
+      internalID: 915777707
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Borders -01_15
+      rect:
+        serializedVersion: 2
+        x: 8453
+        y: 7736
+        width: 372
+        height: 481
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 24ec51e02c68b4f969f37b4de563e7f0
+      internalID: 1684838152
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Borders -01_16
+      rect:
+        serializedVersion: 2
+        x: 1796
+        y: 7216
+        width: 1064
+        height: 276
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8096445e1c1e84996960874d56739e77
+      internalID: -52757438
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Borders -01_17
+      rect:
+        serializedVersion: 2
+        x: 6375
+        y: 7216
+        width: 1065
+        height: 276
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ea78d8e326a8946308a9d34939664add
+      internalID: -1401787449
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Borders -01_18
+      rect:
+        serializedVersion: 2
+        x: 1719
+        y: 6684
+        width: 1238
+        height: 455
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: eacaa3f7361864994ae4baed6cfbe380
+      internalID: 15657303
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Borders -01_19
+      rect:
+        serializedVersion: 2
+        x: 6298
+        y: 6684
+        width: 1238
+        height: 455
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: da7a1c4246392414bb4e5fc57bc6bb8d
+      internalID: 165680509
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Borders -01_20
+      rect:
+        serializedVersion: 2
+        x: 385
+        y: 4471
+        width: 1141
+        height: 1385
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3ef0c321140f24f6881c24527320ea05
+      internalID: -951484039
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Borders -01_21
+      rect:
+        serializedVersion: 2
+        x: 1911
+        y: 5439
+        width: 1649
+        height: 417
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 03ee278523ce6452699fc7636f2e9e74
+      internalID: 282859946
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Borders -01_22
+      rect:
+        serializedVersion: 2
+        x: 3874
+        y: 5401
+        width: 372
+        height: 487
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3ec686c424f264b9bbdffcf1cfb05b9e
+      internalID: 1895061646
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Borders -01_23
+      rect:
+        serializedVersion: 2
+        x: 4971
+        y: 4471
+        width: 1135
+        height: 1385
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 97181d9b0831a43289505abe7f062c44
+      internalID: -2029167662
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Borders -01_24
+      rect:
+        serializedVersion: 2
+        x: 6491
+        y: 5439
+        width: 1648
+        height: 417
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 506357dead4cb450fb25206f5f98c1c5
+      internalID: -1972592363
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Borders -01_25
+      rect:
+        serializedVersion: 2
+        x: 8453
+        y: 5401
+        width: 372
+        height: 487
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d7535988d13d443d482d203839a0535b
+      internalID: 152103203
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Borders -01_26
+      rect:
+        serializedVersion: 2
+        x: 1796
+        y: 4888
+        width: 1064
+        height: 275
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3d61e423ad54e4bb0a7372b8795813cc
+      internalID: 1351455234
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Borders -01_27
+      rect:
+        serializedVersion: 2
+        x: 6375
+        y: 4888
+        width: 1065
+        height: 275
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: df81314bc4db540bc8931f00bb422734
+      internalID: 1336133698
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Borders -01_28
+      rect:
+        serializedVersion: 2
+        x: 1719
+        y: 4355
+        width: 1238
+        height: 449
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7eb85422ba4b246ae96b89352dcb5195
+      internalID: 1539321252
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Borders -01_29
+      rect:
+        serializedVersion: 2
+        x: 6298
+        y: 4355
+        width: 1238
+        height: 449
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c1ec5f1a728a94a32a85aba80361d5a3
+      internalID: -1591772487
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Borders -01_30
+      rect:
+        serializedVersion: 2
+        x: 212
+        y: 1790
+        width: 1385
+        height: 1372
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 047fdad74d3ec475b971abef8e3ad1e3
+      internalID: 1224988411
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Borders -01_31
+      rect:
+        serializedVersion: 2
+        x: 1905
+        y: 1790
+        width: 1385
+        height: 1372
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 196717861a0394e89b5d48bff4c6d4a5
+      internalID: -537833794
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Borders -01_32
+      rect:
+        serializedVersion: 2
+        x: 3592
+        y: 1790
+        width: 1391
+        height: 1372
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 891f78e417ad74ed59c7e95d2f34d185
+      internalID: -1306179246
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Borders -01_33
+      rect:
+        serializedVersion: 2
+        x: 5272
+        y: 1552
+        width: 891
+        height: 1290
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1187e558f63c14398a098a0a17577907
+      internalID: 1917416395
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Borders -01_34
+      rect:
+        serializedVersion: 2
+        x: 6426
+        y: 1552
+        width: 892
+        height: 1290
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 152290f4d77954ba1a2d45ccc1411c86
+      internalID: 1332630609
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Borders -01_35
+      rect:
+        serializedVersion: 2
+        x: 7587
+        y: 1552
+        width: 885
+        height: 1290
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c982287ba37ec4bd4a60aa7192bb1803
+      internalID: 731026203
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Borders -01_36
+      rect:
+        serializedVersion: 2
+        x: 8767
+        y: 1719
+        width: 1206
+        height: 1347
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6fe235d2673e9495391b67e0cb04bcfc
+      internalID: -789696893
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Borders -01_37
+      rect:
+        serializedVersion: 2
+        x: 10249
+        y: 1719
+        width: 1206
+        height: 1347
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 967c86365c8634d21ab3fbff70856e56
+      internalID: 2005008698
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Borders -01_38
+      rect:
+        serializedVersion: 2
+        x: 11737
+        y: 1719
+        width: 1206
+        height: 1347
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d055760106ac1483ab96b7cd12efc474
+      internalID: -1405712158
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Borders -01_39
+      rect:
+        serializedVersion: 2
+        x: 212
+        y: 122
+        width: 1385
+        height: 1373
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 836917811057847468094cce50a38350
+      internalID: -2040277086
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Borders -01_40
+      rect:
+        serializedVersion: 2
+        x: 1905
+        y: 122
+        width: 1385
+        height: 1373
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e886830e2a9034015a333c36e1ed577d
+      internalID: -984714701
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Borders -01_41
+      rect:
+        serializedVersion: 2
+        x: 3592
+        y: 122
+        width: 1391
+        height: 1373
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 587b986ce50c14775ba5faf61ce5ebaf
+      internalID: 1541438127
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Borders -01_42
+      rect:
+        serializedVersion: 2
+        x: 5272
+        y: 122
+        width: 891
+        height: 1289
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7ef87e324b25e4ad09e7b825bf53ddfa
+      internalID: -1432629428
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Borders -01_43
+      rect:
+        serializedVersion: 2
+        x: 6426
+        y: 122
+        width: 892
+        height: 1289
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b81f893c1acb14968b1947ebfc1295d4
+      internalID: 766744281
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Borders -01_44
+      rect:
+        serializedVersion: 2
+        x: 7587
+        y: 122
+        width: 885
+        height: 1289
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3ff19e0499bf54e7ebd5ead199ca310d
+      internalID: -1381544911
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Borders -01_45
+      rect:
+        serializedVersion: 2
+        x: 8767
+        y: 122
+        width: 1206
+        height: 1353
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e4266f38189d64affb13a67c7dce1991
+      internalID: 1194508915
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Borders -01_46
+      rect:
+        serializedVersion: 2
+        x: 10249
+        y: 122
+        width: 1206
+        height: 1353
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 214d82d27f3904908b19416e44780d51
+      internalID: -708366711
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Borders -01_47
+      rect:
+        serializedVersion: 2
+        x: 11737
+        y: 122
+        width: 1206
+        height: 1353
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bc3c47aacb9e54357a0a880286d20edb
+      internalID: 250809176
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      Borders -01_0: -1239852128
+      Borders -01_1: 1617033172
+      Borders -01_10: 124155670
+      Borders -01_11: -212470755
+      Borders -01_12: -730459385
+      Borders -01_13: 1490160318
+      Borders -01_14: 915777707
+      Borders -01_15: 1684838152
+      Borders -01_16: -52757438
+      Borders -01_17: -1401787449
+      Borders -01_18: 15657303
+      Borders -01_19: 165680509
+      Borders -01_2: 1976034138
+      Borders -01_20: -951484039
+      Borders -01_21: 282859946
+      Borders -01_22: 1895061646
+      Borders -01_23: -2029167662
+      Borders -01_24: -1972592363
+      Borders -01_25: 152103203
+      Borders -01_26: 1351455234
+      Borders -01_27: 1336133698
+      Borders -01_28: 1539321252
+      Borders -01_29: -1591772487
+      Borders -01_3: 1596484865
+      Borders -01_30: 1224988411
+      Borders -01_31: -537833794
+      Borders -01_32: -1306179246
+      Borders -01_33: 1917416395
+      Borders -01_34: 1332630609
+      Borders -01_35: 731026203
+      Borders -01_36: -789696893
+      Borders -01_37: 2005008698
+      Borders -01_38: -1405712158
+      Borders -01_39: -2040277086
+      Borders -01_4: 1741476273
+      Borders -01_40: -984714701
+      Borders -01_41: 1541438127
+      Borders -01_42: -1432629428
+      Borders -01_43: 766744281
+      Borders -01_44: -1381544911
+      Borders -01_45: 1194508915
+      Borders -01_46: -708366711
+      Borders -01_47: 250809176
+      Borders -01_5: -236860287
+      Borders -01_6: -2109531013
+      Borders -01_7: 1622047627
+      Borders -01_8: -1729274519
+      Borders -01_9: 218317875
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
