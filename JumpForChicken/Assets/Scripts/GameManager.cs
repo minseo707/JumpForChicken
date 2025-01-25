@@ -18,6 +18,7 @@ public class GameManager : MonoBehaviour
     public GameObject endingUICanvas;
 
     public GameObject realExitContainer;
+    public GameObject settingsContainer;
 
     public TextMeshProUGUI fpsText;
 
@@ -66,6 +67,14 @@ public class GameManager : MonoBehaviour
 
     public void OnClickRestartButton(){
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    public void OnclickSettingsButton(){
+        settingsContainer.SetActive(true);
+    }
+
+    public void OnClickSettingsCancelButton(){
+        settingsContainer.SetActive(false);
     }
 
     public void EndingUIActive(){

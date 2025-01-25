@@ -16,6 +16,11 @@ public class TitleCameraController : MonoBehaviour
 
     void Start() {
         leftHeight = 0f;
+        
+        // 고정 프레임 60
+        Application.targetFrameRate = 60;
+        // Vsync 비활성화
+        QualitySettings.vSyncCount = 0;
     }
 
     void Awake() {
@@ -36,7 +41,7 @@ public class TitleCameraController : MonoBehaviour
             if (Input.GetTouch(0).phase == TouchPhase.Ended){
                 if (touchTime <= maxTouchTime){
                     Skip();
-                    Debug.LogError("Touched!");
+                    Debug.Log("Touched!");
                 }
                 touchTime = 0f;
             }

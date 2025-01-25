@@ -9,6 +9,8 @@ public class CenterScoreManager : MonoBehaviour
     public float iconSpacing = 50f;   // 아이콘과 점수 텍스트 사이의 간격
     public float unitSpacing = 75f;   // 점수와 "m" 텍스트 사이의 간격
     public float unitOffsetY = -25f;  // "m" 텍스트의 Y 좌표 조정값
+    public float yOffset = 0f;
+    public float xOffset = 0f;
 
     void Start()
     {
@@ -48,24 +50,24 @@ public class CenterScoreManager : MonoBehaviour
         // HighIcon의 위치 설정 (왼쪽에 배치)
         RectTransform highIconRect = HighIcon.GetComponent<RectTransform>();
         highIconRect.anchoredPosition = new Vector3(
-            centerX - totalWidth / 2 + highIconWidth / 2,
-            -222, // 중앙 기준 Y 좌표
+            xOffset + centerX - totalWidth / 2 + highIconWidth / 2,
+            -222 + yOffset, // 중앙 기준 Y 좌표
             0
         );
 
         // 점수 텍스트의 위치 설정 (아이콘 오른쪽에 배치)
         float highIconEndX = highIconRect.anchoredPosition.x + highIconWidth / 2 + iconSpacing;
         scoreText.rectTransform.anchoredPosition = new Vector3(
-            highIconEndX + scoreWidth / 2,
-            -150, // 중앙 기준 Y 좌표
+            xOffset + highIconEndX + scoreWidth / 2,
+            -150 + yOffset, // 중앙 기준 Y 좌표
             0
         );
 
         // "m" 텍스트의 위치 설정 (점수 텍스트 오른쪽에 배치)
         float scoreEndX = scoreText.rectTransform.anchoredPosition.x + scoreWidth / 2;
         unitText.rectTransform.anchoredPosition = new Vector3(
-            scoreEndX + unitSpacing + unitWidth / 2,
-            -150 + unitOffsetY, // Y 오프셋 적용
+            xOffset + scoreEndX + unitSpacing + unitWidth / 2,
+            -150 + unitOffsetY + yOffset, // Y 오프셋 적용
             0
         );
     }
