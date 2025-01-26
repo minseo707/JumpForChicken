@@ -229,11 +229,11 @@ public class PlayerController : MonoBehaviour
             Landing();
         }
     }
-
+    
     // 벽 충돌 시 실행
     private void OnCollisionEnter2D(Collision2D collision) {
         // 플레이어가 왼쪽에서 오른쪽으로 충돌
-        if (collision.contacts[0].normal.x < -0.7f)
+        if (collision.contacts[0].normal.x < -0.7f && !collision.gameObject.CompareTag("PassBlock"))
         {
             if (animator.GetBool("isJumping")){
                 rigid.velocity = new Vector2(-1.5f, rigid.velocity.y/3);
@@ -251,7 +251,7 @@ public class PlayerController : MonoBehaviour
             }
         }
         // 플레이어가 오른쪽에서 왼쪽으로 충돌
-        else if (collision.contacts[0].normal.x > 0.7f)
+        else if (collision.contacts[0].normal.x > 0.7f && !collision.gameObject.CompareTag("PassBlock"))
         {
             if (animator.GetBool("isJumping")){
                 rigid.velocity = new Vector2(1.5f, rigid.velocity.y/3);

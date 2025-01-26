@@ -10,10 +10,6 @@ public class GaugeBarManager : MonoBehaviour
     // jumpHoldTime
     public int jumpGauge = 0;
 
-    // 임시 소리 테스트
-    public AudioSource audioSource;
-    public AudioClip[] audioClips;  // 여러 AudioClip
-
     // 플레이어 위치 가져오기 위함
     public GameObject player;
 
@@ -28,18 +24,18 @@ public class GaugeBarManager : MonoBehaviour
 
     public Sprite[] sprites;
     private SpriteRenderer spriteRenderer;
-
+    
+    // Sound Play Manager
+    private GameObject soundPlayManager;
 
 
     void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
         spriteRenderer.enabled = false;
-        
-        audioSource = GetComponent<AudioSource>();
-        audioSource.clip = audioClips[0];
 
         playerAnimator = player.GetComponent<Animator>();
+        soundPlayManager = GameObject.Find("Sound Player");
     }
 
     void Update()
@@ -88,15 +84,11 @@ public class GaugeBarManager : MonoBehaviour
         }
 
         if (((jumpGauge % 18) == 0) && (jumpGauge <= 90) && jumpGauge != 0){
-            audioSource.clip = audioClips[0];
-            audioSource.pitch = 1f + (jumpGauge - 18) / 100f;
-            audioSource.Play();
+            soundPlayManager.GetComponent<SoundPlayManager>().PlaySound("tick", 1f, 1f + (jumpGauge - 18) / 100f);
         }
 
         if (jumpGauge == 180){
-            audioSource.volume = 1f;
-            audioSource.clip = audioClips[1];
-            audioSource.Play();
+            soundPlayManager.GetComponent<SoundPlayManager>().PlaySound("gaugeDisappear");
         }
     }
 
