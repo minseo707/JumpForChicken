@@ -27,6 +27,13 @@ public class SoundPlayManager : MonoBehaviour
     public Slider bgmVolumeSlider;
     public Slider fxVolumeSlider;
 
+    private void Start() {
+        DataManager.Instance.LoadSettingsData();
+        totalVolumeSlider.value = DataManager.Instance.settingsData.volumes[0];
+        bgmVolumeSlider.value = DataManager.Instance.settingsData.volumes[1];
+        fxVolumeSlider.value = DataManager.Instance.settingsData.volumes[2];
+    }
+
     public void PlaySound(string sound, float volume = 1f, float pitch = 1f){
         switch (sound) {
             case "jump1": // Fx

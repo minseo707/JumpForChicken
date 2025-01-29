@@ -38,7 +38,7 @@ public class CameraController : MonoBehaviour
         trig = false;
     }
 
-    void Update()
+    void FixedUpdate()
     {
         // 카메라 높이 조정 (하강 과정)
         if (player.transform.position.y < cameraHeight - 7f){
@@ -51,7 +51,7 @@ public class CameraController : MonoBehaviour
             cameraHeight -= tempDiff;
             tempDiff = 0f;
         }
-
+        
         // 카메라 높이 조정 (상승 과정)
         if (playerAnim.GetBool("onGround") && cameraHeight - player.transform.position.y < startCamera && !trig)
         {

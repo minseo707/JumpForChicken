@@ -24,7 +24,6 @@ public class GameManager : MonoBehaviour
 
     private float deltaTime = 0f;
 
-    private bool isPause;
 
     private void Awake() {
         platformData = GameObject.Find("Platform");
@@ -34,17 +33,10 @@ public class GameManager : MonoBehaviour
     private void Update() {
         deltaTime += (Time.unscaledDeltaTime - deltaTime) * 0.1f;
         fpsText.text = $"FPS: {Mathf.Floor(10f/deltaTime)*0.1f}";
-
-        // GamePause Logic
-        if (isPause == true){
-            Time.timeScale = 0f;
-        } else {
-            Time.timeScale = 1f;
-        }
     }
 
     public void OnclickPauseButton(){
-        isPause = true;
+        Time.timeScale = 0f;
         pauseUICanvas.SetActive(true);
     }
 
@@ -61,12 +53,12 @@ public class GameManager : MonoBehaviour
     }
 
     public void OnclickStartButton(){
-        isPause = false;
+        Time.timeScale = 1f;
         pauseUICanvas.SetActive(false);
     }
 
     public void OnClickRestartButton(){
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        LoadingSceneManager.LoadScene("SampleScene");
     }
 
     public void OnclickSettingsButton(){
@@ -79,7 +71,6 @@ public class GameManager : MonoBehaviour
 
     public void EndingUIActive(){
         Time.timeScale = 0f;
-        isPause = true;
         endingUICanvas.SetActive(true);
         pauseUICanvas.SetActive(false);
     }

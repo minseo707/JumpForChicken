@@ -5,7 +5,17 @@ using UnityEngine.SceneManagement;
 
 public class ButtonManager : MonoBehaviour
 {
+    public GameObject settingsContainer;
+
     public void StartButton(){
-        SceneManager.LoadScene("SampleScene");
+        LoadingSceneManager.LoadScene("SampleScene");
+    }
+
+    public void SettingsButton(){
+        settingsContainer.SetActive(true);
+    }
+
+    public void SettingsCancelButton(){
+        settingsContainer.SetActive(false);
     }
 }

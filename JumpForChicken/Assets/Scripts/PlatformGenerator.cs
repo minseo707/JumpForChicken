@@ -13,6 +13,9 @@ public class PlatformGenerator : MonoBehaviour
     public float sideDecline = 2.0f; // 벽에서부터 생성 불가능 범위
     public float minYSelect = 2.0f;
 
+    public bool isLoaded = false;
+    public int runFrames = 0;
+
     private List<Vector3> tileList = new List<Vector3>(); // 타일 리스트
     private List<float> tileYList = new List<float>(); // 타일의 y좌표 리스트
 
@@ -20,8 +23,23 @@ public class PlatformGenerator : MonoBehaviour
 
     void Start()
     {
-        Sync();
-        GenerateInitialTiles();
+        isLoaded = false;
+        runFrames = 0;
+    }
+
+    private void Update() {
+        // 에디터 환경에서 SampleScene을 바로 실행했을 때 맵이 로드되지 않는 현상 수정
+        if (isLoaded) return;
+        else if (!isLoaded && runFrames == 0) {
+            Debug.Log("[PlatformGenerator] 로드 대기 중입니다. 다음 프레임에 로드되지 않으면 다시 로드합니다.");
+            runFrames++;
+            return;
+        }
+        else {
+            Debug.Log("[PlatformGenerator] 블럭이 로드되지 않았습니다. 블럭을 새롭게 로드합니다.");
+            LoadingSceneManager.LoadScene("SampleScene");
+            return;
+        }
     }
 
     void Sync(){
@@ -32,8 +50,11 @@ public class PlatformGenerator : MonoBehaviour
         minYSelect = PlayerPrefs.GetFloat("minYSelect");
     }
 
-    void GenerateInitialTiles()
+    public void GenerateInitialTiles()
     {
+        // LoadingSceneManager에 의하여 Update() 첫 실행 직후에 실행되는 함수입니다.
+        isLoaded = true;
+        Sync();
         if (tileLoader != null)
         {
             tileLoader.LoadRandomTiles();

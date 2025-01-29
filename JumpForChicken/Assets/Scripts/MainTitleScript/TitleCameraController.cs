@@ -33,6 +33,9 @@ public class TitleCameraController : MonoBehaviour
             touchTime += Time.deltaTime;
         }
 
+        // 터치 이벤트 감지가 필요 없을 때에는 이후의 코드를 무시
+        if (transform.position.y == 0) return;
+
         // 터치 시간이 일정 시간 지나면 터치 취소
         if (Input.touchCount > 0){
             if (Input.GetTouch(0).phase == TouchPhase.Began){
@@ -41,7 +44,7 @@ public class TitleCameraController : MonoBehaviour
             if (Input.GetTouch(0).phase == TouchPhase.Ended){
                 if (touchTime <= maxTouchTime){
                     Skip();
-                    Debug.Log("Touched!");
+                    Debug.Log("[TitleCameraController] Tapped!");
                 }
                 touchTime = 0f;
             }
@@ -54,20 +57,21 @@ public class TitleCameraController : MonoBehaviour
         if (Input.GetMouseButtonUp(0)){
             if (touchTime <= maxTouchTime){
                 Skip();
-                Debug.LogError("Clicked!");
+                Debug.Log("[TitleCameraController] Clicked!");
             }
             touchTime = 0f;
         }
 
+
         // 카메라 움직임
-        if (leftHeight == 0){
+        if (leftHeight == 0){ // 선형적으로 내려올 때
             if ((0.005f <= transform.position.y) && (transform.position.y <= 1.5f)){
                 transform.position = new Vector3(0, transform.position.y/1.024f, transform.position.z);
             } else if (0.005f > transform.position.y){
                 transform.position = new Vector3(0, 0, transform.position.z);
             } else {transform.position = new Vector3(0, transform.position.y - 0.03f, transform.position.z);}
         } else {
-            if (leftHeight >= 0.005f){
+            if (leftHeight >= 0.005f){ // 지수적으로 내려올 때
                 transform.position = new Vector3(0, Mathf.Max(0, transform.position.y - leftHeight/9), transform.position.z);
                 leftHeight -= leftHeight/9;
             } else {
@@ -76,7 +80,7 @@ public class TitleCameraController : MonoBehaviour
             }
         }
         if (transform.position.y == 0){
-            Ready();
+            Ready(); // 위 무시 로직에 의해 한 번만 실행
         }
     }
 

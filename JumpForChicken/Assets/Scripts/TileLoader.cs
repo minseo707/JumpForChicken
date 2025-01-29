@@ -14,13 +14,13 @@ public class TileLoader : MonoBehaviour
 
     private void Awake()
     {
-        InitializeWeights();
+        // InitializeWeights();
     }
 
     private void Start()
     {
-        LoadRandomTiles();
-        PrintRandomTiles();
+        // LoadRandomTiles();
+        // PrintRandomTiles();
     }
 
     private void InitializeWeights()
@@ -182,6 +182,8 @@ public class TileLoader : MonoBehaviour
     Debug.Log($"{allPrefabs.Length}개의 프리팹을 로드했습니다. (빌드 환경)");
 #endif
 
+    InitializeWeights();
+
     // 가중치를 적용하여 프리팹 선택
     for (int i = 0; i < tileCount; i++)
     {
@@ -210,6 +212,7 @@ public class TileLoader : MonoBehaviour
     // 배열로 변환하여 외부에서 사용할 수 있도록 저장
     RandomTiles = selectedPrefabs.ToArray();
     Debug.Log($"총 선택된 프리팹 수: {RandomTiles.Length}");
+    PrintRandomTiles();
 }
 
     private void PrintRandomTiles()
