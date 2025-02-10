@@ -8,6 +8,12 @@ public class TileLoader : MonoBehaviour
     public GameObject[] RandomTiles { get; private set; } // 외부에서 접근할 수 있는 랜덤 프리팹 배열
     public int tileCount = 70; // 타일 개수
 
+    public float typeWeight1 = 0.42f;
+    public float typeWeight2 = 0.14f;
+    public float typeWeight3 = 0.29f;
+    public float typeWeight4 = 0.28f;
+    public float typeWeight5 = 0.168f;
+
     private float[][] tileTypeWeight;
     private int[] numberOfTileTypes = { 8, 8, 8, 8, 8, 8, 8, 8, 8, 8 }; // 각 타일 종류별 개수
     private string[] tileTypeCodes = { "F2", "F3", "F4", "F5", "F5_L", "F6", "F6_L", "T2", "T3", "T4" }; // 각 타일 종류 코드
@@ -98,7 +104,7 @@ public class TileLoader : MonoBehaviour
         // 같은 종류(타일 수 & L자 타일 여부 & 통과 가능 여부) 블록 가중치 조정
         for (int k = 0; k < tileTypeWeight[i].Length; k++)
         {
-            tileTypeWeight[i][k] -= 0.42f;
+            tileTypeWeight[i][k] -= typeWeight1; // 0.42f
         }
 
         // 통과 가능 여부가 같은 블록 (통과 불가능) 가중치 조정
@@ -108,7 +114,7 @@ public class TileLoader : MonoBehaviour
             {
                 for (int l = 0; l < tileTypeWeight[k].Length; l++)
                 {
-                    tileTypeWeight[k][l] -= 0.14f;
+                    tileTypeWeight[k][l] -= typeWeight2; // 0.14f
                 }
             }
         }
@@ -119,7 +125,7 @@ public class TileLoader : MonoBehaviour
             {
                 for (int l = 0; l < tileTypeWeight[k].Length; l++)
                 {
-                    tileTypeWeight[k][l] -= 0.29f;
+                    tileTypeWeight[k][l] -= typeWeight3; // 0.29f
                 }
             }
         }
@@ -131,7 +137,7 @@ public class TileLoader : MonoBehaviour
             {
                 for (int l = 0; l < tileTypeWeight[k].Length; l++)
                 {
-                    tileTypeWeight[k][l] -= 0.28f;
+                    tileTypeWeight[k][l] -= typeWeight4; // 0.28f
                 }
             }
         }
@@ -141,7 +147,7 @@ public class TileLoader : MonoBehaviour
         {
             for (int l = 0; l < tileTypeWeight[k].Length; l++)
             {
-                tileTypeWeight[k][l] += 0.168f;
+                tileTypeWeight[k][l] += typeWeight5; // 0.168f
             }
         }
 

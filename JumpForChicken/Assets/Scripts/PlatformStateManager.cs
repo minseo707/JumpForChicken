@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlatformManager : MonoBehaviour
+public class PlatformStateManager : MonoBehaviour
 {
     public enum PlatformState
     {
@@ -14,8 +14,8 @@ public class PlatformManager : MonoBehaviour
 
     public PlatformState state = PlatformState.Default;
 
-    private static List<PlatformManager> allPlatforms = new List<PlatformManager>();
-    private static PlatformManager nextPlatform;
+    private static List<PlatformStateManager> allPlatforms = new List<PlatformStateManager>();
+    private static PlatformStateManager nextPlatform;
     private bool isPlayerOnPlatform = false;
     private float timeOnPlatform = 0f;
     public float requiredTimeOnPlatform = 0.1f; // 플레이어가 발판 위에 있어야 하는 시간 (초)
@@ -85,6 +85,9 @@ public class PlatformManager : MonoBehaviour
                         {
                             nextPlatform.state = PlatformState.Current;
                             nextPlatform.SetPlatformLayer();
+
+                            // 이펙트와 효과음 재생
+                            PlayEffectAndSound();
                         }
 
                         // 다음 발판 설정
@@ -92,9 +95,6 @@ public class PlatformManager : MonoBehaviour
 
                         // 상태 변경 플래그 설정
                         stateChanged = true;
-
-                        // 점수에 반영
-                        ScoreManager.Instance.AddScore(1);
                     }
                 }
             }
@@ -147,13 +147,13 @@ public class PlatformManager : MonoBehaviour
     {
         // 현재 발판의 다음 발판을 찾아 상태를 Next로 변경
         Collider2D[] hitColliders = Physics2D.OverlapCircleAll(transform.position, 10f); // 10f는 적절한 반경으로 설정
-        PlatformManager newNextPlatform = null;
+        PlatformStateManager newNextPlatform = null;
 
         foreach (var hitCollider in hitColliders)
         {
             if (hitCollider.gameObject.layer == LayerMask.NameToLayer("DefaultPlatform"))
             {
-                PlatformManager platformManager = hitCollider.GetComponent<PlatformManager>();
+                PlatformStateManager platformManager = hitCollider.GetComponent<PlatformStateManager>();
                 if (platformManager != null)
                 {
                     if (newNextPlatform == null)
@@ -183,7 +183,7 @@ public class PlatformManager : MonoBehaviour
     }
 
     // 모든 발판의 리스트를 초기화 (게임 시작 시 호출)
-    public static void InitializePlatforms(List<PlatformManager> platforms)
+    public static void InitializePlatforms(List<PlatformStateManager> platforms)
     {
         allPlatforms = platforms;
         // 초기 상태 설정 로직 추가 가능
@@ -231,5 +231,28 @@ public class PlatformManager : MonoBehaviour
                 objectRenderer.material.renderQueue = -1;
             }
         }
+    }
+
+    // 파티클 & 사운드 재생
+    private void PlayEffectAndSound()
+    {
+        /*
+        // 파티클 효과 재생
+        ParticleSystem blockCreateEffect = Resources.Load<ParticleSystem>(""); // 여기에 경로 기입
+        if (blockCreateEffect != null)
+        {
+            // 파티클 시스템을 인스턴스화해서 발판에 추가
+            ParticleSystem particleEffect = Instantiate(blockCreateEffect, nextPlatform.transform.position, Quaternion.identity);
+            particleEffect.Play(); // 파티클 재생
+        }
+
+        // 효과음 재생
+        AudioClip blockCreateSound = Resources.Load<AudioClip>(""); // 여기에 경로 기입
+        AudioSource audioSource = nextPlatform.GetComponent<AudioSource>();
+        if (audioSource != null && blockCreateSound != null)
+        {
+            audioSource.PlayOneShot(blockCreateSound); // 효과음 재생
+        }
+        */
     }
 }

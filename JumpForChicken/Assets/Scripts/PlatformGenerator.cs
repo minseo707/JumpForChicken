@@ -210,6 +210,9 @@ public class PlatformGenerator : MonoBehaviour
 
         // 발판의 위치를 다시 설정 (로컬 좌표계를 유지)
         newTile.transform.position = worldPosition;
+
+        // 플랫폼 상태 컴포넌트 추가
+        PlatformStateManager platformManager = newTile.AddComponent<PlatformStateManager>();
     }
 
     public void DAUp(){PlayerPrefs.SetFloat("declineArea", PlayerPrefs.GetFloat("declineArea") + .1f); Sync();}
