@@ -16,8 +16,8 @@ public class GaugeBarManager : MonoBehaviour
     // 카메라의 좌표를 가져오기 위함
     public GameObject cameras;
     
-    // 플레이어 애니메이터 안에 있는 'lookAt' 변수 가져오기 위함
-    private Animator playerAnimator;
+    // 플레이어 애니메이션 매니저 안에 있는 'lookAt' 변수 가져오기 위함
+    private PlayerAnimationManager pam;
 
     // 플레이어 위치 불러올 변수 Vector3
     private Vector3 playerPos;
@@ -34,7 +34,7 @@ public class GaugeBarManager : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
         spriteRenderer.enabled = false;
 
-        playerAnimator = player.GetComponent<Animator>();
+        pam = player.GetComponent<PlayerAnimationManager>();
         soundPlayManager = GameObject.Find("Sound Player");
     }
 
@@ -45,11 +45,10 @@ public class GaugeBarManager : MonoBehaviour
 
         playerPos = player.transform.position;
 
-        playerPos = new Vector3(player.transform.position.x + playerAnimator.GetInteger("lookAt") * 0.7f, Mathf.Max(player.transform.position.y, cameras.GetComponent<CameraController>().cameraHeight - 7.5f), player.transform.position.z); // (x, y, z)
-        // playerPos = new Vector3(player.transform.position.x + playerAnimator.GetInteger("lookAt") * 0.7f, player.transform.position.y, player.transform.position.z); // (x, y, z)
+        playerPos = new Vector3(player.transform.position.x + pam.lookAt * 0.7f, Mathf.Max(player.transform.position.y, cameras.GetComponent<CameraController>().cameraHeight - 7.5f), player.transform.position.z); // (x, y, z)
 
         transform.position = playerPos;
-        transform.localScale = new Vector3(-playerAnimator.GetInteger("lookAt"), 1, 1);
+        transform.localScale = new Vector3(-pam.lookAt, 1, 1);
 
 
         // 스프라이트 동기화
@@ -94,6 +93,6 @@ public class GaugeBarManager : MonoBehaviour
 
     void Shake(){
         float shakeX = Mathf.Sin(Time.time * 60f) * .042f;
-        transform.position = new Vector3(player.transform.position.x + playerAnimator.GetInteger("lookAt") * 0.7f + shakeX, transform.position.y, transform.position.z);
+        transform.position = new Vector3(player.transform.position.x + pam.lookAt * 0.7f + shakeX, transform.position.y, transform.position.z);
     }
 }

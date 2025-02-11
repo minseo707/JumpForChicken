@@ -27,7 +27,8 @@ public class PlayerController : MonoBehaviour
     // 기본 값
     public float movePower = 4f;
     private Rigidbody2D rigid;
-    private Animator animator;
+
+    private PlayerAnimationManager pam;
 
     // 게이지 바 프리팹
     public GameObject gaugeBar;
@@ -42,7 +43,7 @@ public class PlayerController : MonoBehaviour
     public GameObject landingParticle;
 
     private SpriteRenderer spriteRendererGauge;
-    private GameObject gaugeObject;
+    private readonly GameObject gaugeObject;
 
     // 방향: 오른쪽 = 1, 왼쪽 = -1
     // animator.GetInteger("lookAt")
@@ -63,13 +64,13 @@ public class PlayerController : MonoBehaviour
     private float moveX = 0;
     private float moveY = 0;
 
-    private float landingFreezeDuration = 0.1f; // 착지 후 일시 정지 시간
+    private readonly float landingFreezeDuration = 0.1f; // 착지 후 일시 정지 시간
     private float landingFreezeTimer = 0f; // 착지 후 타이머
 
     private bool isDead = false;
 
     // 점프 최대 높이 오프셋 (보정치)
-    private float offest = 2.355f;
+    private readonly float offest = 2.355f;
 
     private GameObject soundPlayManager;
     private bool isWalkingSoundPlaying = false; // 현재 걷는 소리가 재생 중인지 추적
@@ -83,8 +84,8 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         rigid = GetComponent<Rigidbody2D>();
-        animator = GetComponent<Animator>();
-        animator.SetBool("isFirstJump", true);
+        pam = GetComponent<PlayerAnimationManager>();
+        pam.isFirstJump = true;
         stopped = false;
         isDead = false;
 
@@ -129,17 +130,16 @@ public class PlayerController : MonoBehaviour
         else
         {
             // 땅에 있을 때
-            if (!animator.GetBool("isJumping") && !animator.GetBool("isFalling"))
+            if (!pam.isJumping && !pam.isFalling)
             {
                 if ((inputJump || Input.GetButton("Jump")) && rigid.velocity.y == 0)
                 {
                     // doJumpReady 트리거를 한 번만 작동시키기 위한 조건문
                     // isFirstJump : 다음 점프는 첫 번째 점프이다.
-                    if (animator.GetBool("isFirstJump"))
+                    if (pam.isFirstJump)
                     {
-                        animator.ResetTrigger("doJumpCancel");
-                        animator.SetTrigger("doJumpReady");
-                        animator.SetBool("isFirstJump", false);
+                        pam.isJumpReady = true;
+                        pam.isFirstJump = false;
 
                         soundPlayManager.GetComponent<SoundPlayManager>().PlaySound("jumpReady", 2f, 1.5f);
 
@@ -154,9 +154,9 @@ public class PlayerController : MonoBehaviour
                     if (jumpHoldTime == 180){
                         Destroy(gaugeObject);
                         spriteRendererGauge.enabled = false;
-                        animator.SetTrigger("doJumpCancel");
+                        pam.isJumpReady = false;
                         GameObject dapInstance = Instantiate(daParticle);
-                        dapInstance.transform.position = new Vector3(transform.position.x + animator.GetInteger("lookAt") * 0.7f, transform.position.y, transform.position.z);
+                        dapInstance.transform.position = new Vector3(transform.position.x + pam.lookAt * 0.7f, transform.position.y, transform.position.z);
                     }
 
                     // 게이지바에 점프 준비 시간 동기화
@@ -173,7 +173,7 @@ public class PlayerController : MonoBehaviour
                         width = transform.position.x;
 
                         isJump = true;
-                        animator.SetBool("isJumping", true);
+                        pam.isJumping = true;
                         stopped = false;
 
                         jumpTime = 0f;
@@ -186,7 +186,7 @@ public class PlayerController : MonoBehaviour
                 // 땅에 있는데 y속도가 음수인 버그 우회 (물리랑 화면 간의 프레임 차이)
                 if (rigid.velocity.y < 0)
                 {
-                    animator.SetBool("isFirstJump", true);
+                    pam.isFirstJump = true;
                     jumpHoldTime = 0;
                 }
             }
@@ -224,7 +224,7 @@ public class PlayerController : MonoBehaviour
     // 낙하 감지
     private void OnCollisionStay2D(Collision2D collision)
     {
-        if (collision.contacts[0].normal.y > 0.7f && animator.GetBool("isFalling"))
+        if (collision.contacts[0].normal.y > 0.7f && pam.isFalling)
         {
             Landing();
         }
@@ -235,36 +235,32 @@ public class PlayerController : MonoBehaviour
         // 플레이어가 왼쪽에서 오른쪽으로 충돌
         if (collision.contacts[0].normal.x < -0.7f && !collision.gameObject.CompareTag("PassBlock"))
         {
-            if (animator.GetBool("isJumping")){
+            if (pam.isJumping){
                 rigid.velocity = new Vector2(-1.5f, rigid.velocity.y/3);
-                animator.SetTrigger("doCrashing");
-                animator.SetBool("isCrashing", true);
-                animator.SetInteger("lookAt", 1);
+                pam.isCrashing = true;
+                pam.lookAt = 1;
                 soundPlayManager.GetComponent<SoundPlayManager>().PlaySound("breakFx");
             }
-            else if (animator.GetBool("isFalling")){
+            else if (pam.isFalling){
                 rigid.velocity = new Vector2(-0.75f, rigid.velocity.y);
-                animator.SetTrigger("doCrashing");
-                animator.SetBool("isCrashing", true);
-                animator.SetInteger("lookAt", 1);
+                pam.isCrashing = true;
+                pam.lookAt = 1;
                 soundPlayManager.GetComponent<SoundPlayManager>().PlaySound("breakFx");
             }
         }
         // 플레이어가 오른쪽에서 왼쪽으로 충돌
         else if (collision.contacts[0].normal.x > 0.7f && !collision.gameObject.CompareTag("PassBlock"))
         {
-            if (animator.GetBool("isJumping")){
+            if (pam.isJumping){
                 rigid.velocity = new Vector2(1.5f, rigid.velocity.y/3);
-                animator.SetTrigger("doCrashing");
-                animator.SetBool("isCrashing", true);
-                animator.SetInteger("lookAt", -1);
+                pam.isCrashing = true;
+                pam.lookAt = -1;
                 soundPlayManager.GetComponent<SoundPlayManager>().PlaySound("breakFx");
             }
-            else if (animator.GetBool("isFalling")){
+            else if (pam.isFalling){
                 rigid.velocity = new Vector2(0.75f, rigid.velocity.y);
-                animator.SetTrigger("doCrashing");
-                animator.SetBool("isCrashing", true);
-                animator.SetInteger("lookAt", -1);
+                pam.isCrashing = true;
+                pam.lookAt = -1;
                 soundPlayManager.GetComponent<SoundPlayManager>().PlaySound("breakFx");
             }
         }
@@ -282,20 +278,20 @@ public class PlayerController : MonoBehaviour
         }
 
         // 점프 장전이 안 되어있고, 점프 중이지 않고, 낙하 중이지 않을 때
-        else if (jumpHoldTime == 0 && !animator.GetBool("isJumping") && !animator.GetBool("isFalling"))
+        else if (jumpHoldTime == 0 && !pam.isJumping && !pam.isFalling)
         {
             if (inputAxis < 0)
             {
-                animator.SetInteger("lookAt", -1);
+                pam.lookAt = -1;
                 stopped = false;
-                currentVelocity.x = movePower * animator.GetInteger("lookAt");
+                currentVelocity.x = movePower * pam.lookAt;
                 MoveAnimRandom();
             }
             else if (inputAxis > 0)
             {
-                animator.SetInteger("lookAt", 1);
+                pam.lookAt = 1;
                 stopped = false;
-                currentVelocity.x = movePower * animator.GetInteger("lookAt");
+                currentVelocity.x = movePower * pam.lookAt;
                 MoveAnimRandom();
             }
             else
@@ -307,15 +303,12 @@ public class PlayerController : MonoBehaviour
         }
 
         // inputAxis가 0인 상황에서 떨어지기 시작했을 때 이론 상은 문제 없지만, 프레임 차이로 발생하는 버그 수정
-        if (animator.GetBool("isFalling") && rigid.velocity.x == 0 && stopped)
+        if (pam.isFalling && rigid.velocity.x == 0 && stopped)
         {
-            currentVelocity.x = movePower * animator.GetInteger("lookAt");
+            currentVelocity.x = movePower * pam.lookAt;
             rigid.velocity = currentVelocity;
             stopped = false;
         }
-
-        // 플레이어 좌우 반전
-        // transform.localScale = new Vector3(lookAt * Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
 
         // 점프 장전 중에는 정지
         if (jumpHoldTime > 0)
@@ -325,7 +318,7 @@ public class PlayerController : MonoBehaviour
         }
 
         // 걷는 효과음
-        if (animator.GetBool("isMove") && !animator.GetBool("isJumping") && !animator.GetBool("isFalling")){
+        if (pam.isMove && !pam.isJumping && !pam.isFalling){
             if (!isWalkingSoundPlaying)
             {
                 soundPlayManager.GetComponent<SoundPlayManager>().PlaySound("walking");
@@ -388,7 +381,7 @@ public class PlayerController : MonoBehaviour
         moveY += 0.0285f;
 
         // 점프 속도 적용
-        rigid.velocity += new Vector2(moveX * Mathf.Sqrt(gravity / (8 * moveY)) * animator.GetInteger("lookAt"), Mathf.Sqrt(2 * gravity * moveY));
+        rigid.velocity += new Vector2(moveX * Mathf.Sqrt(gravity / (8 * moveY)) * pam.lookAt, Mathf.Sqrt(2 * gravity * moveY));
 
         // Play Jump Sound
         if (jumpHoldTime < 54) soundPlayManager.GetComponent<SoundPlayManager>().PlaySound("jump1");
@@ -400,49 +393,50 @@ public class PlayerController : MonoBehaviour
         // 점프 후 초기화
         isJump = false;
         jumpHoldTime = 0;
-        animator.SetBool("onGround", false);
+        pam.onGround = false;
+        pam.isJumpReady = false;
         MoveAnimRandom();
     }
 
     private void Animations()
     {
         // 이동 애니메이션 설정
-        animator.SetBool("isMove", inputAxis != 0 && jumpHoldTime == 0);
+        pam.isMove = inputAxis != 0 && jumpHoldTime == 0;
 
         // 낙하 애니메이션 설정
         if (rigid.velocity.y < 0)
         {
-            if (!animator.GetBool("isFalling"))
+            if (!pam.isFalling)
             {
-                animator.SetTrigger("doFalling");
-                animator.SetBool("isJumping", false);
-                animator.SetBool("isFalling", true);
-                animator.SetBool("onGround", false);
-                animator.SetBool("isFirstJump", false);
+                pam.isFalling = true;
+                pam.isJumping = false;
+                pam.onGround = false;
+                pam.isFirstJump = false;
                 MoveAnimRandom();
             }
         }
 
         // 낙하 모션 중 땅에서 정지하는 버그 수정
-        if (animator.GetBool("isFalling") && animator.GetBool("isFirstJump"))
+        if (pam.isFalling && pam.isFirstJump)
         {
             Landing();
+            Debug.LogError("[PlayerController] 낙하 모션 중 땅에서 정지하는 버그가 발생하였으나 해결됨");
         }
     }
 
     private void Landing(bool playParticle = true)
     {
         // 떨어질 때만 효과음 재생 (점프 취소 시 재생되는 오류 해결)
-        if (animator.GetBool("isFalling")){
+        if (pam.isFalling){
             soundPlayManager.GetComponent<SoundPlayManager>().PlaySound("landing");
         }
 
-        animator.SetBool("isFalling", false);
-        animator.SetBool("isJumping", false);
-        animator.SetBool("isFirstJump", true);
+        pam.isFalling = false;
+        pam.isJumping = false;
+        pam.isFirstJump = true;
         rigid.velocity = Vector2.zero;
-        animator.SetBool("onGround", true);
-        animator.SetBool("isCrashing", false);
+        pam.onGround = true;
+        pam.isCrashing = false;
         Destroy(gaugeObject);
 
         // 동기화 원리 : 점프 키를 떼는 순간, jumpHoldTime은 0이 되지만, gaugeBar의 jumpGauge는 점프 키를 떼기 직전의 jumpHoldTime을 가지고 있으므로
@@ -477,14 +471,14 @@ public class PlayerController : MonoBehaviour
 
     private void MoveAnimRandom(){
         if (UnityEngine.Random.Range(0, 2) == 0){
-            animator.SetBool("isIDLE1", true);
+            pam.isIDLE1 = true;
         } else {
-            animator.SetBool("isIDLE1", false);
+            pam.isIDLE1 = false;
         }
     }
 
     private void TrailManager(){
-        if (animator.GetBool("isJumping") || animator.GetBool("isFalling")){
+        if (pam.isJumping || pam.isFalling){
             trailParticle.SetActive(true);
         } else {
             trailParticle.SetActive(false);

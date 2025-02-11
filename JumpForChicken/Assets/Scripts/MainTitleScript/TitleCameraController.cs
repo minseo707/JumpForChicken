@@ -14,6 +14,16 @@ public class TitleCameraController : MonoBehaviour
 
     private float touchTime = 0f;
 
+    void Awake() {
+        if (PlayerPrefs.GetInt("Init") == 0){
+            // 처음 높이 초기화
+            transform.position = new Vector3(0, startCameraHeight, transform.position.z);
+            PlayerPrefs.SetInt("Init", 1);
+        } else {
+            transform.position = new Vector3(0, 0, transform.position.z);
+        }
+    }
+
     void Start() {
         leftHeight = 0f;
         
@@ -21,10 +31,6 @@ public class TitleCameraController : MonoBehaviour
         Application.targetFrameRate = 60;
         // Vsync 비활성화
         QualitySettings.vSyncCount = 0;
-    }
-
-    void Awake() {
-        transform.position = new Vector3(0, startCameraHeight, transform.position.z);
     }
 
     void Update() {

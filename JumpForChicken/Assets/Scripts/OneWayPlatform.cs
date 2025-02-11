@@ -18,7 +18,7 @@ public class OneWayPlatform : MonoBehaviour
 
 
     // 플레이어가 플랫폼 상단보다 아래에 있다고 판단할 때 줄 오프셋
-    private float offset = -3f;
+    private readonly float offset = -3f;
 
     private void Awake()
     {

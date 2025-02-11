@@ -23,15 +23,14 @@ public class CameraController : MonoBehaviour
     private float startCamera;
     private float totalDiff;
     private bool trig;
-
-    private Animator playerAnim;
+    private PlayerAnimationManager pam;
 
     void Start()
     {
         // 초기 카메라 위치 설정
         transform.position = new Vector3(0, cameraHeight, -10);
         startCamera = cameraHeight - floor;
-        playerAnim = player.GetComponent<Animator>();
+        pam = player.GetComponent<PlayerAnimationManager>();
         totalDiff = 0f;
         difference = 0f;
         tempDiff = 0f;
@@ -53,13 +52,13 @@ public class CameraController : MonoBehaviour
         }
         
         // 카메라 높이 조정 (상승 과정)
-        if (playerAnim.GetBool("onGround") && cameraHeight - player.transform.position.y < startCamera && !trig)
+        if (pam.onGround && cameraHeight - player.transform.position.y < startCamera && !trig)
         {
             totalDiff += player.transform.position.y + startCamera - cameraHeight;
             trig = true;
         }
 
-        if (!playerAnim.GetBool("onGround"))
+        if (!pam.onGround)
         {
             trig = false;
         }

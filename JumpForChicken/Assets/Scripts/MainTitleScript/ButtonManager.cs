@@ -18,4 +18,8 @@ public class ButtonManager : MonoBehaviour
     public void SettingsCancelButton(){
         settingsContainer.SetActive(false);
     }
+
+    public void OnClickShopButton(){
+        SceneManager.LoadScene("ShopScene");
+    }
 }

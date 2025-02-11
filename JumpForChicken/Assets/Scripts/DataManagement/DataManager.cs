@@ -23,8 +23,8 @@ public class DataManager : MonoBehaviour
     }
 
     // --- 게임 데이터 파일명을 설정 ("원하는 이름(영문).json") ---
-    string gameDataFileName = "GameData.json";
-    string settingsDataFileName = "SettingsData.json";
+    readonly string gameDataFileName = "GameData.json";
+    readonly string settingsDataFileName = "SettingsData.json";
 
     // --- 저장용 클래스 변수 ---
     public GameData gameData = new GameData();
