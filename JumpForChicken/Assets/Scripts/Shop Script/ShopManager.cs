@@ -56,6 +56,7 @@ public class ShopManager : MonoBehaviour
         first = false;
         _selected = false;
         DataManager.Instance.gameData.chickens = 300;
+        DataManager.Instance.SaveGameData();
         currentChickenTMP.text = $"x {DataManager.Instance.gameData.chickens}";
     }
 
