@@ -129,6 +129,10 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
+            if (firstJumpUp && rigid.velocity.y != 0){ // 다음 점프 방지
+                    firstJumpUp = false;
+            }
+
             // 땅에 있을 때
             if (!pam.isJumping && !pam.isFalling)
             {
@@ -224,17 +228,23 @@ public class PlayerController : MonoBehaviour
     // 낙하 감지
     private void OnCollisionStay2D(Collision2D collision)
     {
-        if (collision.contacts[0].normal.y > 0.7f && pam.isFalling)
+        for (int i = 0; i < collision.contacts.Length; i++)
+        {
+            if (collision.contacts[i].normal.y > 0.7f && pam.isFalling)
         {
             Landing();
+        }
         }
     }
     
     // 벽 충돌 시 실행
     private void OnCollisionEnter2D(Collision2D collision) {
+        ContactPoint2D contact = collision.contacts[0];
+        float entryAngle = Vector2.Angle(collision.relativeVelocity, -contact.normal);
         // 플레이어가 왼쪽에서 오른쪽으로 충돌
-        if (collision.contacts[0].normal.x < -0.7f && !collision.gameObject.CompareTag("PassBlock"))
+        if (collision.contacts[0].normal.x < -0.7f && !collision.gameObject.CompareTag("PassBlock") && entryAngle > 90f)
         {
+            Debug.Log($"{collision.contacts[0].normal.x}, {collision.contacts[0].normal.y}: {entryAngle}");
             if (pam.isJumping){
                 rigid.velocity = new Vector2(-1.5f, rigid.velocity.y/3);
                 pam.isCrashing = true;
@@ -249,8 +259,9 @@ public class PlayerController : MonoBehaviour
             }
         }
         // 플레이어가 오른쪽에서 왼쪽으로 충돌
-        else if (collision.contacts[0].normal.x > 0.7f && !collision.gameObject.CompareTag("PassBlock"))
+        else if (collision.contacts[0].normal.x > 0.7f && !collision.gameObject.CompareTag("PassBlock") && entryAngle > 90f)
         {
+            Debug.Log($"{collision.contacts[0].normal.x}, {collision.contacts[0].normal.y}: {entryAngle}");
             if (pam.isJumping){
                 rigid.velocity = new Vector2(1.5f, rigid.velocity.y/3);
                 pam.isCrashing = true;
@@ -267,10 +278,12 @@ public class PlayerController : MonoBehaviour
 
     }
 
+    public Vector2 currentVelocity;
+
     private void Move()
     {
         // 플레이어의 속도를 직접적으로 설정 불가능하므로, 새로운 변수에 저장 후 수정
-        Vector2 currentVelocity = rigid.velocity;
+        currentVelocity = rigid.velocity;
 
         if (landingFreezeTimer > 0f)
         {
@@ -487,7 +500,6 @@ public class PlayerController : MonoBehaviour
 
     private void Die(){
         isDead = true;
-        FirstGameUpdater.Instance.OnPlayerDead();
         rigid.velocity = Vector2.zero;
 
         soundPlayManager.GetComponent<SoundPlayManager>().PlaySound("failed");

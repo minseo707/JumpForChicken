@@ -56,10 +56,4 @@ public class FirstGameUpdater : MonoBehaviour
     private void Update() {
 
     }
-
-    public void OnPlayerDead(){
-        canvas = GameObject.Find("UI Canvas");
-        GameObject newgameoverUI = Instantiate(gameoverUI, canvas.transform);
-        isGameover = true;
-    }
 }

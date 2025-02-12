@@ -896,6 +896,7 @@ MonoBehaviour:
   - {fileID: 1338451571}
   - {fileID: 244199032}
   player: {fileID: 897913613}
+  starPrefab: {fileID: 6574946691257017951, guid: 39464d6d5801c4eb5a3c07e38d58b62c, type: 3}
 --- !u!4 &164692158
 Transform:
   m_ObjectHideFlags: 0
@@ -1083,7 +1084,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 249, y: 35}
+  m_AnchoredPosition: {x: 235, y: 35}
   m_SizeDelta: {x: 321, y: 106}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &216241044
@@ -1163,7 +1164,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_Sprite: {fileID: -613824548, guid: b05c4839b2bfb4ef48dd3a4668d29eae, type: 3}
-  m_Type: 0
+  m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4

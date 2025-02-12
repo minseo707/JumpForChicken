@@ -33,6 +33,9 @@ public class ShopManager : MonoBehaviour
     public GameObject player;
     private PlayerAnimationManager pam;
 
+    public GameObject starPrefab;
+    private int starCycle = 120;
+
     void Awake(){
         buttonItemSelectManagers = new ItemSelectManager[15];
         for (int i = 0; i < 15; i++) buttonItemSelectManagers[i] = buttons[i].GetComponent<ItemSelectManager>();
@@ -58,6 +61,8 @@ public class ShopManager : MonoBehaviour
         DataManager.Instance.gameData.chickens = 300;
         DataManager.Instance.SaveGameData();
         currentChickenTMP.text = $"x {DataManager.Instance.gameData.chickens}";
+
+        starCycle = 120;
     }
 
     void Update(){
@@ -67,10 +72,19 @@ public class ShopManager : MonoBehaviour
             previewText.SetActive(true);
         }
 
-        if (_selected) return;
-        pbm.DeactivateButton();
-        pbm.ChangePriceText(-1);
-        pbm.ChangeTextColor("gray");
+        if (!_selected){
+            pbm.DeactivateButton();
+            pbm.ChangePriceText(-1);
+            pbm.ChangeTextColor("gray");
+        }
+
+        starCycle--;
+        if (starCycle <= 0){
+            starCycle = Random.Range(67, 333);
+            GameObject star = Instantiate(starPrefab);
+            star.transform.localPosition = new Vector3(Random.Range(-3.1f, 3.1f), Random.Range(5.3f, 6.5f), 1);
+            star.transform.localScale = new Vector3(star.transform.localScale.x * (2 * Random.Range(1, 3) - 3), star.transform.localScale.y, 1);
+        }
     }
 
     public void SelectHatContainer(int itemCode = 0){

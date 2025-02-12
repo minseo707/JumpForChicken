@@ -10,7 +10,7 @@ public class ScoreManager : MonoBehaviour
 {
     public static ScoreManager Instance;
 
-    public int score = -1; // 바닥도 점수로 인식해서 0으로 시작
+    public int score = 0; // 바닥도 점수로 인식해서 0으로 시작
     public int chicken = 0; // 치킨 개수
 
     public TextMeshProUGUI scoreText;

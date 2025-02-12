@@ -7,6 +7,7 @@ public class CenterScoreManager : MonoBehaviour
     public TextMeshProUGUI scoreText; // 점수 텍스트
     public TextMeshProUGUI unitText;  // "m" 텍스트
     public float iconSpacing = 50f;   // 아이콘과 점수 텍스트 사이의 간격
+    public float iconOffsetY = 0f;
     public float unitSpacing = 75f;   // 점수와 "m" 텍스트 사이의 간격
     public float unitOffsetY = -25f;  // "m" 텍스트의 Y 좌표 조정값
     public float yOffset = 0f;
@@ -51,7 +52,7 @@ public class CenterScoreManager : MonoBehaviour
         RectTransform highIconRect = HighIcon.GetComponent<RectTransform>();
         highIconRect.anchoredPosition = new Vector3(
             xOffset + centerX - totalWidth / 2 + highIconWidth / 2,
-            -222 + yOffset, // 중앙 기준 Y 좌표
+            -222 + yOffset + iconOffsetY, // 중앙 기준 Y 좌표
             0
         );
 

@@ -9,12 +9,20 @@ public class ChickenInWall : MonoBehaviour
     private Rigidbody2D rb;            // 치킨 리지드바디(있다면)
     private Collider2D[] overlapHits;  // Overlap 결과 배열
 
+    private GameObject chickenSprite;
+    private float randomStartTime;
+
     private void Awake()
     {
         chickenCol = GetComponent<Collider2D>();
         rb = GetComponent<Rigidbody2D>();
 
         overlapHits = new Collider2D[5];
+    }
+
+    void Start(){
+        chickenSprite = transform.GetChild(1).gameObject;
+        randomStartTime = Random.Range(0f, 360f);
     }
 
     private void FixedUpdate()
@@ -63,5 +71,9 @@ public class ChickenInWall : MonoBehaviour
         {
             overlapHits[i] = null;
         }
+    }
+
+    void Update(){
+        chickenSprite.transform.localPosition = new Vector3(0, 0.07f * (Mathf.Sin(Time.time * 3f + randomStartTime) + 1), 0);
     }
 }
