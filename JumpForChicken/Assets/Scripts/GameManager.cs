@@ -32,7 +32,7 @@ public class GameManager : MonoBehaviour
 
     private void Update() {
         deltaTime += (Time.unscaledDeltaTime - deltaTime) * 0.1f;
-        fpsText.text = $"FPS: {Mathf.Floor(10f/deltaTime)*0.1f}";
+        fpsText.text = $"FPS: {Mathf.Round(1 / deltaTime)}";
     }
 
     public void OnclickPauseButton(){

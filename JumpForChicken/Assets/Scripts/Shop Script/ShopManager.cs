@@ -58,6 +58,7 @@ public class ShopManager : MonoBehaviour
         SelectMotorcycleContainer(DataManager.Instance.gameData.equippedGoods[2]);
         first = false;
         _selected = false;
+        for (int i = 0; i < 15; i++) buttonItemSelectManagers[i].ItsNotMe();
         DataManager.Instance.gameData.chickens = 300;
         DataManager.Instance.SaveGameData();
         currentChickenTMP.text = $"x {DataManager.Instance.gameData.chickens}";
@@ -109,6 +110,7 @@ public class ShopManager : MonoBehaviour
         ChangePlayerItem(itemCode, 0);
         selectedItemIsPurchased = DataManager.Instance.gameData.hasHelmets[itemCode];
         for (int i = 0; i < 5; i++) buttonItemSelectManagers[i].Unselect();
+        for (int i = 0; i < 15; i++) buttonItemSelectManagers[i].ItsNotMe();
         buttonItemSelectManagers[itemCode].Select();
     }
 
@@ -116,6 +118,7 @@ public class ShopManager : MonoBehaviour
         ChangePlayerItem(itemCode, 1);
         selectedItemIsPurchased = DataManager.Instance.gameData.hasClothes[itemCode];
         for (int i = 0; i < 5; i++) buttonItemSelectManagers[i + 5].Unselect();
+        for (int i = 0; i < 15; i++) buttonItemSelectManagers[i].ItsNotMe();
         buttonItemSelectManagers[itemCode + 5].Select();
     }
 
@@ -123,6 +126,7 @@ public class ShopManager : MonoBehaviour
         ChangePlayerItem(itemCode, 2);
         selectedItemIsPurchased = DataManager.Instance.gameData.hasMotorcycle[itemCode];
         for (int i = 0; i < 5; i++) buttonItemSelectManagers[i + 10].Unselect();
+        for (int i = 0; i < 15; i++) buttonItemSelectManagers[i].ItsNotMe();
         buttonItemSelectManagers[itemCode + 10].Select();
     }
 

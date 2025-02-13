@@ -75,6 +75,8 @@ public class PlayerController : MonoBehaviour
     private GameObject soundPlayManager;
     private bool isWalkingSoundPlaying = false; // 현재 걷는 소리가 재생 중인지 추적
 
+    private bool[] isPlayerVelocityZero = {false, false};
+
     GameObject gm;
     void Awake(){
         gm = GameObject.Find("GameManager");
@@ -217,12 +219,20 @@ public class PlayerController : MonoBehaviour
         Animations(); // 애니메이션 담당 함수
         ScoreByHeight(); // 높이에 따른 점수 담당 함수
 
+        isPlayerVelocityZero[1] = isPlayerVelocityZero[0];
+        if (rigid.velocity.x == 0){
+            isPlayerVelocityZero[0] = true;
+        } else {
+            isPlayerVelocityZero[0] = false;
+        }
+
         if (isDead) rigid.velocity = Vector2.zero;
 
         if (maxHeight - offest < transform.position.y)
         {
             maxHeight = transform.position.y + offest;
         }
+
     }
 
     // 낙하 감지
@@ -239,43 +249,45 @@ public class PlayerController : MonoBehaviour
     
     // 벽 충돌 시 실행
     private void OnCollisionEnter2D(Collision2D collision) {
-        ContactPoint2D contact = collision.contacts[0];
-        float entryAngle = Vector2.Angle(collision.relativeVelocity, -contact.normal);
-        // 플레이어가 왼쪽에서 오른쪽으로 충돌
-        if (collision.contacts[0].normal.x < -0.7f && !collision.gameObject.CompareTag("PassBlock") && entryAngle > 90f)
-        {
-            Debug.Log($"{collision.contacts[0].normal.x}, {collision.contacts[0].normal.y}: {entryAngle}");
-            if (pam.isJumping){
-                rigid.velocity = new Vector2(-1.5f, rigid.velocity.y/3);
-                pam.isCrashing = true;
-                pam.lookAt = 1;
-                soundPlayManager.GetComponent<SoundPlayManager>().PlaySound("breakFx");
-            }
-            else if (pam.isFalling){
-                rigid.velocity = new Vector2(-0.75f, rigid.velocity.y);
-                pam.isCrashing = true;
-                pam.lookAt = 1;
-                soundPlayManager.GetComponent<SoundPlayManager>().PlaySound("breakFx");
-            }
-        }
-        // 플레이어가 오른쪽에서 왼쪽으로 충돌
-        else if (collision.contacts[0].normal.x > 0.7f && !collision.gameObject.CompareTag("PassBlock") && entryAngle > 90f)
-        {
-            Debug.Log($"{collision.contacts[0].normal.x}, {collision.contacts[0].normal.y}: {entryAngle}");
-            if (pam.isJumping){
-                rigid.velocity = new Vector2(1.5f, rigid.velocity.y/3);
-                pam.isCrashing = true;
-                pam.lookAt = -1;
-                soundPlayManager.GetComponent<SoundPlayManager>().PlaySound("breakFx");
-            }
-            else if (pam.isFalling){
-                rigid.velocity = new Vector2(0.75f, rigid.velocity.y);
-                pam.isCrashing = true;
-                pam.lookAt = -1;
-                soundPlayManager.GetComponent<SoundPlayManager>().PlaySound("breakFx");
-            }
-        }
 
+        for (int i = 0; i < collision.contacts.Length; i++){
+            ContactPoint2D contact = collision.contacts[i];
+            Debug.Log($"{contact.normal.x}, {contact.normal.y}: {isPlayerVelocityZero[1]}");
+            // 플레이어가 왼쪽에서 오른쪽으로 충돌
+            if (contact.normal.x < -0.7f && !collision.gameObject.CompareTag("PassBlock") && !isPlayerVelocityZero[1])
+            {
+                if (pam.isJumping){
+                    rigid.velocity = new Vector2(-1.5f, rigid.velocity.y/3);
+                    pam.isCrashing = true;
+                    pam.lookAt = 1;
+                    soundPlayManager.GetComponent<SoundPlayManager>().PlaySound("breakFx");
+                }
+                else if (pam.isFalling){
+                    rigid.velocity = new Vector2(-0.75f, rigid.velocity.y);
+                    pam.isCrashing = true;
+                    pam.lookAt = 1;
+                    soundPlayManager.GetComponent<SoundPlayManager>().PlaySound("breakFx");
+                }
+            }
+            // 플레이어가 오른쪽에서 왼쪽으로 충돌
+            else if (contact.normal.x > 0.7f && !collision.gameObject.CompareTag("PassBlock") && !isPlayerVelocityZero[1])
+            {
+                if (pam.isJumping){
+                    rigid.velocity = new Vector2(1.5f, rigid.velocity.y/3);
+                    pam.isCrashing = true;
+                    pam.lookAt = -1;
+                    soundPlayManager.GetComponent<SoundPlayManager>().PlaySound("breakFx");
+                }
+                else if (pam.isFalling){
+                    rigid.velocity = new Vector2(0.75f, rigid.velocity.y);
+                    pam.isCrashing = true;
+                    pam.lookAt = -1;
+                    soundPlayManager.GetComponent<SoundPlayManager>().PlaySound("breakFx");
+                }
+            }
+
+        }
+        
     }
 
     public Vector2 currentVelocity;
