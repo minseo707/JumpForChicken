@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// 비둘기 움직임, 퇴장 및 치킨 설치 관리
+/// </summary>
 public class PigeonManager : MonoBehaviour
 {
 

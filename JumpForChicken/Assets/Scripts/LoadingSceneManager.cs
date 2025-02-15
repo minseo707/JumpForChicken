@@ -104,6 +104,7 @@ public class LoadingSceneManager : MonoBehaviour
 
         // 설정 완료 후 카메라 재활성화, 인게임 시작
         mainCamera.SetActive(true);
+        mainCamera.GetComponent<MainLetterboxCamera>().AspectControl();
         Time.timeScale = 1;
 
         SceneManager.UnloadSceneAsync("LoadingScene");

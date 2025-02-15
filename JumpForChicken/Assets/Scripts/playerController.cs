@@ -6,6 +6,9 @@ using Unity.Mathematics;
 using UnityEditor;
 using UnityEngine;
 
+/// <summary>
+/// 플레이어 움직임 및 기타 효과 재생
+/// </summary>
 public class PlayerController : MonoBehaviour
 {
     private int height = 0;

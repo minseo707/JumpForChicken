@@ -3,6 +3,9 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+/// <summary>
+/// [상점] 상점 아이템 선택 및 구매 총괄
+/// </summary>
 public class ShopManager : MonoBehaviour
 {
     private bool _selected; // for first update only

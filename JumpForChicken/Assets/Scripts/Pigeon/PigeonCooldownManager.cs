@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// 비둘기 출현 쿨타임 및 생성 관리
+/// </summary>
 public class PigeonCooldownManager : MonoBehaviour
 {
 

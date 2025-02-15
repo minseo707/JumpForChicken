@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// [상점] 아이템 객체에 적용되는 선택 관리
+/// </summary>
 public class ItemSelectManager : MonoBehaviour
 {
     private Image image;

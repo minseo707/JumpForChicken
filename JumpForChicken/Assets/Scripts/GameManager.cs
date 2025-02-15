@@ -1,18 +1,12 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.AI;
-using UnityEngine.Rendering.Universal;
 using UnityEngine.SceneManagement;
-using UnityEngine.SocialPlatforms;
-using UnityEngine.UI;
 
+/// <summary>
+/// 인게임에서의 버튼 이벤트 및 UI 관리
+/// </summary>
 public class GameManager : MonoBehaviour
 {
-    GameObject platformData;
-
     public GameObject pauseUICanvas;
 
     public GameObject endingUICanvas;
@@ -26,11 +20,11 @@ public class GameManager : MonoBehaviour
 
 
     private void Awake() {
-        platformData = GameObject.Find("Platform");
         deltaTime = 0f;
     }
 
     private void Update() {
+        // 초당 프레임 수 관리
         deltaTime += (Time.unscaledDeltaTime - deltaTime) * 0.1f;
         fpsText.text = $"FPS: {Mathf.Round(1 / deltaTime)}";
     }
