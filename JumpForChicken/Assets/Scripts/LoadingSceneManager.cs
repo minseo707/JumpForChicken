@@ -6,6 +6,9 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+/// <summary>
+/// 로딩 씬에서 다음 오브젝트들을 미리 불러옴
+/// </summary>
 public class LoadingSceneManager : MonoBehaviour
 {
     public static string nextSceneName = "SampleScene";

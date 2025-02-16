@@ -4,6 +4,9 @@ using UnityEditor;
 using System.Reflection;
 #endif
 
+/// <summary>
+/// 인게임에서의 화면 비율을 고정하는 클래스
+/// </summary>
 [RequireComponent(typeof(Camera))]
 public class MainLetterboxCamera : MonoBehaviour
 {

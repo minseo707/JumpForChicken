@@ -36,6 +36,9 @@ public class ShopManager : MonoBehaviour
     public GameObject player;
     private PlayerAnimationManager pam;
 
+    public GameObject bike;
+    private BikeSpriteManager bsm;
+
     public GameObject starPrefab;
     private int starCycle = 120;
 
@@ -44,6 +47,7 @@ public class ShopManager : MonoBehaviour
         for (int i = 0; i < 15; i++) buttonItemSelectManagers[i] = buttons[i].GetComponent<ItemSelectManager>();
         pbm = purchaseButton.GetComponent<PurchaseButtonManager>();
         pam = player.GetComponent<PlayerAnimationManager>();
+        bsm = bike.GetComponent<BikeSpriteManager>();
         currentChickenTMP = currentChickenText.GetComponent<TextMeshProUGUI>();
     }
 
@@ -137,7 +141,7 @@ public class ShopManager : MonoBehaviour
     public void ChangePlayerItem(int itemCode, int classifyCode){
         // Purchase Button Controls
         if (classifyCode == 0){
-            if (_selected) {
+            if (_selected) { // 사용자가 직접 클릭함
                 pbm.ChangePriceText(hatPrice[itemCode]);
                 pam.hatCode = itemCode;
                 pam.LoadPlayerSprite(true, false);
@@ -163,7 +167,7 @@ public class ShopManager : MonoBehaviour
                 }
             }
         } else if (classifyCode == 1){
-            if (_selected){
+            if (_selected){ // 사용자가 직접 클릭함
                 pbm.ChangePriceText(clothesPrice[itemCode]);
                 pam.clothesCode = itemCode;
                 pam.LoadPlayerSprite(false, true);
@@ -188,9 +192,10 @@ public class ShopManager : MonoBehaviour
                     pbm.DeactivateButton();
                 }
             }
-        } else {
-            if (_selected){
+        } else { // 오토바이
+            if (_selected){ // 사용자가 직접 클릭함
                 pbm.ChangePriceText(motorcyclePrice[itemCode]);
+                bsm.LoadBikeSprite(false, itemCode);
                 lastSelectedClassifyCode = 2;
             }
             if (DataManager.Instance.gameData.hasMotorcycle[itemCode]){
