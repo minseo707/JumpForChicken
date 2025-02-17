@@ -21,12 +21,14 @@ public class TileLoader : MonoBehaviour
     private void Awake()
     {
         // InitializeWeights();
+        // Loading Scene에서 실행합니다.
     }
 
     private void Start()
     {
         // LoadRandomTiles();
         // PrintRandomTiles();
+        // Loading Scene에서 실행합니다.
     }
 
     private void InitializeWeights()

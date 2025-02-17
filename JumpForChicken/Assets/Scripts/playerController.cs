@@ -217,9 +217,9 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
+        Animations(); // 애니메이션 담당 함수
         Move(); // 움직임 담당 함수
         Jump(); // 점프 담당 함수
-        Animations(); // 애니메이션 담당 함수
         ScoreByHeight(); // 높이에 따른 점수 담당 함수
 
         isPlayerVelocityZero[1] = isPlayerVelocityZero[0];
@@ -255,7 +255,6 @@ public class PlayerController : MonoBehaviour
 
         for (int i = 0; i < collision.contacts.Length; i++){
             ContactPoint2D contact = collision.contacts[i];
-            Debug.Log($"{contact.normal.x}, {contact.normal.y}: {isPlayerVelocityZero[1]}");
             // 플레이어가 왼쪽에서 오른쪽으로 충돌
             if (contact.normal.x < -0.7f && !collision.gameObject.CompareTag("PassBlock") && !isPlayerVelocityZero[1])
             {
@@ -297,6 +296,7 @@ public class PlayerController : MonoBehaviour
 
     private void Move()
     {
+
         // 플레이어의 속도를 직접적으로 설정 불가능하므로, 새로운 변수에 저장 후 수정
         currentVelocity = rigid.velocity;
 
@@ -336,6 +336,7 @@ public class PlayerController : MonoBehaviour
             currentVelocity.x = movePower * pam.lookAt;
             rigid.velocity = currentVelocity;
             stopped = false;
+            Debug.Log("[PlayerController] inputAxis가 0인 상황에서 떨어지기 시작했을 때 이론 상은 문제 없지만, 프레임 차이로 발생하는 버그 수정");
         }
 
         // 점프 장전 중에는 정지
@@ -448,7 +449,7 @@ public class PlayerController : MonoBehaviour
         if (pam.isFalling && pam.isFirstJump)
         {
             Landing();
-            Debug.LogError("[PlayerController] 낙하 모션 중 땅에서 정지하는 버그가 발생하였으나 해결됨");
+            Debug.Log("[PlayerController] 낙하 모션 중 땅에서 정지하는 버그가 발생하였으나 해결됨");
         }
     }
 

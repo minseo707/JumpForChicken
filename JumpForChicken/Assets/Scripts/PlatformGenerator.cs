@@ -91,6 +91,7 @@ public class PlatformGenerator : MonoBehaviour
 
         // 다음 타일의 높이 범위 설정
         float nextTileHeight = Random.Range(3, 5);
+        int nextTileSize = AnalysisPrefabName(prefab.name)[1];
 
         if (tileYList.Count >= minTile)
         {
@@ -132,7 +133,7 @@ public class PlatformGenerator : MonoBehaviour
         {
             yLeftMin = -(7f / 4f) * (lastTileX - lastTileSize / 2 + 4.5f - sideDecline) + 21f * declineArea / 16f;
             yRightMin = -(7f / 4f) * (-lastTileX - lastTileSize / 2 + 4.5f - sideDecline) + 21f * declineArea / 16f;
-            y = Mathf.Min(yLeftMin, yRightMin);
+            y = Mathf.Max(y, Mathf.Min(yLeftMin, yRightMin));
         }
 
         if (y >= declineArea)
@@ -143,14 +144,8 @@ public class PlatformGenerator : MonoBehaviour
             float left = lastTileX - rMax - lastTileSize / 2;
             float right = lastTileX + rMax + lastTileSize / 2;
 
-            if (left < -4.5f + sideDecline)
-            {
-                left = -4.5f + sideDecline;
-            }
-            if (right > 4.5f - sideDecline)
-            {
-                right = 4.5f - sideDecline;
-            }
+            left = Mathf.Max(left, -4.5f + sideDecline);
+            right = Mathf.Min(right, 4.5f - sideDecline);
 
             pointX = Random.Range(left, right);
         }
@@ -193,11 +188,11 @@ public class PlatformGenerator : MonoBehaviour
             }
         }
 
-        x = pointX > lastTileX ? pointX + nextTileHeight / 2 : pointX - nextTileHeight / 2;
+        x = pointX > lastTileX ? pointX + nextTileSize / 2 : pointX - nextTileSize / 2;
 
         // tileYList와 tileList 업데이트
         tileYList.Add(y);
-        tileList.Add(new Vector3(x, tileList.Count > 0 ? tileList[tileList.Count - 1].y + y : y, nextTileHeight));
+        tileList.Add(new Vector3(x, tileList.Count > 0 ? tileList[tileList.Count - 1].y + y : y, nextTileSize));
 
         // 새 타일 Instantiate하고 높이, 위치 설정 및 TileLoader에서 프리팹 불러오기
         GameObject newTile = Instantiate(prefab, new Vector3(x, tileList[tileList.Count - 1].y, 0), Quaternion.identity);
@@ -213,6 +208,58 @@ public class PlatformGenerator : MonoBehaviour
 
         // 플랫폼 상태 컴포넌트 추가
         PlatformStateManager platformManager = newTile.AddComponent<PlatformStateManager>();
+    }
+
+    private int[] AnalysisPrefabName(string prefabName){
+        int stage = 1;
+        int nextTileSize = 2;
+        int oneWay = 0; // 통과 가능: 1, 통과 불가능: 0
+        int blockL = 0; // L자블록 X: 0, L자블록 오른쪽: 1, L자블록 왼쪽: -1
+
+        string _pfname = prefabName;
+
+        if (_pfname.Contains("cityBlock"))
+        {
+            _pfname = _pfname.Replace("cityBlock_", "");
+            stage = 1;
+        } else if (_pfname.Contains("mountainBlock")){
+            _pfname = _pfname.Replace("mountainBlock_", "");
+            stage = 2;
+        } else if (_pfname.Contains("skyBlock")){
+            _pfname = _pfname.Replace("skyBlock_", "");
+            stage = 3;
+        } else if (_pfname.Contains("spaceBlock")){
+            _pfname = _pfname.Replace("spaceBlock_", "");
+            stage = 4;
+        } else {
+            Debug.LogError("Prefab name error : " + _pfname);
+        }
+
+        oneWay = _pfname.StartsWith("T") ? 1 : 0;
+        _pfname = _pfname.Substring(1);
+
+        // 추후 스테이지 변경에 따라 수정
+        if (_pfname.StartsWith("2")) nextTileSize = 2;
+        else if (_pfname.StartsWith("3")) nextTileSize = 3;
+        else if (_pfname.StartsWith("4")) nextTileSize = 4;
+        else if (_pfname.StartsWith("5")) {
+            nextTileSize = 3;
+            blockL = 1;
+        }
+        else if (_pfname.StartsWith("6")){
+            nextTileSize = 4;
+            blockL = 1;
+        }
+        _pfname = _pfname.Substring(2);
+
+        if (_pfname.StartsWith("L")){
+            _pfname = _pfname.Substring(2);
+            blockL = -1;
+        } else {
+            _pfname = _pfname.Substring(1);
+        }
+
+        return new int[] {stage, nextTileSize, oneWay, blockL};
     }
 
     public void DAUp(){PlayerPrefs.SetFloat("declineArea", PlayerPrefs.GetFloat("declineArea") + .1f); Sync();}
