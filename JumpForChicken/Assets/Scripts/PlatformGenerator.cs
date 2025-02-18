@@ -93,6 +93,8 @@ public class PlatformGenerator : MonoBehaviour
         float nextTileHeight = Random.Range(3, 5);
         int nextTileSize = AnalysisPrefabName(prefab.name)[1];
 
+        // '최소 타일' 조건 적용
+        // minTile 동안 minMove 이상 올라가야 하는 규칙
         if (tileYList.Count >= minTile)
         {
             float lastTileSum = 0f;
@@ -112,6 +114,7 @@ public class PlatformGenerator : MonoBehaviour
             }
         }
 
+        // 다음 블록의 높이를 랜덤으로 설정 (전 조건문에 의해 결정된 최소 선택 높이 부터 최대 높이까지)
         y = minYSelectP == 8f ? 8f : Mathf.Round(Random.Range(minYSelectP, 8f) * 10f) / 10f;
 
         if (y >= 0 && y < declineArea * 7 / 8)
@@ -129,6 +132,7 @@ public class PlatformGenerator : MonoBehaviour
         float leftIn = lastTileX - yTest - lastTileSize / 2;
         float rightIn = lastTileX + yTest + lastTileSize / 2;
 
+        // 만약 어떤 y에 대해 대응되는 x가 존재하지 않으면
         if (leftIn < -4.5f + sideDecline && rightIn > 4.5f - sideDecline)
         {
             yLeftMin = -(7f / 4f) * (lastTileX - lastTileSize / 2 + 4.5f - sideDecline) + 21f * declineArea / 16f;
@@ -136,20 +140,50 @@ public class PlatformGenerator : MonoBehaviour
             y = Mathf.Max(y, Mathf.Min(yLeftMin, yRightMin));
         }
 
+        // y가 제외 범위를 넘어가 별도의 조건이 필요하지 않은 경우
         if (y >= declineArea)
         {
+            // rMin 변수를 사용해야 할 상황이 있을 것 같아서 미리 제작해둡니다.
             rMin = 0f;
             rMax = y >= 0 && y < 7f ? -(4f / 7f) * y + 6f : -(1f / 4f) * y + 3f;
 
             float left = lastTileX - rMax - lastTileSize / 2;
             float right = lastTileX + rMax + lastTileSize / 2;
 
+            leftIn = lastTileX - rMin - lastTileSize / 2;
+            rightIn = lastTileX + rMin + lastTileSize / 2;
+
+            int side = 0;
+            if (leftIn < -4.5f + sideDecline) side = 2; // 왼쪽에 설치가 가능한 부분이 없을 경우
+            if (rightIn > 4.5f - sideDecline) side = 1; // 오른쪽에 설치가 가능한 부분이 없을 경우
+
             left = Mathf.Max(left, -4.5f + sideDecline);
             right = Mathf.Min(right, 4.5f - sideDecline);
 
-            pointX = Random.Range(left, right);
+            if (side == 1)
+            {
+                pointX = Random.Range(left, leftIn);
+            }
+            else if (side == 2)
+            {
+                pointX = Random.Range(rightIn, right);
+            }
+            else
+            {
+                float rand = Random.Range(0f, leftIn - left + rightIn - right);
+                if (rand > leftIn - left)
+                {
+                    pointX = rightIn + rand - (leftIn - left);
+                }
+                else
+                {
+                    pointX = left + rand;
+                }
+            }
+
+            // pointX = Random.Range(left, right);
         }
-        else
+        else // y가 제외 범위 내로 있어서 생성 가능 x가 두 구역으로 나뉜 경우
         {
             rMin = y >= 0 && y < declineArea * 7 / 8 ? -(4f / 7f) * y + 6f * declineArea / 8f : -(1f / 4f) * y + 3f * declineArea / 8f;
             rMax = -(4f / 7f) * y + 6f;
@@ -160,11 +194,13 @@ public class PlatformGenerator : MonoBehaviour
             rightIn = lastTileX + rMin + lastTileSize / 2;
 
             int side = 0;
-            if (leftIn < -4.5f + sideDecline) side = 2;
-            if (rightIn > 4.5f - sideDecline) side = 1;
+            if (leftIn < -4.5f + sideDecline) side = 2; // 왼쪽에 설치가 가능한 부분이 없을 경우
+            if (rightIn > 4.5f - sideDecline) side = 1; // 오른쪽에 설치가 가능한 부분이 없을 경우
+            // 여기서 두 부분에 설치가 가능한 부분이 없을 경우는 존재하지 않습니다.
 
-            if (leftOut < -4.5f + sideDecline) leftOut = -4.5f + sideDecline;
-            if (rightOut > 4.5f - sideDecline) rightOut = 4.5f - sideDecline;
+            // 측면 최소 너비를 만족하기 위한 Max, Min (변경)
+            leftOut = Mathf.Max(leftOut, -4.5f + sideDecline);
+            rightOut = Mathf.Min(rightOut, 4.5f - sideDecline);
 
             if (side == 1)
             {
@@ -174,7 +210,7 @@ public class PlatformGenerator : MonoBehaviour
             {
                 pointX = Random.Range(rightIn, rightOut);
             }
-            else
+            else // 양쪽 모두 설치 가능한 부분이 있어 랜덤을 한 번에 구역을 나누어 실행합니다.
             {
                 float rand = Random.Range(0f, leftIn - leftOut + rightIn - rightOut);
                 if (rand > leftIn - leftOut)
@@ -188,6 +224,7 @@ public class PlatformGenerator : MonoBehaviour
             }
         }
 
+        // 왼쪽으로 점프하는 상황인지, 오른쪽으로 점프하는 상황인지 나누고 x좌표를 설정
         x = pointX > lastTileX ? pointX + nextTileSize / 2 : pointX - nextTileSize / 2;
 
         // tileYList와 tileList 업데이트
