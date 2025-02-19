@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 7516717313497266558}
   - component: {fileID: 7932840340233986779}
   - component: {fileID: 450541476670402345}
+  - component: {fileID: 7121945938737716066}
   m_Layer: 0
   m_Name: cityBlock_F5_3
   m_TagString: Block
@@ -405,3 +406,16 @@ CompositeCollider2D:
   m_OffsetDistance: 0
   m_UseDelaunayMesh: 0
   m_CompositeGameObject: {fileID: 4653708860494558077}
+--- !u!114 &7121945938737716066
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4653708860494558077}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab4341a6650c333419797fc14b5cc285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentState: 0

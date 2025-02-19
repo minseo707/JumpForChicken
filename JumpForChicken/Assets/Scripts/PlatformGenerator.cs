@@ -18,6 +18,7 @@ public class PlatformGenerator : MonoBehaviour
 
     private List<Vector3> tileList = new List<Vector3>(); // 타일 리스트
     private List<float> tileYList = new List<float>(); // 타일의 y좌표 리스트
+    private float previousX = 0f; // 이전 플랫폼 x좌표 (PlatformLBlockSearch 컴포넌트용)
 
     public Grid grid; // 그리드 설정
 
@@ -208,6 +209,20 @@ public class PlatformGenerator : MonoBehaviour
 
         // 플랫폼 상태 컴포넌트 추가
         PlatformStateManager platformManager = newTile.AddComponent<PlatformStateManager>();
+
+        // 플랫폼 배치 완료 로그
+        Debug.Log($"블록 배치 완료: {newTile.name}, 좌표: {newTile.transform.position}");
+
+        // 생성된 오브젝트가 PlatformLBlockSearch 컴포넌트를 가지고 있다면 실행
+        PlatformLBlockSearch blockSearch = newTile.GetComponent<PlatformLBlockSearch>();
+        if (blockSearch != null)
+        {
+            blockSearch.SetXCoordinate(previousX);
+            blockSearch.ReverseBlock();
+        }
+
+        // 이전 플랫폼 x좌표 저장 (PlatformLBlockSearch 컴포넌트용)
+        previousX = x;
     }
 
     private int[] AnalysisPrefabName(string prefabName){
