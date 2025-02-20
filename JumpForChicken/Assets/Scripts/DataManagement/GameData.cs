@@ -3,7 +3,7 @@
 /// </summary>
 public class GameData {
     public int highScore = 0; // 최대 기록
-    public int chickens = 0; // 현재 재화 (치킨)
+    public int chickens = 200; // 현재 재화 (치킨)
 
     /// <summary>
     /// 플레이어가 현재 장착하고 있는 아이템의 인덱스 배열,

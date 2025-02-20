@@ -166,10 +166,25 @@ public class TileLoader : MonoBehaviour
         }
     }
 
+    public GameObject[] allPrefabs;
+
+    public GameObject NameToPrefab(string prefabName){
+        GameObject selectedPrefab = System.Array.Find(allPrefabs, prefab => prefab != null && prefab.name == prefabName);
+
+        if (selectedPrefab != null)
+        {
+            Debug.Log($"추가 선택된 프리팹: {selectedPrefab.name}");
+        }
+        else
+        {
+            Debug.LogWarning($"프리팹을 찾을 수 없습니다: {prefabName}");
+        }
+        return selectedPrefab;
+    }
+
     public void LoadRandomTiles()
 {
     List<GameObject> selectedPrefabs = new List<GameObject>();
-    GameObject[] allPrefabs;
 
 #if UNITY_EDITOR
     // 에디터 환경에서 AssetDatabase 사용

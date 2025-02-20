@@ -66,8 +66,6 @@ public class ShopManager : MonoBehaviour
         first = false;
         _selected = false;
         for (int i = 0; i < 15; i++) buttonItemSelectManagers[i].ItsNotMe();
-        DataManager.Instance.gameData.chickens = 300;
-        DataManager.Instance.SaveGameData();
         currentChickenTMP.text = $"x {DataManager.Instance.gameData.chickens}";
 
         starCycle = 120;

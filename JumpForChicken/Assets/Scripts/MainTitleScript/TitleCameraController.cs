@@ -14,6 +14,11 @@ public class TitleCameraController : MonoBehaviour
 
     private float touchTime = 0f;
 
+    private bool once;
+
+    private MainMusicManager mmm;
+    public GameObject settingUI;
+
     void Awake() {
         if (PlayerPrefs.GetInt("Init") == 0){
             // 처음 높이 초기화
@@ -22,6 +27,7 @@ public class TitleCameraController : MonoBehaviour
         } else {
             transform.position = new Vector3(0, 0, transform.position.z);
         }
+        once = false;
     }
 
     void Start() {
@@ -31,12 +37,20 @@ public class TitleCameraController : MonoBehaviour
         Application.targetFrameRate = 60;
         // Vsync 비활성화
         QualitySettings.vSyncCount = 0;
+
+        mmm = MainMusicManager.Instance;
+        if (transform.position.y == 0) mmm.MusicPlay();
     }
 
     void Update() {
 
         if (touchTime > 0){
             touchTime += Time.deltaTime;
+        }
+
+        if (transform.position.y < 1f && !once){
+            mmm.MusicPlay();
+            once = true;
         }
 
         // 터치 이벤트 감지가 필요 없을 때에는 이후의 코드를 무시
@@ -89,7 +103,6 @@ public class TitleCameraController : MonoBehaviour
             Ready(); // 위 무시 로직에 의해 한 번만 실행
         }
     }
-
     void Skip(){
         leftHeight = transform.position.y;
     }

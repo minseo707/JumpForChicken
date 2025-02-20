@@ -10,7 +10,7 @@ public class TaxiManager : MonoBehaviour
     /// <summary>
     /// 초당 움직임
     /// </summary>
-    public float moveSpeed = 1f;
+    private float moveSpeed = 0.3f;
 
     /// <summary>
     /// 딛고 있는 블록의 너비

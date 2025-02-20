@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using PrefabName;
+using UnityEngine.AI;
 
 public class PlatformGenerator : MonoBehaviour
 {
@@ -13,14 +15,21 @@ public class PlatformGenerator : MonoBehaviour
     public float sideDecline = 2.0f; // 벽에서부터 생성 불가능 범위
     public float minYSelect = 2.0f;
 
+    public int stage = 1;
+
     public bool isLoaded = false;
     public int runFrames = 0;
 
     private List<Vector3> tileList = new List<Vector3>(); // 타일 리스트
     private List<float> tileYList = new List<float>(); // 타일의 y좌표 리스트
-    private float previousX = 0f; // 이전 플랫폼 x좌표 (PlatformLBlockSearch 컴포넌트용)
 
     public Grid grid; // 그리드 설정
+
+    /// <summary>
+    /// 스테이지 1 장애물 설치 알고리즘을 위한 변수 배열
+    /// </summary>
+    /// <value>0: first T3 (BoolInt), 1: T3-4 Count</value>
+    private int[] stage1Conditions = {0, 0};
 
     void Start()
     {
@@ -92,7 +101,7 @@ public class PlatformGenerator : MonoBehaviour
 
         // 다음 타일의 높이 범위 설정
         float nextTileHeight = Random.Range(3, 5);
-        int nextTileSize = AnalysisPrefabName(prefab.name)[1];
+        float nextTileSize = AnalysisPrefabName(prefab.name)[1];
 
         // '최소 타일' 조건 적용
         // minTile 동안 minMove 이상 올라가야 하는 규칙
@@ -151,8 +160,8 @@ public class PlatformGenerator : MonoBehaviour
             float left = lastTileX - rMax - lastTileSize / 2;
             float right = lastTileX + rMax + lastTileSize / 2;
 
-            leftIn = lastTileX - rMin - lastTileSize / 2;
-            rightIn = lastTileX + rMin + lastTileSize / 2;
+            leftIn = lastTileX - rMin;
+            rightIn = lastTileX + rMin;
 
             int side = 0;
             if (leftIn < -4.5f + sideDecline) side = 2; // 왼쪽에 설치가 가능한 부분이 없을 경우
@@ -160,6 +169,10 @@ public class PlatformGenerator : MonoBehaviour
 
             left = Mathf.Max(left, -4.5f + sideDecline);
             right = Mathf.Min(right, 4.5f - sideDecline);
+
+            // 버그 수정
+            leftIn = Mathf.Min(leftIn, 4.5f - sideDecline);
+            rightIn = Mathf.Max(rightIn, -4.5f + sideDecline);
 
             if (side == 1)
             {
@@ -171,18 +184,11 @@ public class PlatformGenerator : MonoBehaviour
             }
             else
             {
-                float rand = Random.Range(0f, leftIn - left + rightIn - right);
-                if (rand > leftIn - left)
-                {
-                    pointX = rightIn + rand - (leftIn - left);
-                }
-                else
-                {
-                    pointX = left + rand;
-                }
+                float rand = Random.Range(0f, leftIn - left + right - rightIn);
+                pointX = rand > (leftIn - left)
+                        ? rightIn + rand - (leftIn - left)
+                        : left + rand;
             }
-
-            // pointX = Random.Range(left, right);
         }
         else // y가 제외 범위 내로 있어서 생성 가능 x가 두 구역으로 나뉜 경우
         {
@@ -203,6 +209,10 @@ public class PlatformGenerator : MonoBehaviour
             leftOut = Mathf.Max(leftOut, -4.5f + sideDecline);
             rightOut = Mathf.Min(rightOut, 4.5f - sideDecline);
 
+            // 버그 수정
+            leftIn = Mathf.Min(leftIn, 4.5f - sideDecline);
+            rightIn = Mathf.Max(rightIn, -4.5f + sideDecline);
+
             if (side == 1)
             {
                 pointX = Random.Range(leftOut, leftIn);
@@ -213,24 +223,58 @@ public class PlatformGenerator : MonoBehaviour
             }
             else // 양쪽 모두 설치 가능한 부분이 있어 랜덤을 한 번에 구역을 나누어 실행합니다.
             {
-                float rand = Random.Range(0f, leftIn - leftOut + rightIn - rightOut);
-                if (rand > leftIn - leftOut)
-                {
-                    pointX = rightIn + rand - (leftIn - leftOut);
-                }
-                else
-                {
-                    pointX = leftOut + rand;
-                }
+                float rand = Random.Range(0f, leftIn - leftOut + rightOut - rightIn);
+                pointX = rand > (leftIn - leftOut)
+                        ? rightIn + rand - (leftIn - leftOut)
+                        : leftOut + rand;
             }
         }
 
         // 왼쪽으로 점프하는 상황인지, 오른쪽으로 점프하는 상황인지 나누고 x좌표를 설정
-        x = pointX > lastTileX ? pointX + nextTileSize / 2 : pointX - nextTileSize / 2;
+        // '좌우반전'은 UP! 글씨 및 여러가지 부적절한 요소가 있어서, 반대에 대응되는 프리팹을 선택하는 것으로 결정.
+        if (pointX > lastTileX){ // pointX가 이전 x좌표 보다 오른쪽에 있어서, 오른쪽으로 점프하는 상황
+            x = pointX + nextTileSize / 2;
+            if (PrefabNameTranslator.ToPrefabAttribute(prefab.name)[3] == 1){
+                prefab = tileLoader.NameToPrefab(PrefabNameTranslator.GetOppositePrefab(prefab.name));
+                Debug.Log("[PlatformGenerator] 반대 프리팹을 선택합니다.");
+            }
+        } else { // pointX가 이전 x좌표 보다 왼쪽에 있어서, 왼쪽으로 점프하는 상황
+            x = pointX - nextTileSize / 2;
+            if (PrefabNameTranslator.ToPrefabAttribute(prefab.name)[3] == -1){
+                prefab = tileLoader.NameToPrefab(PrefabNameTranslator.GetOppositePrefab(prefab.name));
+                Debug.Log("[PlatformGenerator] 반대 프리팹을 선택합니다.");
+            }
+        }
 
         // tileYList와 tileList 업데이트
         tileYList.Add(y);
         tileList.Add(new Vector3(x, tileList.Count > 0 ? tileList[tileList.Count - 1].y + y : y, nextTileSize));
+
+        int[] _attribute = PrefabNameTranslator.ToPrefabAttribute(prefab.name);
+
+        // 장애물 처리 (Stage 1)
+        if (stage == 1){
+            if (stage1Conditions[0] == 0){ // 아직 T3 블록이 나오지 않았다면
+                if (_attribute[2] == 1 && _attribute[1] == 3) // T3 블록에 대해서
+                {
+                    stage1Conditions[0] = 1;
+                    prefab = tileLoader.NameToPrefab(PrefabNameTranslator.GetObstaclePrefab(prefab.name)); // 장애물이 있는 프리팹으로 변경
+                } 
+            } else { // T3 블록이 나오고 나서 부터
+                if (_attribute[2] == 1 && (_attribute[1] >= 3) && (_attribute[1] <= 4)){ // 3칸 이상의 도로 타일에 대해서
+                    stage1Conditions[1] += 1;
+                    if (stage1Conditions[1] == 2){ // 2번째
+                        if (Random.Range(1, 3) == 1){ // 50%의 확률
+                            stage1Conditions[1] = 0; // 번호 초기화
+                            prefab = tileLoader.NameToPrefab(PrefabNameTranslator.GetObstaclePrefab(prefab.name)); // 장애물이 있는 프리팹으로 변경
+                        }
+                    } else if (stage1Conditions[1] == 3){ // 3번째 (장애물 설치 확정)
+                        stage1Conditions[1] = 0; // 번호 초기화
+                        prefab = tileLoader.NameToPrefab(PrefabNameTranslator.GetObstaclePrefab(prefab.name)); // 장애물이 있는 프리팹으로 변경
+                    }
+                }
+            }
+        }
 
         // 새 타일 Instantiate하고 높이, 위치 설정 및 TileLoader에서 프리팹 불러오기
         GameObject newTile = Instantiate(prefab, new Vector3(x, tileList[tileList.Count - 1].y, 0), Quaternion.identity);
@@ -242,24 +286,13 @@ public class PlatformGenerator : MonoBehaviour
         newTile.transform.SetParent(grid.transform);
 
         // 발판의 위치를 다시 설정 (로컬 좌표계를 유지)
-        newTile.transform.position = worldPosition;
+        newTile.transform.localPosition = worldPosition; // localPosition으로 변경! -> Anchor에 따른 위치 이동 해결
 
         // 플랫폼 상태 컴포넌트 추가
         PlatformStateManager platformManager = newTile.AddComponent<PlatformStateManager>();
 
         // 플랫폼 배치 완료 로그
-        Debug.Log($"블록 배치 완료: {newTile.name}, 좌표: {newTile.transform.position}");
-
-        // 생성된 오브젝트가 PlatformLBlockSearch 컴포넌트를 가지고 있다면 실행
-        PlatformLBlockSearch blockSearch = newTile.GetComponent<PlatformLBlockSearch>();
-        if (blockSearch != null)
-        {
-            blockSearch.SetXCoordinate(previousX);
-            blockSearch.ReverseBlock();
-        }
-
-        // 이전 플랫폼 x좌표 저장 (PlatformLBlockSearch 컴포넌트용)
-        previousX = x;
+        Debug.Log($"블록 배치 완료: {newTile.name}, 좌표: {newTile.transform.position}, {nextTileSize}, {pointX}");
     }
 
     private int[] AnalysisPrefabName(string prefabName){

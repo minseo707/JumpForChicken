@@ -80,6 +80,9 @@ public class PlayerController : MonoBehaviour
 
     private bool[] isPlayerVelocityZero = {false, false};
 
+    private float breakTime;
+    private bool jumpBreak;
+
     GameObject gm;
     void Awake(){
         gm = GameObject.Find("GameManager");
@@ -106,6 +109,7 @@ public class PlayerController : MonoBehaviour
         QualitySettings.vSyncCount = 0;
 
         gravity *= gameSpeed;
+        breakTime = 0f;
 
         rigid.gravityScale = gameSpeed;
 
@@ -113,6 +117,7 @@ public class PlayerController : MonoBehaviour
         inputRight = false;
         inputJump = false;
         firstJumpUp = false;
+        jumpBreak = false;
 
         UIButtonManager uib = GameObject.FindGameObjectWithTag("Managers").GetComponent<UIButtonManager>();
         uib.Init();
@@ -135,11 +140,11 @@ public class PlayerController : MonoBehaviour
         else
         {
             if (firstJumpUp && rigid.velocity.y != 0){ // 다음 점프 방지
-                    firstJumpUp = false;
+                firstJumpUp = false;
             }
 
             // 땅에 있을 때
-            if (!pam.isJumping && !pam.isFalling)
+            if (!pam.isJumping && !pam.isFalling && !pam.isCrashing)
             {
                 if ((inputJump || Input.GetButton("Jump")) && rigid.velocity.y == 0)
                 {
@@ -153,6 +158,7 @@ public class PlayerController : MonoBehaviour
                         soundPlayManager.GetComponent<SoundPlayManager>().PlaySound("jumpReady", 2f, 1.5f);
 
                         spriteRendererGauge.enabled = true;
+                        stopped = true;
                         MoveAnimRandom();
                     }
 
@@ -212,11 +218,34 @@ public class PlayerController : MonoBehaviour
 
         // Trail Particle Management
         TrailManager();
+
+        currentVelocity = rigid.velocity;
+        // inputAxis가 0인 상황에서 떨어지기 시작했을 때 이론 상은 문제 없지만, 프레임 차이로 발생하는 버그 수정
+        if (rigid.velocity.y < 0f && rigid.velocity.x == 0 && stopped)
+        {
+            currentVelocity.x = movePower * pam.lookAt;
+            rigid.velocity = currentVelocity;
+            stopped = false;
+            Debug.Log("[PlayerController] inputAxis가 0인 상황에서 떨어지기 시작했을 때 이론 상은 문제 없지만, 프레임 차이로 발생하는 버그 수정 (Update)");
+
+            if (pam.isJumpReady){
+                CancelJumpReady();
+                Debug.Log("[PlayerController] 점프 준비 중 낙하 시 생기는 버그 수정 (Update)");
+            }
+        }
     }
 
 
     private void FixedUpdate()
     {
+        if (breakTime > 0f) breakTime -= Time.deltaTime;
+        if (!jumpBreak && breakTime > 0f){
+            rigid.velocity = new Vector2(rigid.velocity.x / 2 , rigid.velocity.y);
+            pam.isCrashing = true;
+        } else if (!jumpBreak && breakTime <= 0f){
+            breakTime = 0f;
+            pam.isCrashing = false;
+        }
         Animations(); // 애니메이션 담당 함수
         Move(); // 움직임 담당 함수
         Jump(); // 점프 담당 함수
@@ -261,12 +290,14 @@ public class PlayerController : MonoBehaviour
                 if (pam.isJumping){
                     rigid.velocity = new Vector2(-1.5f, rigid.velocity.y/3);
                     pam.isCrashing = true;
+                    jumpBreak = true;
                     pam.lookAt = 1;
                     soundPlayManager.GetComponent<SoundPlayManager>().PlaySound("breakFx");
                 }
                 else if (pam.isFalling){
                     rigid.velocity = new Vector2(-0.75f, rigid.velocity.y);
                     pam.isCrashing = true;
+                    jumpBreak = true;
                     pam.lookAt = 1;
                     soundPlayManager.GetComponent<SoundPlayManager>().PlaySound("breakFx");
                 }
@@ -277,12 +308,14 @@ public class PlayerController : MonoBehaviour
                 if (pam.isJumping){
                     rigid.velocity = new Vector2(1.5f, rigid.velocity.y/3);
                     pam.isCrashing = true;
+                    jumpBreak = true;
                     pam.lookAt = -1;
                     soundPlayManager.GetComponent<SoundPlayManager>().PlaySound("breakFx");
                 }
                 else if (pam.isFalling){
                     rigid.velocity = new Vector2(0.75f, rigid.velocity.y);
                     pam.isCrashing = true;
+                    jumpBreak = true;
                     pam.lookAt = -1;
                     soundPlayManager.GetComponent<SoundPlayManager>().PlaySound("breakFx");
                 }
@@ -306,7 +339,7 @@ public class PlayerController : MonoBehaviour
         }
 
         // 점프 장전이 안 되어있고, 점프 중이지 않고, 낙하 중이지 않을 때
-        else if (jumpHoldTime == 0 && !pam.isJumping && !pam.isFalling)
+        else if (jumpHoldTime == 0 && !pam.isJumping && !pam.isFalling && !pam.isCrashing)
         {
             if (inputAxis < 0)
             {
@@ -337,6 +370,11 @@ public class PlayerController : MonoBehaviour
             rigid.velocity = currentVelocity;
             stopped = false;
             Debug.Log("[PlayerController] inputAxis가 0인 상황에서 떨어지기 시작했을 때 이론 상은 문제 없지만, 프레임 차이로 발생하는 버그 수정");
+
+            if (pam.isJumpReady){
+                CancelJumpReady();
+                Debug.Log("[PlayerController] 점프 준비 중 낙하 시 생기는 버그 수정");
+            }
         }
 
         // 점프 장전 중에는 정지
@@ -455,6 +493,7 @@ public class PlayerController : MonoBehaviour
 
     private void Landing(bool playParticle = true)
     {
+        if (breakTime > 0f) return;
         // 떨어질 때만 효과음 재생 (점프 취소 시 재생되는 오류 해결)
         if (pam.isFalling){
             soundPlayManager.GetComponent<SoundPlayManager>().PlaySound("landing");
@@ -466,6 +505,7 @@ public class PlayerController : MonoBehaviour
         rigid.velocity = Vector2.zero;
         pam.onGround = true;
         pam.isCrashing = false;
+        jumpBreak = false;
         Destroy(gaugeObject);
 
         // 동기화 원리 : 점프 키를 떼는 순간, jumpHoldTime은 0이 되지만, gaugeBar의 jumpGauge는 점프 키를 떼기 직전의 jumpHoldTime을 가지고 있으므로
@@ -485,11 +525,39 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    private void CancelJumpReady(){
+        pam.isJumpReady = false;
+        pam.isFirstJump = true;
+        jumpHoldTime = 0;
+        Destroy(gaugeObject);
+    }
+
     private void OnTriggerStay2D(Collider2D other) {
         if (other.tag == "Dead" && !isDead){
             Die();
         }
+
+        if (other.tag == "Taxi"){
+            // 플레이어 콜라이더 너비: 0.3f
+            float previousVelocity = 24.19f;
+            pam.isCrashing = true;
+            pam.isJumping = false;
+            pam.isFalling = false;
+            jumpBreak = false;
+            CancelJumpReady();
+            Vector2 direction = -(other.transform.position - transform.position).normalized;
+            pam.lookAt = -(int)(direction.x / Mathf.Abs(direction.x));
+            if (breakTime > 0f){
+                breakTime = 0.1f;
+                rigid.velocity = new Vector2(previousVelocity * direction.x / Mathf.Abs(direction.x), rigid.velocity.y / 5);
+                return;
+            }
+            breakTime = 0.1f;
+            rigid.velocity = new Vector2(previousVelocity * direction.x / Mathf.Abs(direction.x), rigid.velocity.y / 5);
+            soundPlayManager.GetComponent<SoundPlayManager>().PlaySound("breakFx");
+        }
     }
+
 
     private void ScoreByHeight(){
         if (maxHeight - height >= 1f){
