@@ -98,6 +98,8 @@ public class PlatformGenerator : MonoBehaviour
         float yTest = 0f;
         float yLeftMin = 0f;
         float yRightMin = 0f;
+        float maxYSelect = 7.8f;
+        float maxYSelectP = maxYSelect;
 
         // 다음 타일의 높이 범위 설정
         float nextTileHeight = Random.Range(3, 5);
@@ -114,18 +116,21 @@ public class PlatformGenerator : MonoBehaviour
             }
             float sumDifference = minMove - lastTileSum;
 
-            if (sumDifference > 2f && sumDifference <= 8f)
+            if (sumDifference > 2f && sumDifference <= maxYSelect)
             {
                 minYSelectP = sumDifference;
             }
-            else if (sumDifference > 8f)
+            else if (sumDifference > maxYSelect)
             {
-                minYSelectP = 8f;
+                minYSelectP = maxYSelect;
             }
+        } else if (tileYList.Count < 2){
+            minYSelectP = 1f;
+            maxYSelectP = 3f;
         }
 
         // 다음 블록의 높이를 랜덤으로 설정 (전 조건문에 의해 결정된 최소 선택 높이 부터 최대 높이까지)
-        y = minYSelectP == 8f ? 8f : Mathf.Round(Random.Range(minYSelectP, 8f) * 10f) / 10f;
+        y = minYSelectP >= maxYSelect ? maxYSelect : Mathf.Round(Random.Range(minYSelectP, maxYSelectP) * 10f) / 10f;
 
         if (y >= 0 && y < declineArea * 7 / 8)
         {

@@ -20,10 +20,17 @@ public class GameManager : MonoBehaviour
 
     private bool isGameover = false;
 
+    private ButtonSoundManager bsm;
+
 
     private void Awake() {
         deltaTime = 0f;
         isGameover = false;
+    }
+
+    void Start()
+    {
+        bsm = ButtonSoundManager.Instance;
     }
 
     private void Update() {
@@ -40,35 +47,43 @@ public class GameManager : MonoBehaviour
 
     public void OnclickPauseButton(){
         Time.timeScale = 0f;
+        bsm.PlayButtonSound("button1");
         pauseUICanvas.SetActive(true);
     }
 
     public void OnClickExitButton(){
+        bsm.PlayButtonSound("button1");
         realExitContainer.SetActive(true);
     }
 
     public void OnClickRealExitButton(){
+        bsm.PlayButtonSound("button1");
         SceneManager.LoadScene("MainTitle");
     }
 
     public void OnClickExitCancelButton(){
+        bsm.PlayButtonSound("button1");
         realExitContainer.SetActive(false);
     }
 
     public void OnclickStartButton(){
         Time.timeScale = 1f;
+        bsm.PlayButtonSound("button1");
         pauseUICanvas.SetActive(false);
     }
 
     public void OnClickRestartButton(){
+        bsm.PlayButtonSound("startButton", 2f);
         LoadingSceneManager.LoadScene("SampleScene");
     }
 
     public void OnclickSettingsButton(){
+        bsm.PlayButtonSound("button1");
         settingsContainer.SetActive(true);
     }
 
     public void OnClickSettingsCancelButton(){
+        bsm.PlayButtonSound("button1");
         settingsContainer.SetActive(false);
     }
 

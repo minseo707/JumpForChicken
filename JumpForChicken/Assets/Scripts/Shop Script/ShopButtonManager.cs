@@ -8,6 +8,13 @@ using UnityEngine.SceneManagement;
 /// </summary>
 public class ShopButtonManager : MonoBehaviour
 {
+    public GameObject soundManager;
+    private ShopSoundPlayManager shopSoundManager;
+
+    void Start(){
+        shopSoundManager = soundManager.GetComponent<ShopSoundPlayManager>();
+    }
+
     private void Update(){
         // Escape가 눌리지 않았다면 탈출
         if (!Input.GetKeyDown(KeyCode.Escape)) return;
@@ -16,6 +23,7 @@ public class ShopButtonManager : MonoBehaviour
     }
 
     public void OnclickBackwardButton(){
+        ButtonSoundManager.Instance.PlayButtonSound("button1");
         SceneManager.LoadScene("MainTitle");
     }
 }

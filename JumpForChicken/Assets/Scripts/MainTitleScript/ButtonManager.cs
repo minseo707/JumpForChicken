@@ -28,18 +28,21 @@ public class ButtonManager : MonoBehaviour
     }
 
     public void StartButton(){
+        ButtonSoundManager.Instance.PlayButtonSound("startButton");
         LoadingSceneManager.LoadScene("SampleScene");
     }
 
     public void SettingsButton(){
         settingsContainer.SetActive(true);
         settingsUIEnabled = true;
+        ButtonSoundManager.Instance.PlayButtonSound("button1", 2f);
         mmm.MusicStop();
     }
 
     public void SettingsCancelButton(){
         settingsContainer.SetActive(false);
         settingsUIEnabled = false;
+        ButtonSoundManager.Instance.PlayButtonSound("button1");
         mmm.MusicPlay();
     }
 
@@ -50,6 +53,7 @@ public class ButtonManager : MonoBehaviour
 
     public void RealQuitCancelButton(){
         realQuitContainer.SetActive(false);
+        ButtonSoundManager.Instance.PlayButtonSound("button1");
         mmm.MusicPlay();
     }
 
@@ -58,6 +62,7 @@ public class ButtonManager : MonoBehaviour
     }
 
     public void OnClickShopButton(){
+        ButtonSoundManager.Instance.PlayButtonSound("button1");
         SceneManager.LoadScene("ShopScene");
     }
 }

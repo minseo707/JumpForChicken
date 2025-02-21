@@ -42,6 +42,10 @@ public class ShopManager : MonoBehaviour
     public GameObject starPrefab;
     private int starCycle = 120;
 
+
+    public GameObject soundManager;
+    private ShopSoundPlayManager shopSoundManager;
+
     void Awake(){
         buttonItemSelectManagers = new ItemSelectManager[15];
         for (int i = 0; i < 15; i++) buttonItemSelectManagers[i] = buttons[i].GetComponent<ItemSelectManager>();
@@ -49,6 +53,7 @@ public class ShopManager : MonoBehaviour
         pam = player.GetComponent<PlayerAnimationManager>();
         bsm = bike.GetComponent<BikeSpriteManager>();
         currentChickenTMP = currentChickenText.GetComponent<TextMeshProUGUI>();
+        shopSoundManager = soundManager.GetComponent<ShopSoundPlayManager>();
     }
 
     void Start()
@@ -69,6 +74,7 @@ public class ShopManager : MonoBehaviour
         currentChickenTMP.text = $"x {DataManager.Instance.gameData.chickens}";
 
         starCycle = 120;
+        Time.timeScale = 1f;
     }
 
     void Update(){
@@ -232,6 +238,7 @@ public class ShopManager : MonoBehaviour
             DataManager.Instance.gameData.hasHelmets[selectedHatCode] = true;
             DataManager.Instance.SaveGameData();
             pam.needUpdate = true;
+            shopSoundManager.PlaySound("purchase");
         } else if (lastSelectedClassifyCode == 1){
             DataManager.Instance.gameData.chickens -= clothesPrice[selectedClothesCode];
             currentChickenTMP.text = $"x {DataManager.Instance.gameData.chickens}";
@@ -245,6 +252,7 @@ public class ShopManager : MonoBehaviour
             DataManager.Instance.gameData.hasClothes[selectedClothesCode] = true;
             DataManager.Instance.SaveGameData();
             pam.needUpdate = true;
+            shopSoundManager.PlaySound("purchase");
         } else {
             DataManager.Instance.gameData.chickens -= motorcyclePrice[selectedMotorcycleCode];
             currentChickenTMP.text = $"x {DataManager.Instance.gameData.chickens}";
@@ -257,6 +265,7 @@ public class ShopManager : MonoBehaviour
             DataManager.Instance.gameData.equippedGoods[2] = selectedMotorcycleCode;
             DataManager.Instance.gameData.hasMotorcycle[selectedMotorcycleCode] = true;
             DataManager.Instance.SaveGameData();
+            shopSoundManager.PlaySound("purchase");
         }
     }
 

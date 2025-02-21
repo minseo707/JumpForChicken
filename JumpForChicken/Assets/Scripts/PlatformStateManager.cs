@@ -21,15 +21,18 @@ public class PlatformStateManager : MonoBehaviour
     public float requiredTimeOnPlatform = 0.1f; // 플레이어가 발판 위에 있어야 하는 시간 (초)
     private bool stateChanged = false; // 상태 변경 플래그 (1번만 실행)
     private Rigidbody2D playerRigidbody;
+    private Collider2D playerCollider;
+    private Collider2D nextPlatformCollider;
 
     private Renderer objectRenderer;
     private Material originalMaterial;
     private Color originalColor;
 
-    public float transparency = 0.2f; // 투명도 비율 (0.0f = 완전 투명, 1.0f = 완전 불투명)
+    private float transparency = 0.3f; // 투명도 비율 (0.0f = 완전 투명, 1.0f = 완전 불투명)
 
     private void Start()
     {
+        
         // 모든 발판을 리스트에 추가
         allPlatforms.Add(this);
 
@@ -51,6 +54,7 @@ public class PlatformStateManager : MonoBehaviour
         if (collision.collider.CompareTag("Player"))
         {
             playerRigidbody = collision.collider.GetComponent<Rigidbody2D>();
+            playerCollider = playerRigidbody.GetComponent<Collider2D>();
             isPlayerOnPlatform = true;
             timeOnPlatform = 0f; // 착지 시간 초기화
         }
@@ -59,7 +63,7 @@ public class PlatformStateManager : MonoBehaviour
     private void OnCollisionStay2D(Collision2D collision)
     {
         // 플레이어가 발판 위에 머무를 때
-        if (collision.collider.CompareTag("Player"))
+        if (collision.collider.CompareTag("Player") && collision.contacts[0].normal.y < -0.7f)
         {
             if (playerRigidbody != null && isPlayerOnPlatform)
             {
@@ -70,31 +74,36 @@ public class PlatformStateManager : MonoBehaviour
                 {
                     if (IsPlayerLanding())
                     {
-                        // 모든 Current 발판을 Past로 변경
-                        foreach (var platform in allPlatforms)
-                        {
-                            if (platform.state == PlatformState.Current)
-                            {
-                                platform.state = PlatformState.Past;
-                                platform.SetPlatformLayer();
-                            }
-                        }
-
-                        // 현재 Next 발판을 Current로 변경
-                        if (nextPlatform != null)
-                        {
-                            nextPlatform.state = PlatformState.Current;
-                            nextPlatform.SetPlatformLayer();
-
-                            // 이펙트와 효과음 재생
-                            PlayEffectAndSound();
-                        }
+                        // 상태 변경 플래그 설정
+                        stateChanged = true;
 
                         // 다음 발판 설정
                         UpdateNextPlatform();
 
-                        // 상태 변경 플래그 설정
-                        stateChanged = true;
+                        if (stateChanged){
+                            // 모든 Current 발판을 Past로 변경
+                            foreach (var platform in allPlatforms)
+                            {
+                                if (platform.state == PlatformState.Current)
+                                {
+                                    platform.state = PlatformState.Past;
+                                    platform.SetPlatformLayer();
+                                }
+                            }
+
+                            // 현재 Next 발판을 Current로 변경
+                            if (nextPlatform != null)
+                            {
+                                nextPlatform.state = PlatformState.Current;
+                                nextPlatform.SetPlatformLayer();
+
+                                // 이펙트와 효과음 재생
+                                PlayEffectAndSound();
+                            }
+
+                            nextPlatform.state = PlatformState.Next;
+                            nextPlatform.SetPlatformLayer();
+                        }
                     }
                 }
             }
@@ -128,6 +137,7 @@ public class PlatformStateManager : MonoBehaviour
         {
             case PlatformState.Current:
                 gameObject.layer = LayerMask.NameToLayer("CurrentPlatform");
+                SetTransparency(false);
                 break;
             case PlatformState.Next:
                 gameObject.layer = LayerMask.NameToLayer("NextPlatform");
@@ -159,6 +169,7 @@ public class PlatformStateManager : MonoBehaviour
                     if (newNextPlatform == null)
                     {
                         newNextPlatform = platformManager;
+                        nextPlatformCollider = hitCollider;
                     }
                     else
                     {
@@ -166,6 +177,7 @@ public class PlatformStateManager : MonoBehaviour
                         if (platformManager.transform.position.y < newNextPlatform.transform.position.y)
                         {
                             newNextPlatform = platformManager;
+                            nextPlatformCollider = hitCollider;
                         }
 
                     }
@@ -177,8 +189,11 @@ public class PlatformStateManager : MonoBehaviour
         if (newNextPlatform != null)
         {
             nextPlatform = newNextPlatform;
-            nextPlatform.state = PlatformState.Next;
-            nextPlatform.SetPlatformLayer();
+            if (nextPlatformCollider.bounds.Intersects(playerCollider.bounds)){
+                stateChanged = false;
+                Debug.Log("[PlatformStateManager] 플레이어가 끼는 버그가 발생하였지만 해결됨");
+                return;
+            } 
         }
     }
 

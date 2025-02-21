@@ -17,6 +17,8 @@ public class ShopSoundPlayManager : MonoBehaviour
     public GameObject acquire;
     public GameObject walking;
 
+    public GameObject purchase;
+
     public float totalVolume = 1f;
     public float bgmVolume = 1f;
     public float fxVolume = 1f;
@@ -98,6 +100,12 @@ public class ShopSoundPlayManager : MonoBehaviour
                     volume * totalVolume * fxVolume;
                 acquire.GetComponent<AudioSource>().pitch = pitch;
                 acquire.GetComponent<AudioSource>().Play();
+                break;
+            case "purchase":
+                purchase.GetComponent<AudioSource>().volume = 
+                    volume * totalVolume * fxVolume;
+                purchase.GetComponent<AudioSource>().pitch = pitch;
+                purchase.GetComponent<AudioSource>().Play();
                 break;
             default:
                 Debug.LogWarning("No sound clip found with the name: " + sound);

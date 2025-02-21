@@ -665,6 +665,7 @@ GameObject:
   - component: {fileID: 1639453736}
   - component: {fileID: 1639453735}
   - component: {fileID: 1639453737}
+  - component: {fileID: 1639453738}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -752,6 +753,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   targetAspectWidth: 9
   targetAspectHeight: 16
+--- !u!81 &1639453738
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1639453733}
+  m_Enabled: 1
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

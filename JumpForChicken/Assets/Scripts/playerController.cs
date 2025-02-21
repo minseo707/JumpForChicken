@@ -238,7 +238,15 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (breakTime > 0f) breakTime -= Time.deltaTime;
+        if (breakTime > 0f) {
+            breakTime -= Time.deltaTime;
+            stopped = false;
+        }
+        if (pam.isFalling && breakTime > 0f){
+            pam.isCrashing = true;
+            jumpBreak = true;
+            rigid.velocity = new Vector2(rigid.velocity.x / 2 , rigid.velocity.y);
+        }
         if (!jumpBreak && breakTime > 0f){
             rigid.velocity = new Vector2(rigid.velocity.x / 2 , rigid.velocity.y);
             pam.isCrashing = true;
@@ -273,9 +281,9 @@ public class PlayerController : MonoBehaviour
         for (int i = 0; i < collision.contacts.Length; i++)
         {
             if (collision.contacts[i].normal.y > 0.7f && pam.isFalling)
-        {
-            Landing();
-        }
+            {
+                Landing();
+            }
         }
     }
     
@@ -541,8 +549,7 @@ public class PlayerController : MonoBehaviour
             // 플레이어 콜라이더 너비: 0.3f
             float previousVelocity = 24.19f;
             pam.isCrashing = true;
-            pam.isJumping = false;
-            pam.isFalling = false;
+            stopped = false;
             jumpBreak = false;
             CancelJumpReady();
             Vector2 direction = -(other.transform.position - transform.position).normalized;

@@ -35,6 +35,8 @@ public class TaxiManager : MonoBehaviour
     private float scaleTime = 0f;
 
     private GameObject spriteObject;
+    private SpriteRenderer spriterRenderer;
+    private BoxCollider2D boxCollider;
 
     void Start()
     {
@@ -42,6 +44,8 @@ public class TaxiManager : MonoBehaviour
         colliderWidth = gameObject.GetComponent<BoxCollider2D>().size.x;
         spriteObject = transform.GetChild(0).gameObject;
         scaleTime = 0f;
+        spriterRenderer = spriteObject.GetComponent<SpriteRenderer>();
+        boxCollider = gameObject.GetComponent<BoxCollider2D>();
     }
 
     void FixedUpdate()
@@ -81,6 +85,21 @@ public class TaxiManager : MonoBehaviour
             coeff * scaleTime * (1 - scaleTime) / 2,
             spriteObject.transform.localPosition.z
         );
-    } 
+    }
+
+    private void OnTriggerStay2D(Collider2D other) {
+        if (other.gameObject.CompareTag("Player")) {
+            // 불투명
+            spriterRenderer.color = new Color(1, 1, 1, 0.3f);
+            boxCollider.enabled = false;
+            StartCoroutine(DisableTaxi());
+        }
+    }
+
+    private IEnumerator DisableTaxi(){
+        yield return new WaitForSeconds(8f);
+        boxCollider.enabled = true;
+        spriterRenderer.color = new Color(1, 1, 1, 1);
+    }
 
 }
