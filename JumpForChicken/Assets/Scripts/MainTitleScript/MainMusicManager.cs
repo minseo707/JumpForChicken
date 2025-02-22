@@ -12,6 +12,8 @@ public class MainMusicManager : MonoBehaviour
 
     private bool playing;
 
+    private float volume;
+
     private void Awake(){
         if (Instance == null){
             Instance = this;
@@ -24,6 +26,7 @@ public class MainMusicManager : MonoBehaviour
 
         DataManager.Instance.LoadSettingsData();
         audioSource = GetComponent<AudioSource>();
+        volume = DataManager.Instance.settingsData.volumes[0] * DataManager.Instance.settingsData.volumes[1];
     }
 
     private void OnDestroy(){
@@ -42,11 +45,16 @@ public class MainMusicManager : MonoBehaviour
         playing = false;
     }
 
+    public void VolumeChanged(){
+        volume = DataManager.Instance.settingsData.volumes[0] * DataManager.Instance.settingsData.volumes[1];
+        if (playing) audioSource.volume = volume;
+        Debug.Log("VolumeChanged");
+    }
 
     public void MusicPlay(){
         if (playing) return;
         playing = true;
-        audioSource.volume = DataManager.Instance.settingsData.volumes[0] * DataManager.Instance.settingsData.volumes[1];
+        audioSource.volume = volume;
         audioSource.Play();
         Debug.Log("Music Play");
     }

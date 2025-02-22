@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Security.Cryptography.X509Certificates;
+using Unity.VisualScripting;
 using Unity.VisualScripting.FullSerializer;
 using UnityEngine;
 using UnityEngine.UI;
@@ -19,7 +21,10 @@ public class SoundPlayManager : MonoBehaviour
     public GameObject gaugeDisappear;
     public GameObject acquire;
     public GameObject walking;
+    public GameObject taxi;
     public GameObject bgmManager;
+
+    private AudioSource taxiAudioSource;
 
 
     // Slider
@@ -32,6 +37,8 @@ public class SoundPlayManager : MonoBehaviour
         totalVolumeSlider.value = DataManager.Instance.settingsData.volumes[0];
         bgmVolumeSlider.value = DataManager.Instance.settingsData.volumes[1];
         fxVolumeSlider.value = DataManager.Instance.settingsData.volumes[2];
+        taxiDistances = new List<float>();
+        taxiAudioSource = taxi.GetComponent<AudioSource>();
     }
 
     public void PlaySound(string sound, float volume = 1f, float pitch = 1f){
@@ -131,6 +138,36 @@ public class SoundPlayManager : MonoBehaviour
                 break;
         }
     }
+
+    private List<float> taxiDistances;
+    public void SoundDistance(string sound, float distance){
+        switch (sound) {
+            case "taxi":
+                taxiDistances.Add(distance);
+                break;
+        }
+    }
+
+    private void Update(){
+        if (taxiDistances.Count != 0){
+            float maxVolume = 0f;
+            for (int i = 0; i < taxiDistances.Count; i++){
+                if (taxiDistances[i] <= 3f && taxiDistances[i] >= 0f){
+                    maxVolume = 1f;
+                } else if (taxiDistances[i] > 3f && taxiDistances[i] <= 8f){
+                    maxVolume = Mathf.Max(maxVolume, -1f/5f*taxiDistances[i] + 8f/5f);
+                } else if (taxiDistances[i] >= -5f && taxiDistances[i] < 0f){
+                    maxVolume = Mathf.Max(maxVolume, 1f/5f*taxiDistances[i] + 1f);
+                } else {
+                    maxVolume = Mathf.Max(maxVolume, 0);
+                }
+            }
+            taxiAudioSource.volume = 
+                maxVolume * totalVolumeSlider.value * fxVolumeSlider.value;
+
+            taxiDistances = new List<float>();
+        }
+    } 
 
     public void StopSound(string sound){
         switch (sound){

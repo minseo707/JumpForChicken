@@ -31,7 +31,7 @@ public class ItemSelectManager : MonoBehaviour
         selectFx.GetComponent<Animator>().Rebind();
         selectFx.GetComponent<Animator>().Update(0);
         if (!isPurchased){
-            SetColorByRGB(180, 180, 180);
+            SetColorByRGB(145, 145, 145);
         } else {
             SetColorByRGB(134, 191, 137);
         }
@@ -40,7 +40,7 @@ public class ItemSelectManager : MonoBehaviour
     public void Unselect(){
         selectFx.SetActive(false);
         if (!isPurchased){
-            SetColorByRGB(255, 255, 255);
+            SetColorByRGB(196, 198, 176);
         } else {
             SetColorByRGB(152, 225, 155);
         }

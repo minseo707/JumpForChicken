@@ -37,6 +37,9 @@ public class TaxiManager : MonoBehaviour
     private GameObject spriteObject;
     private SpriteRenderer spriterRenderer;
     private BoxCollider2D boxCollider;
+    private Transform playerTransform;
+
+    private SoundPlayManager soundPlayer;
 
     void Start()
     {
@@ -46,6 +49,8 @@ public class TaxiManager : MonoBehaviour
         scaleTime = 0f;
         spriterRenderer = spriteObject.GetComponent<SpriteRenderer>();
         boxCollider = gameObject.GetComponent<BoxCollider2D>();
+        playerTransform = GameObject.Find("Player").transform;
+        soundPlayer = GameObject.Find("Sound Player").gameObject.GetComponent<SoundPlayManager>();
     }
 
     void FixedUpdate()
@@ -85,6 +90,14 @@ public class TaxiManager : MonoBehaviour
             coeff * scaleTime * (1 - scaleTime) / 2,
             spriteObject.transform.localPosition.z
         );
+
+        if (soundPlayer == null){
+            soundPlayer = GameObject.Find("Sound Player").gameObject.GetComponent<SoundPlayManager>();
+        }
+        if (playerTransform != null)
+        {
+            soundPlayer.SoundDistance("taxi", transform.position.y - playerTransform.position.y);
+        }
     }
 
     private void OnTriggerStay2D(Collider2D other) {

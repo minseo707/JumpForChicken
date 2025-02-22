@@ -39,7 +39,8 @@ public class TitleCameraController : MonoBehaviour
         QualitySettings.vSyncCount = 0;
 
         mmm = MainMusicManager.Instance;
-        if (transform.position.y == 0) mmm.MusicPlay();
+        mmm.MusicPlay();
+        if (transform.position.y != 0) mmm.MusicStop();
     }
 
     void Update() {

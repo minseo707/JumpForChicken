@@ -125,8 +125,8 @@ public class PlatformGenerator : MonoBehaviour
                 minYSelectP = maxYSelect;
             }
         } else if (tileYList.Count < 2){
-            minYSelectP = 1f;
-            maxYSelectP = 3f;
+            minYSelectP = 2.4f;
+            maxYSelectP = 4.5f;
         }
 
         // 다음 블록의 높이를 랜덤으로 설정 (전 조건문에 의해 결정된 최소 선택 높이 부터 최대 높이까지)
@@ -159,7 +159,7 @@ public class PlatformGenerator : MonoBehaviour
         if (y >= declineArea)
         {
             // rMin 변수를 사용해야 할 상황이 있을 것 같아서 미리 제작해둡니다.
-            rMin = 0f;
+            rMin = PrefabNameTranslator.ToPrefabAttribute(prefab.name)[2] == 1 ? 0 : .5f;
             rMax = y >= 0 && y < 7f ? -(4f / 7f) * y + 6f : -(1f / 4f) * y + 3f;
 
             float left = lastTileX - rMax - lastTileSize / 2;
