@@ -25,6 +25,8 @@ public class TileLoader : MonoBehaviour
                                               new GameObject[] {},
                                               new GameObject[] {} };
 
+    private GameObject[] allLastPrefab = {};
+
     private float[][][] tileTypeWeight = { new float[][] {},
                                            new float[][] {},
                                            new float[][] {},
@@ -64,6 +66,17 @@ public class TileLoader : MonoBehaviour
         else Debug.LogWarning($"[TileLoader] 프리팹을 찾을 수 없습니다: {prefabName}");
 
         return selectedPrefab;
+    }
+
+    public GameObject GetLastBlock(int loadStage){
+        switch (loadStage){
+            case 1:
+                return NameToPrefab("cityBlock_LastBlock", true);
+            case 2:
+                return new GameObject();
+            default:
+                return new GameObject();
+        }
     }
 
     /// <summary>
@@ -117,6 +130,23 @@ public class TileLoader : MonoBehaviour
 
             #endif
         }
+
+        #if UNITY_EDITOR
+
+        string[] prefabGUIDs2 = AssetDatabase.FindAssets("t:Prefab", new[] { "Assets/Resources/Prefabs/Tiles/LastBlocks" });
+        allLastPrefab = new GameObject[prefabGUIDs2.Length];
+
+        for (int i = 0; i < prefabGUIDs2.Length; i++)
+        {
+            string prefabPath2 = AssetDatabase.GUIDToAssetPath(prefabGUIDs2[i]);
+            allLastPrefab[i] = AssetDatabase.LoadAssetAtPath<GameObject>(prefabPath2);
+        }
+
+        #else
+
+        allLastPrefab = Resources.LoadAll<GameObject>("Prefabs/Tiles/LastBlocks");
+
+        #endif
 
         Debug.Log($"{allPrefabArray[0].Length + allPrefabArray[1].Length + allPrefabArray[2].Length + allPrefabArray[3].Length}개의 프리팹을 로드했습니다.");
 
@@ -320,20 +350,33 @@ public class TileLoader : MonoBehaviour
     /// </summary>
     /// <param name="prefabName">프리팹 이름</param>
     /// <returns>추가 선택된 프리팹</returns>
-    public GameObject NameToPrefab(string prefabName){
-        
-        GameObject selectedPrefab = System.Array.Find(allPrefabArray[
-            PrefabNameTranslator.ToPrefabAttribute(prefabName)[0] - 1
-        ], prefab => prefab != null && prefab.name == prefabName);
+    public GameObject NameToPrefab(string prefabName, bool isLastBlock = false){
+        if (!isLastBlock){
+            GameObject selectedPrefab = System.Array.Find(allPrefabArray[
+                PrefabNameTranslator.ToPrefabAttribute(prefabName)[0] - 1
+            ], prefab => prefab != null && prefab.name == prefabName);
 
-        if (selectedPrefab != null)
-        {
-            Debug.Log($"[TileLoader] 추가 선택된 프리팹: {selectedPrefab.name}");
+            if (selectedPrefab != null)
+            {
+                Debug.Log($"[TileLoader] 추가 선택된 프리팹: {selectedPrefab.name}");
+            }
+            else
+            {
+                Debug.LogWarning($"[TileLoader] 프리팹을 찾을 수 없습니다: {prefabName}");
+            }
+            return selectedPrefab;
+        } else {
+            GameObject selectedPrefab = System.Array.Find(allLastPrefab, prefab => prefab != null && prefab.name == prefabName);
+
+            if (selectedPrefab != null)
+            {
+                Debug.Log($"[TileLoader] 추가 선택된 프리팹: {selectedPrefab.name}");
+            }
+            else
+            {
+                Debug.LogWarning($"[TileLoader] 프리팹을 찾을 수 없습니다: {prefabName}");
+            }
+            return selectedPrefab;
         }
-        else
-        {
-            Debug.LogWarning($"[TileLoader] 프리팹을 찾을 수 없습니다: {prefabName}");
-        }
-        return selectedPrefab;
     }
 }

@@ -81,11 +81,26 @@ public class PlatformGenerator : MonoBehaviour
 
         for (int i = 0; i < tileCount; i++)
         {
-            if (tileList.Count >= 1 && tileList[tileList.Count - 1].y > 150f){
+            GameObject nextPrefab = new();
+            if (tileList.Count >= 1 && tileList[^1].y > 115f && stage == 1){
+                /* 스테이지 1 마지막 발판 설치 */
+                nextPrefab = tileLoader.GetLastBlock(1);
+                nextTile(nextPrefab);
+
+                /* 스테이지 2 첫 번째 발판 매칭 */
                 stage = 2;
+                GameObject firstBlock = GameObject.Find("mountainBlock_FirstBlock");
+                PlatformStateManager psm = firstBlock.AddComponent<PlatformStateManager>();
+                psm.SetBlockIndex(blockStore.blocks.Count);
+                blockStore.AddPrefab(psm);
+
+                tileYList.Add(5f);
+                tileList.Add(new Vector3(0, 135f, 0));
+    
+            } else {
+                nextPrefab = tileLoader.GetNextBlock(stage); 
+                nextTile(nextPrefab);
             }
-            GameObject nextPrefab = tileLoader.GetNextBlock(stage);
-            nextTile(nextPrefab);
 
             float currentProgress = 20f + ((float)(i + 1) / tileCount * 80f);
             if (LoadingSceneManager.instance != null)
@@ -154,8 +169,8 @@ public class PlatformGenerator : MonoBehaviour
 
         if (attributes[6] != 0){ // 만약 부착형 블록이면
             /* 부착형 블록 배치 알고리즘 */
-            float lastTileX = tileList.Count > 0 ? tileList[tileList.Count - 1].x : 0f;
-            float lastTileSize = tileList.Count > 0 ? tileList[tileList.Count - 1].z : 0f;
+            float lastTileX = tileList.Count > 0 ? tileList[^1].x : 0f;
+            float lastTileSize = tileList.Count > 0 ? tileList[^1].z : 0f;
             
             int[] _sizes = PlatformGenerateCalculator.GetJumpableSizes(lastTileX, lastTileSize, declineArea, -attributes[6], 2f);
             // 1. 블럭 선택
@@ -197,8 +212,8 @@ public class PlatformGenerator : MonoBehaviour
                 yTest = -(1f / 4f) * y + 3f * declineArea / 8f;
             }
 
-            float lastTileX = tileList.Count > 0 ? tileList[tileList.Count - 1].x : 0f;
-            float lastTileSize = tileList.Count > 0 ? tileList[tileList.Count - 1].z : 0f;
+            float lastTileX = tileList.Count > 0 ? tileList[^1].x : 0f;
+            float lastTileSize = tileList.Count > 0 ? tileList[^1].z : 0f;
 
             float leftIn = lastTileX - yTest - lastTileSize / 2;
             float rightIn = lastTileX + yTest + lastTileSize / 2;
@@ -314,7 +329,7 @@ public class PlatformGenerator : MonoBehaviour
 
         // tileYList와 tileList 업데이트
         tileYList.Add(y);
-        tileList.Add(new Vector3(x, tileList.Count > 0 ? tileList[tileList.Count - 1].y + y : y, nextTileSize));
+        tileList.Add(new Vector3(x, tileList.Count > 0 ? tileList[^1].y + y : y, nextTileSize));
 
         int[] _attribute = PrefabNameTranslator.ToPrefabAttribute(prefab.name);
 
@@ -376,7 +391,7 @@ public class PlatformGenerator : MonoBehaviour
         }
 
         // 새 타일 Instantiate하고 높이, 위치 설정 및 TileLoader에서 프리팹 불러오기
-        GameObject newTile = Instantiate(prefab, new Vector3(x, tileList[tileList.Count - 1].y, 0), Quaternion.identity);
+        GameObject newTile = Instantiate(prefab, new Vector3(x, tileList[^1].y, 0), Quaternion.identity);
 
         // 발판의 현재 월드 좌표를 저장
         Vector3 worldPosition = newTile.transform.position;

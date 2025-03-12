@@ -8,7 +8,7 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     public int stage = 1;
-    
+
     public GameObject pauseUICanvas;
 
     public GameObject endingUICanvas;
@@ -24,6 +24,8 @@ public class GameManager : MonoBehaviour
 
     private ButtonSoundManager bsm;
 
+    private BackgroundManager backgroundManager;
+
 
     private void Awake() {
         deltaTime = 0f;
@@ -33,6 +35,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         bsm = ButtonSoundManager.Instance;
+        backgroundManager = GameObject.Find("Background").GetComponent<BackgroundManager>();
     }
 
     private void Update() {
@@ -45,6 +48,10 @@ public class GameManager : MonoBehaviour
             OnClickSettingsCancelButton();
             OnClickExitCancelButton();
         }
+    }
+
+    public void ChangeBackground(int currentStage){
+        backgroundManager.ChangeBackgroundSprite(currentStage);
     }
 
     public void OnclickPauseButton(){

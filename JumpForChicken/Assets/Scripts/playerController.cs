@@ -52,6 +52,12 @@ public class PlayerController : MonoBehaviour
     private SpriteRenderer spriteRendererGauge;
     private readonly GameObject gaugeObject;
 
+    private UIButtonManager uib;
+
+    private CameraController mainCameraController;
+
+    private Collider2D col;
+
     // 방향: 오른쪽 = 1, 왼쪽 = -1
     // animator.GetInteger("lookAt")
 
@@ -97,6 +103,7 @@ public class PlayerController : MonoBehaviour
     {
         rigid = GetComponent<Rigidbody2D>();
         pam = GetComponent<PlayerAnimationManager>();
+        col = GetComponent<Collider2D>();
         pam.isFirstJump = true;
         stopped = false;
         isDead = false;
@@ -133,7 +140,7 @@ public class PlayerController : MonoBehaviour
         firstJumpUp = false;
         jumpBreak = false;
 
-        UIButtonManager uib = GameObject.FindGameObjectWithTag("Managers").GetComponent<UIButtonManager>();
+        uib = GameObject.FindGameObjectWithTag("Managers").GetComponent<UIButtonManager>();
         uib.Init();
 }
 
@@ -256,6 +263,7 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (mainCameraController == null) mainCameraController = Camera.main.GetComponent<CameraController>();
         if (breakTime > 0f) {
             breakTime -= Time.deltaTime;
             stopped = false;
@@ -275,6 +283,19 @@ public class PlayerController : MonoBehaviour
         Animations(); // 애니메이션 담당 함수
         Move(); // 움직임 담당 함수
         Jump(); // 점프 담당 함수
+
+        /* 카메라 시점 변환 */
+        if (uib.buttonLock){
+            Debug.Log("변경 시도" + $"{mainCameraController.maxHeight}, {transform.position.y + 20f}");
+            if (mainCameraController.maxHeight < transform.position.y - 7f){ /* Offset 설정 및 플레이어 위치, 카메라 위치 설정 */
+                uib.buttonLock = false;
+                mainCameraController.ChangeHeight(mainCameraController.maxHeight + 22.6f);
+                Debug.Log("변경");
+                gm.GetComponent<GameManager>().stage += 1;
+                gm.GetComponent<GameManager>().ChangeBackground(gm.GetComponent<GameManager>().stage);
+            }
+        }
+
         ScoreByHeight(); // 높이에 따른 점수 담당 함수
 
         isPlayerVelocityZero[1] = isPlayerVelocityZero[0];
@@ -301,8 +322,29 @@ public class PlayerController : MonoBehaviour
             if (collision.contacts[i].normal.y > 0.7f && pam.isFalling)
             {
                 Landing();
+
+                if (collision.gameObject.CompareTag("LastBlock")){
+                    uib.buttonLock = true;
+                    pam.isJumpReady = true;
+                    pam.lookAt = transform.position.x >= 0 ? -1 : 1;
+                    StartCoroutine(NextStageAnimaiton());
+                } else {
+                    uib.buttonLock = false;
+                }
             }
         }
+    }
+
+
+    private IEnumerator NextStageAnimaiton(){
+        pam.isJumpReady = true;
+        // 90 프레임 대기
+        yield return new WaitForSeconds(1.5f);
+        pam.isJumpReady = false;
+        pam.isJumping = true;
+        rigid.velocity = new Vector2(1.2f * pam.lookAt, Mathf.Sqrt(2 * gravity * (133.7f - transform.position.y)));
+        /* 콜라이더 해제 */
+        col.enabled = false;
     }
     
     // 벽 충돌 시 실행
@@ -509,6 +551,7 @@ public class PlayerController : MonoBehaviour
                 pam.isJumping = false;
                 pam.onGround = false;
                 pam.isFirstJump = false;
+                col.enabled = true;
                 MoveAnimRandom();
             }
         }

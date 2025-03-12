@@ -20,10 +20,14 @@ public class CameraController : MonoBehaviour
     private float difference = 0f;
     private float tempDiff = 0f;
 
+    public float maxHeight = 0f;
+
     private float startCamera;
     private float totalDiff;
     private bool trig;
     private PlayerAnimationManager pam;
+
+    private GameManager gm;
 
     void Start()
     {
@@ -31,6 +35,7 @@ public class CameraController : MonoBehaviour
         transform.position = new Vector3(0, cameraHeight, -10);
         startCamera = cameraHeight - floor;
         pam = player.GetComponent<PlayerAnimationManager>();
+        gm = GameObject.Find("GameManager").GetComponent<GameManager>();
         totalDiff = 0f;
         difference = 0f;
         tempDiff = 0f;
@@ -39,6 +44,12 @@ public class CameraController : MonoBehaviour
 
     void FixedUpdate()
     {
+        if (gm.stage == 1){
+            maxHeight = 120.333f;
+        } else if (gm.stage == 2){
+            maxHeight = 300f;
+        }
+
         // 카메라 높이 조정 (하강 과정)
         if (player.transform.position.y < cameraHeight - 7f){
             totalDiff = 0;
@@ -54,7 +65,7 @@ public class CameraController : MonoBehaviour
         // 카메라 높이 조정 (상승 과정)
         if (pam.onGround && cameraHeight - player.transform.position.y < startCamera && !trig)
         {
-            totalDiff += player.transform.position.y + startCamera - cameraHeight;
+            totalDiff = Mathf.Min(player.transform.position.y + startCamera - cameraHeight, maxHeight - cameraHeight);
             trig = true;
         }
 
@@ -67,17 +78,27 @@ public class CameraController : MonoBehaviour
 
         if (totalDiff > 1e-4)
         {
-            cameraHeight += totalDiff / 16;
+            cameraHeight = Mathf.Min(cameraHeight + totalDiff / 16, maxHeight);
             difference = Mathf.Max(0, difference - totalDiff / 64);
             totalDiff -= totalDiff / 16;
         }
         else
         {
-            cameraHeight += totalDiff;
+            cameraHeight = Mathf.Min(cameraHeight + totalDiff / 16, maxHeight);
             totalDiff = 0;
         }
 
         // 카메라 위치 업데이트
+        transform.position = new Vector3(0, cameraHeight, -10);
+    }
+
+    public void ChangeHeight(float height){
+        cameraHeight = height;
+        trig = false;
+        totalDiff = 0;
+        difference = 0;
+        tempDiff = 0;
+
         transform.position = new Vector3(0, cameraHeight, -10);
     }
 }

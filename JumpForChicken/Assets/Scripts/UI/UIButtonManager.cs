@@ -6,6 +6,7 @@ using UnityEngine;
 
 public class UIButtonManager : MonoBehaviour
 {
+    public bool buttonLock = false;
 
     GameObject player;
     PlayerController playerController;
@@ -15,7 +16,17 @@ public class UIButtonManager : MonoBehaviour
         playerController = player.GetComponent<PlayerController>();
     }
 
+    private void Update()
+    {
+        if (buttonLock){
+            LeftButtonUp();
+            RightButtonUp();
+            JumpButtonUp();
+        }
+    } 
+
     public void LeftButtonDown(){
+        if (buttonLock) return;
         playerController.inputLeft = true;
     }
 
@@ -24,6 +35,7 @@ public class UIButtonManager : MonoBehaviour
     }
 
     public void RightButtonDown(){
+        if (buttonLock) return;
         playerController.inputRight = true;
     }
 
@@ -32,11 +44,13 @@ public class UIButtonManager : MonoBehaviour
     }
 
     public void JumpButtonDown(){
+        if (buttonLock) return;
         playerController.inputJump = true;
     }
 
     public void JumpButtonUp(){
         playerController.inputJump = false;
+        if (buttonLock) return;
         playerController.firstJumpUp = true;
     }
 

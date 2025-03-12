@@ -137,6 +137,9 @@ namespace PrefabName {
         /// <param name="prefabName"></param>
         /// <returns>[0: stage, 1: nextTileSize, 2: oneWay, 3: blockL, 4: blockIndex, 5: isObstacle, 6: blockR]</returns>
         public static int[] ToPrefabAttribute(string prefabName){
+            if (prefabName == "cityBlock_LastBlock") return new int[] {1, 4, 0, 0, 1, 0, 0};
+            if (prefabName == "mountainBlock_LastBlock") return new int[] {2, 4, 0, 0, 1, 0, 0};
+            
             int stage = 1;
             int nextTileSize = 2;
             int oneWay; // 통과 가능: 1, 통과 불가능: 0
