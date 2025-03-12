@@ -20,6 +20,12 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/ShopScene.unity
     guid: 5a3ce04c6a48842af9bb7f02b486ebd6
+  - enabled: 1
+    path: Assets/Scenes/TutorialLoadingScene.unity
+    guid: a0cea223619144eb884b2cdcdeb7f88d
+  - enabled: 1
+    path: Assets/Scenes/TutorialScene.unity
+    guid: e8679e694125643faa035bddd32ed7de
   m_configObjects:
     com.unity.adaptiveperformance.loader_settings: {fileID: 11400000, guid: 994d40f40c2424a5cb9ef048d70aabae, type: 2}
     com.unity.adaptiveperformance.simulator.provider_settings: {fileID: 11400000, guid: f1a5841ad21cd41b6962dd513fb0cbd5, type: 2}

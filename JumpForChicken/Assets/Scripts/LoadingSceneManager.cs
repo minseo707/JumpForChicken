@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Data.Common;
@@ -11,12 +12,22 @@ using UnityEngine.SceneManagement;
 /// </summary>
 public class LoadingSceneManager : MonoBehaviour
 {
+    public static LoadingSceneManager instance;
     public static string nextSceneName = "SampleScene";
     public TextMeshProUGUI loadingText;
+
+    void Awake() {
+        instance = this;
+    }
 
     void Start()
     {
         StartCoroutine(LoadScene());
+    }
+
+    public void UpdateProgress(float progress)
+    {
+        loadingText.text = $"Loading... {Mathf.RoundToInt(progress)}%";
     }
 
     public static void LoadScene(string sceneName = "SampleScene"){
@@ -31,11 +42,11 @@ public class LoadingSceneManager : MonoBehaviour
         // AsyncOperation의 progress는 0.9까지 불러오다가 allowSceneActivation = true일 때, 최종적으로 불러오기 시작하여 활성화 합니다.
         // 그 때 op.progress가 1f가 되고, op.isDone = true가 됩니다. 이때부터 오브젝트와 스크립트에 접근할 수 있습니다.
         while(op.progress < 0.9f){
-            loadingText.text = $"Loading... {(int)Mathf.Round(op.progress * 250 / 9)}%";
+            loadingText.text = $"Loading... {(int)Mathf.Round(op.progress * 200 / 9)}%";
             yield return null;
         }
 
-        loadingText.text = $"Loading... {25}%";
+        loadingText.text = $"Loading... {20}%";
 
         // 씬 활성화 허용
         op.allowSceneActivation = true;
@@ -80,8 +91,8 @@ public class LoadingSceneManager : MonoBehaviour
             PlatformGenerator platformGeneratorScript = platformGeneratorObj.GetComponent<PlatformGenerator>();
             if (platformGeneratorScript != null)
             {
-                // 예) 직접 만든 초기화 메서드 호출
-                platformGeneratorScript.GenerateInitialTiles();
+                // 초기화 메서드 호출
+                yield return StartCoroutine(platformGeneratorScript.GenerateInitialTiles());
                 // 블록 로딩 시간 출력
                 Debug.Log($"[LoadingSceneManager] Blocks loaded in {Mathf.Round((Time.realtimeSinceStartup - loadStartTime) * 1000)} ms.");
             }
@@ -91,14 +102,7 @@ public class LoadingSceneManager : MonoBehaviour
             Debug.LogWarning("'Platform' 오브젝트를 찾지 못했습니다.");
         }
 
-        // 로딩 퍼센트가 순차적으로 증가하는 것을 인위적으로 제작
-        // 추후 GenerateInitialTiles()와 연계하여 연동 예정
-        float timer = 0f;
-        while (timer < 1f){
-            loadingText.text = $"Loading... {Mathf.Round(Mathf.Lerp(25, 100, timer))}%";
-            timer += Time.unscaledDeltaTime * 2.25f;
-            yield return null;
-        }
+        GC.Collect();
 
         loadingText.text = "Loading... 100%";
         yield return new WaitForSecondsRealtime(0.08f);

@@ -29,14 +29,20 @@ public class GameoverUIManager : MonoBehaviour
         int currentChicken = gm.GetComponent<ScoreManager>().chicken;
         viewScore = 0;
 
-        if (currentScore > DataManager.Instance.gameData.highScore){
-            DataManager.Instance.gameData.highScore = currentScore;
-        }
-        highScoreText.GetComponent<TextMeshProUGUI>().text = $"High Score: {DataManager.Instance.gameData.highScore}m";
+        if (highScoreText != null && chickenText != null){
 
-        chickenText.GetComponent<TextMeshProUGUI>().text = $"x {currentChicken}";
-        DataManager.Instance.gameData.chickens += currentChicken;
-        DataManager.Instance.SaveGameData();
+            if (currentScore > DataManager.Instance.gameData.highScore){
+                DataManager.Instance.gameData.highScore = currentScore;
+            }
+
+            highScoreText.GetComponent<TextMeshProUGUI>().text = $"High Score: {DataManager.Instance.gameData.highScore}m";
+            chickenText.GetComponent<TextMeshProUGUI>().text = $"x {currentChicken}";
+
+            DataManager.Instance.gameData.chickens += currentChicken;
+            DataManager.Instance.SaveGameData();
+        }
+
+        
     }
 
     void Update()

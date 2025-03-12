@@ -9,6 +9,8 @@ TagManager:
   - Block
   - PassBlock
   - Taxi
+  - Tiger
+  - LastBlock
   layers:
   - Default
   - TransparentFX

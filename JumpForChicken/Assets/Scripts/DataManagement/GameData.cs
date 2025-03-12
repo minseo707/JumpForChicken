@@ -26,6 +26,11 @@ public class GameData {
     /// 가지고 있는 오토바이 (0번은 기본)
     /// </summary>
     public bool[] hasMotorcycle = {true, false, false, false, false};
+    
+    /// <summary>
+    /// 첫 번째 게임으로, 튜토리얼을 진행할 것인지 판단
+    /// </summary>
+    public bool isFirstGame = true;
 
 }
 

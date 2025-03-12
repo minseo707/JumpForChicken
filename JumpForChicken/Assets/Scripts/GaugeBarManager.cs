@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using TMPro.Examples;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -15,6 +16,7 @@ public class GaugeBarManager : MonoBehaviour
 
     // 카메라의 좌표를 가져오기 위함
     public GameObject cameras;
+    private CameraController cc;
     
     // 플레이어 애니메이션 매니저 안에 있는 'lookAt' 변수 가져오기 위함
     private PlayerAnimationManager pam;
@@ -36,6 +38,8 @@ public class GaugeBarManager : MonoBehaviour
 
         pam = player.GetComponent<PlayerAnimationManager>();
         soundPlayManager = GameObject.Find("Sound Player");
+
+        cc = cameras.GetComponent<CameraController>();
     }
 
     void Update()
@@ -45,7 +49,7 @@ public class GaugeBarManager : MonoBehaviour
 
         playerPos = player.transform.position;
 
-        playerPos = new Vector3(player.transform.position.x + pam.lookAt * 0.7f, Mathf.Max(player.transform.position.y, cameras.GetComponent<CameraController>().cameraHeight - 7.5f), player.transform.position.z); // (x, y, z)
+        playerPos = new Vector3(player.transform.position.x + pam.lookAt * 0.7f, Mathf.Max(player.transform.position.y, cc.cameraHeight - 7.5f), player.transform.position.z); // (x, y, z)
 
         transform.position = playerPos;
         transform.localScale = new Vector3(-pam.lookAt, 1, 1);

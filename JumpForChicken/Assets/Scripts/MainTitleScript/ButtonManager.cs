@@ -7,16 +7,27 @@ public class ButtonManager : MonoBehaviour
 {
     public GameObject settingsContainer;
     public GameObject realQuitContainer;
+    public GameObject ThanksToContainer;
     private MainMusicManager mmm;
 
     private bool settingsUIEnabled = false;
 
+    private bool isThanksToButtonStay = false;
+    private float clickTime;
+
     void Start()
     {
         mmm = MainMusicManager.Instance;
+        DataManager.Instance.LoadGameData();
     }
 
     private void Update(){
+        if (clickTime >= 2f){ /* 클릭이 2초 이상 지속되면 */
+            ThanksToContainer.SetActive(true);
+            ThanksToButtonUp();
+        }
+        if (isThanksToButtonStay) clickTime += Time.deltaTime;
+        
         // Escape가 눌리지 않았다면 탈출
         if (!Input.GetKeyDown(KeyCode.Escape)) return;
 
@@ -28,8 +39,16 @@ public class ButtonManager : MonoBehaviour
     }
 
     public void StartButton(){
-        ButtonSoundManager.Instance.PlayButtonSound("startButton");
-        LoadingSceneManager.LoadScene("SampleScene");
+        DataManager.Instance.LoadGameData();
+        if (DataManager.Instance.gameData.isFirstGame){
+            ButtonSoundManager.Instance.PlayButtonSound("startButton");
+            TutorialLoadingSceneManager.LoadScene("TutorialScene");
+            Debug.Log("[ButtonManager] Play Tutorial");
+        } else {
+            ButtonSoundManager.Instance.PlayButtonSound("startButton");
+            LoadingSceneManager.LoadScene("SampleScene");
+            Debug.Log("[ButtonManager] Play InGame");
+        }
     }
 
     public void SettingsButton(){
@@ -64,5 +83,18 @@ public class ButtonManager : MonoBehaviour
     public void OnClickShopButton(){
         ButtonSoundManager.Instance.PlayButtonSound("button1");
         SceneManager.LoadScene("ShopScene");
+    }
+
+    public void ThanksToButtonDown(){
+        isThanksToButtonStay = true;
+    }
+
+    public void ThanksToButtonUp(){
+        isThanksToButtonStay = false;
+        clickTime = 0f;
+    }
+
+    public void ExitThanksTo(){
+        ThanksToContainer.SetActive(false);
     }
 }

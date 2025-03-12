@@ -36,6 +36,10 @@ public class PlayerController : MonoBehaviour
     // 게이지 바 프리팹
     public GameObject gaugeBar;
 
+    private GaugeBarManager gbm;
+    private TutorialGaugeBarManager tgbm;
+    private bool isTutorial = false;
+
     // 사라지는 파티클 프리팹
     public GameObject daParticle;
 
@@ -100,6 +104,16 @@ public class PlayerController : MonoBehaviour
         soundPlayManager = GameObject.Find("Sound Player");
 
         isWalkingSoundPlaying = false;
+
+        if (gaugeBar.GetComponent<GaugeBarManager>() != null){
+            gbm = gaugeBar.GetComponent<GaugeBarManager>();
+            isTutorial = false;
+        } else if (gaugeBar.GetComponent<TutorialGaugeBarManager>() != null){
+            tgbm = gaugeBar.GetComponent<TutorialGaugeBarManager>();
+            isTutorial = true;
+        } else {
+            Debug.LogError("[PlayerController] GaugeBarManager 컴포넌트를 찾을 수 없습니다.");
+        }
 
         spriteRendererGauge = gaugeBar.GetComponent<SpriteRenderer>();
 
@@ -175,7 +189,11 @@ public class PlayerController : MonoBehaviour
                     }
 
                     // 게이지바에 점프 준비 시간 동기화
-                    gaugeBar.GetComponent<GaugeBarManager>().jumpGauge = jumpHoldTime;
+                    if (isTutorial){
+                        tgbm.jumpGauge = jumpHoldTime;
+                    } else {
+                        gbm.jumpGauge = jumpHoldTime;
+                    }
                 }
 
                 if ((Input.GetButtonUp("Jump") || firstJumpUp) && rigid.velocity.y == 0)
@@ -463,7 +481,11 @@ public class PlayerController : MonoBehaviour
         else soundPlayManager.GetComponent<SoundPlayManager>().PlaySound("jump2");;
 
         jumpHoldTime = Math.Min(jumpHoldTime, 119);
-        gaugeBar.GetComponent<GaugeBarManager>().jumpGauge = jumpHoldTime;
+        if (isTutorial){
+            tgbm.jumpGauge = jumpHoldTime;
+        } else {
+            gbm.jumpGauge = jumpHoldTime;
+        }
 
         // 점프 후 초기화
         isJump = false;
@@ -518,7 +540,11 @@ public class PlayerController : MonoBehaviour
 
         // 동기화 원리 : 점프 키를 떼는 순간, jumpHoldTime은 0이 되지만, gaugeBar의 jumpGauge는 점프 키를 떼기 직전의 jumpHoldTime을 가지고 있으므로
         // jumpHoldTime이 0이 되어도 점프 중일 때 적절한 게이지바를 출력 
-        gaugeBar.GetComponent<GaugeBarManager>().jumpGauge = jumpHoldTime;
+        if (isTutorial){
+            tgbm.jumpGauge = jumpHoldTime;
+        } else {
+            gbm.jumpGauge = jumpHoldTime;
+        }
 
         spriteRendererGauge.enabled = false;
 
@@ -561,6 +587,25 @@ public class PlayerController : MonoBehaviour
             }
             breakTime = 0.1f;
             rigid.velocity = new Vector2(previousVelocity * direction.x / Mathf.Abs(direction.x), rigid.velocity.y / 5);
+            soundPlayManager.GetComponent<SoundPlayManager>().PlaySound("breakFx");
+        }
+
+        if (other.CompareTag("Tiger")){
+            // 플레이어 콜라이더 너비: 0.3f
+            float previousVelocity = 50f;
+            pam.isCrashing = true;
+            stopped = false;
+            jumpBreak = false;
+            CancelJumpReady();
+            Vector2 direction = -(other.transform.position - transform.position).normalized;
+            pam.lookAt = -(int)(direction.x / Mathf.Abs(direction.x));
+            if (breakTime > 0f){
+                breakTime = 0.1f;
+                rigid.velocity = new Vector2(previousVelocity * direction.x / Mathf.Abs(direction.x), rigid.velocity.y / 4.5f);
+                return;
+            }
+            breakTime = 0.1f;
+            rigid.velocity = new Vector2(previousVelocity * direction.x / Mathf.Abs(direction.x), rigid.velocity.y / 4.5f);
             soundPlayManager.GetComponent<SoundPlayManager>().PlaySound("breakFx");
         }
     }

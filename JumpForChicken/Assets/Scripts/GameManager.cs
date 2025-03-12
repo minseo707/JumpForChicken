@@ -7,6 +7,8 @@ using UnityEngine.SceneManagement;
 /// </summary>
 public class GameManager : MonoBehaviour
 {
+    public int stage = 1;
+    
     public GameObject pauseUICanvas;
 
     public GameObject endingUICanvas;
