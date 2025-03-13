@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using Unity.Mathematics;
 using Unity.VisualScripting;
@@ -47,9 +48,11 @@ public class CameraController : MonoBehaviour
         if (gm.stage == 1){
             maxHeight = 120.333f;
         } else if (gm.stage == 2){
-            maxHeight = 256.333f;
+            maxHeight = 306.666f;
         } else if (gm.stage == 3){
             maxHeight = 390.333f;
+        } else if (gm.stage == 4){
+            maxHeight = 474.666f;
         }
 
         // 카메라 높이 조정 (하강 과정)
@@ -94,6 +97,12 @@ public class CameraController : MonoBehaviour
         transform.position = new Vector3(0, cameraHeight, -10);
     }
 
+    public IEnumerator ZoomCamera(){
+        yield return null;
+        
+
+    }
+ 
     public void ChangeHeight(float height){
         cameraHeight = height;
         trig = false;

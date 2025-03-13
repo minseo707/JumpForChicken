@@ -95,9 +95,9 @@ public class PlatformGenerator : MonoBehaviour
                 blockStore.AddPrefab(psm);
 
                 tileYList.Add(5f);
-                tileList.Add(new Vector3(0, 135f, 0));
+                tileList.Add(new Vector3(0, 136f, 0));
     
-            } else if (tileList.Count >= 1 && tileList[^1].y > 250f && stage == 2){
+            } else if (tileList.Count >= 1 && tileList[^1].y > 300f && stage == 2){
                 /* 스테이지 2 마지막 발판 설치 */
                 nextPrefab = tileLoader.GetLastBlock(2);
                 nextTile(nextPrefab);
@@ -110,7 +110,7 @@ public class PlatformGenerator : MonoBehaviour
                 blockStore.AddPrefab(psm);
 
                 tileYList.Add(5f);
-                tileList.Add(new Vector3(0, 270f, 0));
+                tileList.Add(new Vector3(0, 321f, 0));
             }
             else {
                 nextPrefab = tileLoader.GetNextBlock(stage); 
@@ -384,7 +384,7 @@ public class PlatformGenerator : MonoBehaviour
                     GameObject _prefab;
                     _prefab = tileLoader.NameToPrefab(PrefabNameTranslator.GetObstaclePrefab(prefab.name));
                     GameObject tiger = _prefab.transform.GetChild(0).gameObject;
-                    if (tiger.GetComponent<TigerManager>().TryAvailable(x)){ // 설치가 가능하다면
+                    if (!_prefab.CompareTag("LastBlock") && tiger.GetComponent<TigerManager>().TryAvailable(x)){ // 설치가 가능하다면
                         prefab = _prefab;
                         tigerPos = tiger.GetComponent<TigerManager>().TigerPositionChange(jumpDirection, x);
                         isExistTiger = true;

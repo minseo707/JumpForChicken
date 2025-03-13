@@ -260,7 +260,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    float[] cameraHeightList = {22.6f, 21.6f};
+    float[] cameraHeightList = {23.2f, 22.3f};
 
 
     private void FixedUpdate()
@@ -338,7 +338,7 @@ public class PlayerController : MonoBehaviour
     }
 
 
-    float[] heightList = {133.7f, 268.7f};
+    float[] heightList = {134.7f, 319.7f, 200f, 200f};
 
     private IEnumerator NextStageAnimaiton(){
         pam.isJumpReady = true;

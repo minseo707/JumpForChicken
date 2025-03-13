@@ -13,7 +13,9 @@ public class BackgroundManager : MonoBehaviour
 
     private float[] scopeArray = {13f, 13f, 13f, 13f};
 
-    private float[] offsets = {0, 27f, 54f, 360f};
+    private float[] offsets = {0, 19.5f, 35f, 360f};
+
+    private float[] realHeights = {120f, 170f, 220f, 400f};
 
     private SpriteRenderer spriteRenderer;
 
@@ -29,7 +31,7 @@ public class BackgroundManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.position = new Vector3(cameras.transform.position.x, 4*(cameras.transform.position.y-1)/5 + 13 + offsets[stageNumber - 1], transform.position.z);
+        transform.position = new Vector3(cameras.transform.position.x, (realHeights[stageNumber - 1] - 24f)/realHeights[stageNumber - 1]*(cameras.transform.position.y-1) + 13 + offsets[stageNumber - 1], transform.position.z);
     }
 
     public void ChangeBackgroundSprite(int stage){
