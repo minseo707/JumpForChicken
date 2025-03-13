@@ -33,12 +33,12 @@ public class TileLoader : MonoBehaviour
                                            new float[][] {} };
     private int[][] numberOfTileTypes = { new int[] {8, 8, 8, 8, 8, 8, 8, 8, 8, 8},
                                           new int[] {8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8},
-                                          new int[] {1, 1, 1, 1},
+                                          new int[] {1, 1, 1},
                                           new int[] {1, 1, 1, 1} }; // 각 타일 종류별 개수
     private string[][] tileTypeCodes = { new string[] {"F2", "F3", "F4", "F5", "F5_L", "F6", "F6_L", "T2", "T3", "T4"},
                                          new string[] {"F1", "F2", "F3", "F4", "F0", "F0_L", "F5", "F5_L", "F6", "F6_L", 
                                                        "T2", "T2_R", "T3", "T3_R", "T4", "T4_R", "T5", "T5_R"},
-                                         new string[] {"F2", "F3", "F4", "F5"},
+                                         new string[] {"F1", "F2", "F3"},
                                          new string[] {"F2", "F3", "F4", "F5"} }; // 각 타일 종류 코드
 
 
@@ -73,7 +73,7 @@ public class TileLoader : MonoBehaviour
             case 1:
                 return NameToPrefab("cityBlock_LastBlock", true);
             case 2:
-                return new GameObject();
+                return NameToPrefab("mountainBlock_LastBlock", true);
             default:
                 return new GameObject();
         }
@@ -209,7 +209,7 @@ public class TileLoader : MonoBehaviour
             }
         }
         // 예외 처리
-        return new int[] { tileTypeWeight[loadStage - 1].Length - 1, tileTypeWeight[loadStage - 1][tileTypeWeight.Length - 1].Length - 1 };
+        return new int[] { tileTypeWeight[loadStage - 1].Length - 1, tileTypeWeight[loadStage - 1][^1].Length - 1 };
     }
 
     /// <summary>

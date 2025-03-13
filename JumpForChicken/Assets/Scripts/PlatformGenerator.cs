@@ -97,7 +97,22 @@ public class PlatformGenerator : MonoBehaviour
                 tileYList.Add(5f);
                 tileList.Add(new Vector3(0, 135f, 0));
     
-            } else {
+            } else if (tileList.Count >= 1 && tileList[^1].y > 250f && stage == 2){
+                /* 스테이지 2 마지막 발판 설치 */
+                nextPrefab = tileLoader.GetLastBlock(2);
+                nextTile(nextPrefab);
+
+                /* 스테이지 3 첫 번째 발판 매칭 */
+                stage = 3;
+                GameObject firstBlock = GameObject.Find("skyBlock_FirstBlock");
+                PlatformStateManager psm = firstBlock.AddComponent<PlatformStateManager>();
+                psm.SetBlockIndex(blockStore.blocks.Count);
+                blockStore.AddPrefab(psm);
+
+                tileYList.Add(5f);
+                tileList.Add(new Vector3(0, 270f, 0));
+            }
+            else {
                 nextPrefab = tileLoader.GetNextBlock(stage); 
                 nextTile(nextPrefab);
             }

@@ -13,7 +13,7 @@ public class BackgroundManager : MonoBehaviour
 
     private float[] scopeArray = {13f, 13f, 13f, 13f};
 
-    private float[] offsets = {0, 25f, 240f, 360f};
+    private float[] offsets = {0, 27f, 54f, 360f};
 
     private SpriteRenderer spriteRenderer;
 

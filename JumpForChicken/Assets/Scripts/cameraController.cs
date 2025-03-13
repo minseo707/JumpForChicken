@@ -47,7 +47,9 @@ public class CameraController : MonoBehaviour
         if (gm.stage == 1){
             maxHeight = 120.333f;
         } else if (gm.stage == 2){
-            maxHeight = 300f;
+            maxHeight = 256.333f;
+        } else if (gm.stage == 3){
+            maxHeight = 390.333f;
         }
 
         // 카메라 높이 조정 (하강 과정)
