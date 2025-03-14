@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// 배경 높이 (시차) 관리자
+/// </summary>
 public class BackgroundManager : MonoBehaviour
 {
     // 카메라 좌표를 불러오기 위함
@@ -13,7 +16,7 @@ public class BackgroundManager : MonoBehaviour
 
     private float[] scopeArray = {13f, 13f, 13f, 13f};
 
-    private float[] offsets = {0, 19.5f, 35f, 360f};
+    private float[] offsets = {0, 19.5f, 35.3f, 360f};
 
     private float[] realHeights = {120f, 170f, 220f, 400f};
 

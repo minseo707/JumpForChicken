@@ -8,7 +8,7 @@ public class PlatformGenerator : MonoBehaviour
 {
     public TileLoader tileLoader; // TileLoader의 참조
 
-    public int tileCount = 70;
+    private int tileCount = 160;
     public int minTile = 4; // 최소 타일 개수
     public float minMove = 16f; // 최소 이동 거리
     public float declineArea = 3f; // 제외 범위
@@ -82,7 +82,7 @@ public class PlatformGenerator : MonoBehaviour
         for (int i = 0; i < tileCount; i++)
         {
             GameObject nextPrefab = new();
-            if (tileList.Count >= 1 && tileList[^1].y > 115f && stage == 1){
+            if (tileList.Count >= 1 && tileList[^1].y > 113f && stage == 1){
                 /* 스테이지 1 마지막 발판 설치 */
                 nextPrefab = tileLoader.GetLastBlock(1);
                 nextTile(nextPrefab);
@@ -97,7 +97,7 @@ public class PlatformGenerator : MonoBehaviour
                 tileYList.Add(5f);
                 tileList.Add(new Vector3(0, 136f, 0));
     
-            } else if (tileList.Count >= 1 && tileList[^1].y > 300f && stage == 2){
+            } else if (tileList.Count >= 1 && tileList[^1].y > 304f && stage == 2){
                 /* 스테이지 2 마지막 발판 설치 */
                 nextPrefab = tileLoader.GetLastBlock(2);
                 nextTile(nextPrefab);
@@ -110,7 +110,21 @@ public class PlatformGenerator : MonoBehaviour
                 blockStore.AddPrefab(psm);
 
                 tileYList.Add(5f);
-                tileList.Add(new Vector3(0, 321f, 0));
+                tileList.Add(new Vector3(0, 322f, 0));
+            } else if (tileList.Count >= 1 && tileList[^1].y > 524f && stage == 3){
+                /* 스테이지 2 마지막 발판 설치 */
+                nextPrefab = tileLoader.GetLastBlock(3);
+                nextTile(nextPrefab);
+
+                /* 스테이지 3 첫 번째 발판 매칭 */
+                stage = 4;
+                GameObject firstBlock = GameObject.Find("spaceBlock_FirstBlock");
+                PlatformStateManager psm = firstBlock.AddComponent<PlatformStateManager>();
+                psm.SetBlockIndex(blockStore.blocks.Count);
+                blockStore.AddPrefab(psm);
+
+                tileYList.Add(5f);
+                tileList.Add(new Vector3(0, 542f, 0));
             }
             else {
                 nextPrefab = tileLoader.GetNextBlock(stage); 

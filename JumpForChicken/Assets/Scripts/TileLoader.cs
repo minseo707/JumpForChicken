@@ -39,7 +39,7 @@ public class TileLoader : MonoBehaviour
                                          new string[] {"F1", "F2", "F3", "F4", "F0", "F0_L", "F5", "F5_L", "F6", "F6_L", 
                                                        "T2", "T2_R", "T3", "T3_R", "T4", "T4_R", "T5", "T5_R"},
                                          new string[] {"F1", "F2", "F3"},
-                                         new string[] {"F2", "F3", "F4", "F5"} }; // 각 타일 종류 코드
+                                         new string[] {"F1", "F2", "T1", "F2"} }; // 각 타일 종류 코드
 
 
     /// <summary>
@@ -74,6 +74,8 @@ public class TileLoader : MonoBehaviour
                 return NameToPrefab("cityBlock_LastBlock", true);
             case 2:
                 return NameToPrefab("mountainBlock_LastBlock", true);
+            case 3:
+                return NameToPrefab("skyBlock_LastBlock", true);
             default:
                 return new GameObject();
         }

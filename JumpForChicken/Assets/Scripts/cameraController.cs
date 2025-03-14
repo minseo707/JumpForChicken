@@ -5,6 +5,9 @@ using Unity.Mathematics;
 using Unity.VisualScripting;
 using UnityEngine;
 
+/// <summary>
+/// 인게임에서의 카메라 움직임 관리
+/// </summary>
 public class CameraController : MonoBehaviour
 {
     public GameObject player;
@@ -18,7 +21,7 @@ public class CameraController : MonoBehaviour
 
     public float backwards = 4f;
 
-    private float difference = 0f;
+    public float difference = 0f;
     private float tempDiff = 0f;
 
     public float maxHeight = 0f;
@@ -50,9 +53,9 @@ public class CameraController : MonoBehaviour
         } else if (gm.stage == 2){
             maxHeight = 306.666f;
         } else if (gm.stage == 3){
-            maxHeight = 390.333f;
+            maxHeight = 543f;
         } else if (gm.stage == 4){
-            maxHeight = 474.666f;
+            maxHeight = 1000f;
         }
 
         // 카메라 높이 조정 (하강 과정)
@@ -95,6 +98,7 @@ public class CameraController : MonoBehaviour
 
         // 카메라 위치 업데이트
         transform.position = new Vector3(0, cameraHeight, -10);
+        Debug.Log($"{difference}, {tempDiff}, {totalDiff}");
     }
 
     public IEnumerator ZoomCamera(){
@@ -105,11 +109,11 @@ public class CameraController : MonoBehaviour
  
     public void ChangeHeight(float height){
         cameraHeight = height;
-        trig = false;
+
+        transform.position = new Vector3(0, cameraHeight, -10);
+
         totalDiff = 0;
         difference = 0;
         tempDiff = 0;
-
-        transform.position = new Vector3(0, cameraHeight, -10);
     }
 }

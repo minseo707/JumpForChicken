@@ -266,9 +266,6 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    float[] cameraHeightList = {23.2f, 22.3f};
-
-
     private void FixedUpdate()
     {
         if (mainCameraController == null) mainCameraController = Camera.main.GetComponent<CameraController>();
@@ -297,10 +294,11 @@ public class PlayerController : MonoBehaviour
             Debug.Log("변경 시도" + $"{mainCameraController.maxHeight}, {transform.position.y + 20f}");
             if (mainCameraController.maxHeight < transform.position.y - 7f){ /* Offset 설정 및 플레이어 위치, 카메라 위치 설정 */
                 uib.buttonLock = false;
-                mainCameraController.ChangeHeight(mainCameraController.maxHeight + cameraHeightList[gameManager.stage - 1]);
+                mainCameraController.ChangeHeight(mainCameraController.maxHeight + 23.2f);
                 Debug.Log("변경");
                 gameManager.stage += 1;
                 gameManager.ChangeBackground(gameManager.stage);
+                StartCoroutine(CameraDifferenceAdjust());
             }
         }
 
@@ -320,6 +318,13 @@ public class PlayerController : MonoBehaviour
             maxHeight = transform.position.y + offest;
         }
 
+    }
+
+    IEnumerator CameraDifferenceAdjust()
+    {
+        // 1프레임 대기 (Update 루프 기준)
+        yield return new WaitForSeconds(0.4f);
+        mainCameraController.difference = 0f;
     }
 
     // 낙하 감지
@@ -344,7 +349,7 @@ public class PlayerController : MonoBehaviour
     }
 
 
-    float[] heightList = {134.7f, 319.7f, 200f, 200f};
+    float[] heightList = {134.7f, 320.7f, 540.7f};
 
     private IEnumerator NextStageAnimaiton(){
         pam.isJumpReady = true;
