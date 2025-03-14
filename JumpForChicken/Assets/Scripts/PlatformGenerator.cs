@@ -384,7 +384,7 @@ public class PlatformGenerator : MonoBehaviour
                     GameObject _prefab;
                     _prefab = tileLoader.NameToPrefab(PrefabNameTranslator.GetObstaclePrefab(prefab.name));
                     GameObject tiger = _prefab.transform.GetChild(0).gameObject;
-                    if (!_prefab.CompareTag("LastBlock") && tiger.GetComponent<TigerManager>().TryAvailable(x)){ // 설치가 가능하다면
+                    if (!prefab.CompareTag("LastBlock") && tiger.GetComponent<TigerManager>().TryAvailable(x)){ // 설치가 가능하다면
                         prefab = _prefab;
                         tigerPos = tiger.GetComponent<TigerManager>().TigerPositionChange(jumpDirection, x);
                         isExistTiger = true;
