@@ -94,8 +94,14 @@ public class PlayerController : MonoBehaviour
     private bool jumpBreak;
 
     GameObject gm;
+    GameManager gameManager;
+    ScoreManager scoreManager;
+    
     void Awake(){
         gm = GameObject.Find("GameManager");
+        gameManager = gm.GetComponent<GameManager>();
+        scoreManager = gm.GetComponent<ScoreManager>();
+        gm = null; // 게임 매니저 오브젝트 참조 해제
     }
 
     // 시작될 때 실행되는 코드
@@ -291,10 +297,10 @@ public class PlayerController : MonoBehaviour
             Debug.Log("변경 시도" + $"{mainCameraController.maxHeight}, {transform.position.y + 20f}");
             if (mainCameraController.maxHeight < transform.position.y - 7f){ /* Offset 설정 및 플레이어 위치, 카메라 위치 설정 */
                 uib.buttonLock = false;
-                mainCameraController.ChangeHeight(mainCameraController.maxHeight + cameraHeightList[gm.GetComponent<GameManager>().stage - 1]);
+                mainCameraController.ChangeHeight(mainCameraController.maxHeight + cameraHeightList[gameManager.stage - 1]);
                 Debug.Log("변경");
-                gm.GetComponent<GameManager>().stage += 1;
-                gm.GetComponent<GameManager>().ChangeBackground(gm.GetComponent<GameManager>().stage);
+                gameManager.stage += 1;
+                gameManager.ChangeBackground(gameManager.stage);
             }
         }
 
@@ -346,7 +352,7 @@ public class PlayerController : MonoBehaviour
         yield return new WaitForSeconds(1.5f);
         pam.isJumpReady = false;
         pam.isJumping = true;
-        rigid.velocity = new Vector2(1.2f * pam.lookAt, Mathf.Sqrt(2 * gravity * (heightList[gm.GetComponent<GameManager>().stage - 1] - transform.position.y)));
+        rigid.velocity = new Vector2(1.2f * pam.lookAt, Mathf.Sqrt(2 * gravity * (heightList[gameManager.stage - 1] - transform.position.y)));
         /* 콜라이더 해제 */
         col.enabled = false;
     }
@@ -660,7 +666,7 @@ public class PlayerController : MonoBehaviour
 
     private void ScoreByHeight(){
         if (maxHeight - height >= 1f){
-            gm.GetComponent<ScoreManager>().AddScore(1);
+            scoreManager.AddScore(1);
             height += 1;
         }
     }
@@ -687,6 +693,6 @@ public class PlayerController : MonoBehaviour
 
         soundPlayManager.GetComponent<SoundPlayManager>().PlaySound("failed");
 
-        gm.GetComponent<GameManager>().EndingUIActive();
+        gameManager.EndingUIActive();
     }
 }
