@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEditor;
+using UnityEditor.Rendering.LookDev;
 using UnityEngine;
 
 /// <summary>
@@ -337,9 +338,9 @@ public class PlayerController : MonoBehaviour
                 Landing();
 
                 if (collision.gameObject.CompareTag("LastBlock")){
+                    if (!uib.buttonLock) pam.lookAt = transform.position.x >= 0 ? -1 : 1;
                     uib.buttonLock = true;
                     pam.isJumpReady = true;
-                    pam.lookAt = transform.position.x >= 0 ? -1 : 1;
                     StartCoroutine(NextStageAnimaiton());
                 } else {
                     uib.buttonLock = false;
@@ -353,6 +354,7 @@ public class PlayerController : MonoBehaviour
 
     private IEnumerator NextStageAnimaiton(){
         pam.isJumpReady = true;
+        StartCoroutine(Camera.main.GetComponent<CameraController>().ZoomCamera(pam.lookAt));
         // 90 프레임 대기
         yield return new WaitForSeconds(1.5f);
         pam.isJumpReady = false;

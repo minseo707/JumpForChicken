@@ -16,6 +16,8 @@ public class CameraController : MonoBehaviour
 
     public float secPerTile = 10f;
 
+    private float[] cameraSpeeds = {0.4f, 0.7f, 3.5f, 4f};
+
 
     // 데드라인 실수 보강
 
@@ -33,6 +35,8 @@ public class CameraController : MonoBehaviour
 
     private GameManager gm;
 
+    private Camera cameras;
+
     void Start()
     {
         // 초기 카메라 위치 설정
@@ -40,6 +44,7 @@ public class CameraController : MonoBehaviour
         startCamera = cameraHeight - floor;
         pam = player.GetComponent<PlayerAnimationManager>();
         gm = GameObject.Find("GameManager").GetComponent<GameManager>();
+        cameras = GetComponent<Camera>();
         totalDiff = 0f;
         difference = 0f;
         tempDiff = 0f;
@@ -82,7 +87,8 @@ public class CameraController : MonoBehaviour
             trig = false;
         }
 
-        cameraHeight += Time.deltaTime / secPerTile;
+        // 카메라 상승 속도
+        cameraHeight += Time.deltaTime * cameraSpeeds[gm.stage - 1];
 
         if (totalDiff > 1e-4)
         {
@@ -97,14 +103,50 @@ public class CameraController : MonoBehaviour
         }
 
         // 카메라 위치 업데이트
-        transform.position = new Vector3(0, cameraHeight, -10);
+        transform.position = new Vector3(transform.position.x, cameraHeight, -10);
         Debug.Log($"{difference}, {tempDiff}, {totalDiff}");
     }
 
-    public IEnumerator ZoomCamera(){
+    public float scale = 0f;
+
+    public IEnumerator ZoomCamera(int direction){
+        float rotateTheta = 0f;
+        int runFrame = 0;
+
+        while (runFrame < 90){
+            runFrame++;
+            rotateTheta += 1f / 90f * direction;
+            scale += 0.5f / 90f;
+            // transform.rotation = Quaternion.Euler(0, 0, rotateTheta);
+            cameras.orthographicSize = 8 - scale;
+            // cameras.orthographicSize *= 1f / (Mathf.Sqrt(2) * Mathf.Sin(Mathf.Deg2Rad * rotateTheta + Mathf.PI / 4f));
+            yield return null;
+        }
+
+        while (runFrame >= 60){
+            runFrame--;
+            rotateTheta -= 1f / 30f * direction;
+            scale = jisuCalc((90 - runFrame) / 30f, 0.5f);
+            // transform.rotation = Quaternion.Euler(0, 0, rotateTheta);
+            cameras.orthographicSize = 8 - scale;
+            // cameras.orthographicSize *= 1f / (Mathf.Sqrt(2) * Mathf.Sin(Mathf.Deg2Rad * rotateTheta + Mathf.PI / 4f));
+            yield return null;
+        }
+
+        transform.rotation = Quaternion.Euler(0, 0, 0);
+        cameras.orthographicSize = 8;
+        transform.position = new Vector3(0, transform.position.y, transform.position.z);
         yield return null;
         
 
+    }
+
+    private float cameraPosCalc(float t, int direction){
+        return -direction * Mathf.Min(9f / 2f * 0.8f / 8f, Mathf.Abs(player.transform.position.x)) * t;
+    }
+
+    private float jisuCalc(float t, float firstValue){
+        return firstValue * Mathf.Pow(1/2f, t*7);
     }
  
     public void ChangeHeight(float height){
