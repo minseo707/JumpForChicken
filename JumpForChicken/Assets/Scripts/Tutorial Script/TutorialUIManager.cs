@@ -6,9 +6,11 @@ public class TutorialUIManager : MonoBehaviour
 {
     private int currentPage = 1;
 
+    [Header("Tutorial Pages")]
     public GameObject tutorialPage2;
     public GameObject tutorialPage3;
     public GameObject tutorialPage4;
+    public GameObject tutorialPage5;
 
     public GameObject nextPageButton;
     
@@ -28,6 +30,9 @@ public class TutorialUIManager : MonoBehaviour
                 break;
             case 4:
                 tutorialPage4.SetActive(true);
+                break;
+            case 5:
+                tutorialPage5.SetActive(true);
                 Destroy(nextPageButton);
                 break;
             default:

@@ -16,7 +16,9 @@ public class CameraController : MonoBehaviour
 
     public float secPerTile = 10f;
 
-    private float[] cameraSpeeds = {0.4f, 0.7f, 3.5f, 4f};
+    private readonly float[] cameraSpeeds = {0.1f, 0.15f, 0.25f, 0.37f};
+
+    private int lastStage = -1;
 
 
     // 데드라인 실수 보강
@@ -34,6 +36,8 @@ public class CameraController : MonoBehaviour
     private PlayerAnimationManager pam;
 
     private GameManager gm;
+
+    [SerializeField] GameObject leapParticle;
 
     private Camera cameras;
 
@@ -53,13 +57,13 @@ public class CameraController : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (gm.stage == 1){
+        if (GameManager.stage == 1){
             maxHeight = 120.333f;
-        } else if (gm.stage == 2){
+        } else if (GameManager.stage == 2){
             maxHeight = 306.666f;
-        } else if (gm.stage == 3){
+        } else if (GameManager.stage == 3){
             maxHeight = 543f;
-        } else if (gm.stage == 4){
+        } else if (GameManager.stage == 4){
             maxHeight = 1000f;
         }
 
@@ -88,7 +92,7 @@ public class CameraController : MonoBehaviour
         }
 
         // 카메라 상승 속도
-        cameraHeight += Time.deltaTime * cameraSpeeds[gm.stage - 1];
+        cameraHeight += Time.deltaTime * cameraSpeeds[GameManager.stage - 1];
 
         if (totalDiff > 1e-4)
         {
@@ -104,7 +108,12 @@ public class CameraController : MonoBehaviour
 
         // 카메라 위치 업데이트
         transform.position = new Vector3(transform.position.x, cameraHeight, -10);
-        Debug.Log($"{difference}, {tempDiff}, {totalDiff}");
+
+        if (GameManager.stage != lastStage)
+        {
+            leapParticle.SetActive(GameManager.stage == 2);
+            lastStage = GameManager.stage;
+        }
     }
 
     public float scale = 0f;
@@ -115,21 +124,19 @@ public class CameraController : MonoBehaviour
 
         while (runFrame < 90){
             runFrame++;
-            rotateTheta += 1f / 90f * direction;
+            rotateTheta += 2f / 90f * direction;
             scale += 0.5f / 90f;
-            // transform.rotation = Quaternion.Euler(0, 0, rotateTheta);
-            cameras.orthographicSize = 8 - scale;
-            // cameras.orthographicSize *= 1f / (Mathf.Sqrt(2) * Mathf.Sin(Mathf.Deg2Rad * rotateTheta + Mathf.PI / 4f));
+            transform.rotation = Quaternion.Euler(0, 0, rotateTheta);
+            cameras.orthographicSize = (8f - scale) * 1f / (Mathf.Sqrt(2) * Mathf.Sin(Mathf.Deg2Rad * Mathf.Abs(rotateTheta) + Mathf.PI / 4f));
             yield return null;
         }
 
         while (runFrame >= 60){
             runFrame--;
-            rotateTheta -= 1f / 30f * direction;
+            rotateTheta -= 2f / 30f * direction;
             scale = jisuCalc((90 - runFrame) / 30f, 0.5f);
-            // transform.rotation = Quaternion.Euler(0, 0, rotateTheta);
-            cameras.orthographicSize = 8 - scale;
-            // cameras.orthographicSize *= 1f / (Mathf.Sqrt(2) * Mathf.Sin(Mathf.Deg2Rad * rotateTheta + Mathf.PI / 4f));
+            transform.rotation = Quaternion.Euler(0, 0, rotateTheta);
+            cameras.orthographicSize = (8f - scale) * 1f / (Mathf.Sqrt(2) * Mathf.Sin(Mathf.Deg2Rad * Mathf.Abs(rotateTheta) + Mathf.PI / 4f));
             yield return null;
         }
 

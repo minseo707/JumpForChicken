@@ -11,6 +11,7 @@ TagManager:
   - Taxi
   - Tiger
   - LastBlock
+  - Airplane
   layers:
   - Default
   - TransparentFX

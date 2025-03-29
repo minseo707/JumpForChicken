@@ -26,13 +26,12 @@ public class ChickenDisplayManager : MonoBehaviour
         if (cc == null) return;
 
         // 텍스트의 오른쪽 끝을 기준으로 이미지 위치 조정
-        Vector3 scoreEndPos = scoreText.rectTransform.position + new Vector3(scoreText.preferredWidth / 2, 0, 0);
+        Vector2 scoreEndPos = scoreText.rectTransform.anchoredPosition + new Vector2(scoreText.preferredWidth, 0);
 
         // 이미지의 위치를 텍스트의 오른쪽 끝에서 왼쪽으로 간격을 두고 배치
-        unitRectTransform.position = new Vector3(
-            (-scoreEndPos.x + spacing + (unitRectTransform.rect.width / 2))/60  - unitRectTransform.position.x * cc.scale / 8f,
-            scoreText.rectTransform.position.y + unitOffsetY/100,
-            scoreText.rectTransform.position.z
+        unitRectTransform.anchoredPosition = new Vector2(
+            -scoreEndPos.x + spacing + unitRectTransform.rect.width,
+            scoreText.rectTransform.anchoredPosition.y + unitOffsetY
         );
     }
 }

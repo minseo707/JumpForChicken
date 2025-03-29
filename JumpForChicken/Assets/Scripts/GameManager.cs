@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 /// </summary>
 public class GameManager : MonoBehaviour
 {
-    public int stage = 1;
+    public static int stage = 1;
 
     public GameObject pauseUICanvas;
 
@@ -36,6 +36,7 @@ public class GameManager : MonoBehaviour
     {
         bsm = ButtonSoundManager.Instance;
         backgroundManager = GameObject.Find("Background").GetComponent<BackgroundManager>();
+        stage = 1;
     }
 
     private void Update() {
@@ -48,6 +49,37 @@ public class GameManager : MonoBehaviour
             OnClickSettingsCancelButton();
             OnClickExitCancelButton();
         }
+    }
+
+    /// <summary>
+    /// 3 스테이지에 일정 간격 비행기 설치
+    /// </summary>
+    /// <param name="airplanePrefab">비행기 장애물 프리팹</param>
+    /// <param name="n">설치 개수</param>
+    public static void PlaceAirplane(GameObject airplanePrefab, int n)
+    {
+        int stage3Height = 220;
+        float startHeight = 322f;
+        GameObject airplanesParent = GameObject.Find("Airplanes"); // 씬에 미리 만들어둔 빈 게임오브젝트
+
+        if (airplanesParent == null)
+        {
+            Debug.LogError("AirplanesParent not found in the scene!");
+            return;
+        }
+        for (int i = 1; i <= n; i++)
+        {
+            GameObject airplane = Instantiate(airplanePrefab, new Vector3(0f, startHeight + (float)stage3Height / (n + 1) * i, 1), Quaternion.identity);
+            airplane.transform.SetParent(airplanesParent.transform);
+            Debug.Log($"Airplane created at position: {airplane.transform.position}");
+        }
+
+        Debug.Log("[GameManager] Airplane installed: " + n);
+    }
+
+    public void GoToNextStage(){
+        BlockStore.SetAllNext();
+        StartCoroutine(GameObject.Find("Player").GetComponent<PlayerController>().NextStageAnimaiton());
     }
 
     public void ChangeBackground(int currentStage){

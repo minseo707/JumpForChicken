@@ -88,7 +88,7 @@ public class PlatformStateManager : MonoBehaviour
                     if (IsPlayerLanding())
                     {
                         // 최고높이에서는 Next가 존재하지 않으므로 탈출
-                        if (blockNumber == blockStore.blocks.Count - 1){
+                        if (blockNumber == BlockStore.blocks.Count - 1){
                             stateChanged = true;
                             return;
                         }
@@ -144,7 +144,7 @@ public class PlatformStateManager : MonoBehaviour
         } else if (gameObject.layer == nextPlatformLayer){
             SetTransparency(false);
         } else if (gameObject.layer == pastPlatformLayer){
-            return;
+            SetTransparency(false);
         } else { // Default Layer
             SetTransparency(true);
         }
@@ -162,7 +162,7 @@ public class PlatformStateManager : MonoBehaviour
         PlatformStateManager newNextPlatform = null;
 
         // 지금 시점에는 밟은 블록 레이어가 Next => 다음 블록이 다음에 Next가 될 블록
-        newNextPlatform = blockStore.blocks[blockNumber + 1];
+        newNextPlatform = BlockStore.blocks[blockNumber + 1];
         nextPlatformCollider = newNextPlatform.gameObject.GetComponent<Collider2D>();
 
         // 만약 겹치는 부분이 있다면 Change 철회

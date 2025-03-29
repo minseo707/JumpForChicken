@@ -2,30 +2,44 @@
 using System.Collections.Generic;
 using UnityEngine;
 using PrefabName;
-using Unity.VisualScripting;
 
+/// <summary>
+/// 블록 배치 클래스
+/// </summary>
 public class PlatformGenerator : MonoBehaviour
 {
+    [Header("TileLoader Class")]
     public TileLoader tileLoader; // TileLoader의 참조
 
-    private int tileCount = 160;
+    [Header("TileLoad Options")]
+    private readonly int tileCount = 160;
     public int minTile = 4; // 최소 타일 개수
     public float minMove = 16f; // 최소 이동 거리
     public float declineArea = 3f; // 제외 범위
     public float sideDecline = 2.0f; // 벽에서부터 생성 불가능 범위
     public float minYSelect = 2.0f;
 
-    public int stage = 1;
+    private readonly float[] declineAreaArray = {3f, 3f, 3f, 3f};
+    private readonly float[] sideDeclineArray = {2.0f, 2.0f, 2.0f, 2.0f};
+    private readonly float[] minYSelectArray = {2.0f, 2.0f, 2.0f, 2.0f};
+    private readonly float[] minMoveArray = {16f, 16f, 16f, 16f};
+    private readonly int[] minTileArray = {4, 4, 4, 4};
 
+    [Header("Other Settings")]
+    public int stage = 1;
     public bool isLoaded = false;
     public int runFrames = 0;
 
     private List<Vector3> tileList = new List<Vector3>(); // 타일 리스트
     private List<float> tileYList = new List<float>(); // 타일의 y좌표 리스트
 
+    [Header("Grid")]
     public Grid grid; // 그리드 설정
 
     private BlockStore blockStore;
+
+    [Header("Obstacle Prefabs")]
+    public GameObject airplanePrefab;
 
     /// <summary>
     /// 스테이지 1 장애물 설치 알고리즘을 위한 변수 배열
@@ -62,11 +76,11 @@ public class PlatformGenerator : MonoBehaviour
     }
 
     void Sync(){
-        declineArea = PlayerPrefs.GetFloat("declineArea");
-        sideDecline = PlayerPrefs.GetFloat("sideDecline");
-        minMove = PlayerPrefs.GetFloat("minMove");
-        minTile = PlayerPrefs.GetInt("minTile");
-        minYSelect = PlayerPrefs.GetFloat("minYSelect");
+        declineArea = declineAreaArray[stage - 1];
+        sideDecline = sideDeclineArray[stage - 1];
+        minMove = minMoveArray[stage - 1];
+        minTile = minTileArray[stage - 1];
+        minYSelect = minYSelectArray[stage - 1];
     }
 
     public IEnumerator GenerateInitialTiles()
@@ -74,6 +88,13 @@ public class PlatformGenerator : MonoBehaviour
         // LoadingSceneManager에 의하여 Update() 첫 실행 직후에 실행되는 함수입니다.
         isLoaded = true;
         Sync();
+        BlockStore.ResetBlockStore();
+        /* 지역 실행 */ {
+            GameObject firstBlock = GameObject.Find("Field");
+            PlatformStateManager psm = firstBlock.AddComponent<PlatformStateManager>();
+            psm.SetBlockIndex(BlockStore.blocks.Count);
+            BlockStore.AddPrefab(psm);
+        }
         if (tileLoader != null)
         {
             tileLoader.LoadAllPrefabs();
@@ -81,54 +102,57 @@ public class PlatformGenerator : MonoBehaviour
 
         for (int i = 0; i < tileCount; i++)
         {
-            GameObject nextPrefab = new();
+            GameObject nextPrefab;
             if (tileList.Count >= 1 && tileList[^1].y > 113f && stage == 1){
                 /* 스테이지 1 마지막 발판 설치 */
                 nextPrefab = tileLoader.GetLastBlock(1);
-                nextTile(nextPrefab);
+                NextTile(nextPrefab);
 
                 /* 스테이지 2 첫 번째 발판 매칭 */
                 stage = 2;
+                Sync();
                 GameObject firstBlock = GameObject.Find("mountainBlock_FirstBlock");
                 PlatformStateManager psm = firstBlock.AddComponent<PlatformStateManager>();
-                psm.SetBlockIndex(blockStore.blocks.Count);
-                blockStore.AddPrefab(psm);
+                psm.SetBlockIndex(BlockStore.blocks.Count);
+                BlockStore.AddPrefab(psm);
 
                 tileYList.Add(5f);
                 tileList.Add(new Vector3(0, 136f, 0));
     
-            } else if (tileList.Count >= 1 && tileList[^1].y > 304f && stage == 2){
+            } else if (tileList.Count >= 1 && tileList[^1].y > 299f && stage == 2){
                 /* 스테이지 2 마지막 발판 설치 */
                 nextPrefab = tileLoader.GetLastBlock(2);
-                nextTile(nextPrefab);
+                NextTile(nextPrefab);
 
                 /* 스테이지 3 첫 번째 발판 매칭 */
                 stage = 3;
+                Sync();
                 GameObject firstBlock = GameObject.Find("skyBlock_FirstBlock");
                 PlatformStateManager psm = firstBlock.AddComponent<PlatformStateManager>();
-                psm.SetBlockIndex(blockStore.blocks.Count);
-                blockStore.AddPrefab(psm);
+                psm.SetBlockIndex(BlockStore.blocks.Count);
+                BlockStore.AddPrefab(psm);
 
                 tileYList.Add(5f);
                 tileList.Add(new Vector3(0, 322f, 0));
             } else if (tileList.Count >= 1 && tileList[^1].y > 524f && stage == 3){
-                /* 스테이지 2 마지막 발판 설치 */
+                /* 스테이지 3 마지막 발판 설치 */
                 nextPrefab = tileLoader.GetLastBlock(3);
-                nextTile(nextPrefab);
+                NextTile(nextPrefab);
 
-                /* 스테이지 3 첫 번째 발판 매칭 */
+                /* 스테이지 4 첫 번째 발판 매칭 */
                 stage = 4;
+                Sync();
                 GameObject firstBlock = GameObject.Find("spaceBlock_FirstBlock");
                 PlatformStateManager psm = firstBlock.AddComponent<PlatformStateManager>();
-                psm.SetBlockIndex(blockStore.blocks.Count);
-                blockStore.AddPrefab(psm);
+                psm.SetBlockIndex(BlockStore.blocks.Count);
+                BlockStore.AddPrefab(psm);
 
                 tileYList.Add(5f);
                 tileList.Add(new Vector3(0, 542f, 0));
             }
             else {
                 nextPrefab = tileLoader.GetNextBlock(stage); 
-                nextTile(nextPrefab);
+                NextTile(nextPrefab);
             }
 
             float currentProgress = 20f + ((float)(i + 1) / tileCount * 80f);
@@ -143,15 +167,17 @@ public class PlatformGenerator : MonoBehaviour
             }
         }
 
+        GameManager.PlaceAirplane(airplanePrefab, 5);
+
         blockStore.ChangeBlockStateLayer(0);
 
         Debug.Log($"Spawn Rule: {declineArea} {minTile} {minMove} {sideDecline} {minYSelect} {tileCount}");
     }
 
-    public void nextTile(GameObject prefab)
+    public void NextTile(GameObject prefab)
     {
         float minYSelectP = minYSelect;
-        float x = 0f;
+        float x;
         float y;
         float pointX;
         float rMin;
@@ -163,7 +189,7 @@ public class PlatformGenerator : MonoBehaviour
         float maxYSelectP = maxYSelect;
         float tigerPos = 0f;
         bool isExistTiger = false;
-        int jumpDirection = 0;
+        int jumpDirection;
 
         // 다음 타일의 높이 범위 설정
         int[] attributes = PrefabNameTranslator.ToPrefabAttribute(prefab.name);
@@ -194,7 +220,7 @@ public class PlatformGenerator : MonoBehaviour
         }
 
         // 다음 블록의 높이를 랜덤으로 설정 (전 조건문에 의해 결정된 최소 선택 높이 부터 최대 높이까지)
-        y = minYSelectP >= maxYSelect ? maxYSelect : Mathf.Round(Random.Range(minYSelectP, maxYSelectP) * 10f) / 10f;
+        y = minYSelectP >= maxYSelect ? maxYSelect : Mathf.Round(WeightFunction(minYSelectP, maxYSelectP) * 10f) / 10f;
 
         if (attributes[6] != 0){ // 만약 부착형 블록이면
             /* 부착형 블록 배치 알고리즘 */
@@ -439,12 +465,17 @@ public class PlatformGenerator : MonoBehaviour
         PlatformStateManager platformManager = newTile.AddComponent<PlatformStateManager>();
 
         // BlockStore에 BlockIndex 할당
-        platformManager.SetBlockIndex(blockStore.blocks.Count);
+        platformManager.SetBlockIndex(BlockStore.blocks.Count);
 
         // BlockStore에 프리팹을 추가
-        blockStore.AddPrefab(platformManager);
+        BlockStore.AddPrefab(platformManager);
 
         // 플랫폼 배치 완료 로그
         Debug.Log($"블록 배치 완료: {newTile.name}, 좌표: {newTile.transform.position}, {nextTileSize}, {pointX}");
+    }
+
+    private float WeightFunction(float start, float end){
+        float t = Random.Range(0f, 1f);
+        return Mathf.Lerp(start, end, Mathf.Pow(t, 2));
     }
 }

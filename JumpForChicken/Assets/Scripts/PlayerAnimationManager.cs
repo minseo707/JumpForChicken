@@ -317,7 +317,7 @@ public class PlayerAnimationManager : MonoBehaviour
             }
         }
 
-        aFrame++;
+        if (Time.timeScale != 0) aFrame++;
     }
 
     private void SpriteChangeIndex(int index){

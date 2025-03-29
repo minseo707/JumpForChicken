@@ -86,7 +86,7 @@ public class GaugeBarManager : MonoBehaviour
             Shake();
         }
 
-        if (((jumpGauge % 18) == 0) && (jumpGauge <= 90) && jumpGauge != 0){
+        if (((jumpGauge % 18) == 0) && (jumpGauge <= 90) && jumpGauge != 0 && pam.isJumpReady){
             soundPlayManager.GetComponent<SoundPlayManager>().PlaySound("tick", 1f, 1f + (jumpGauge - 18) / 100f);
         }
 

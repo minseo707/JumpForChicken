@@ -6,6 +6,7 @@ using Unity.Mathematics;
 using UnityEditor;
 using UnityEditor.Rendering.LookDev;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 /// <summary>
 /// 플레이어 움직임 및 기타 효과 재생
@@ -14,8 +15,6 @@ public class PlayerController : MonoBehaviour
 {
     private int height = 0;
     private float maxHeight = -999;
-    private float width = -999;
-    private float maxWidth = -999;
 
     private float gravity = 9.81f * 61 / 60;
 
@@ -89,7 +88,7 @@ public class PlayerController : MonoBehaviour
     private GameObject soundPlayManager;
     private bool isWalkingSoundPlaying = false; // 현재 걷는 소리가 재생 중인지 추적
 
-    private bool[] isPlayerVelocityZero = {false, false};
+    private bool[][] isPlayerVelocityZero = {new bool[] {false, false}, new bool[] {false, false}};
 
     private float breakTime;
     private bool jumpBreak;
@@ -157,13 +156,7 @@ public class PlayerController : MonoBehaviour
         // 타이머 업데이트
         if (landingFreezeTimer > 0f)
         {
-            landingFreezeTimer -= Time.deltaTime;
-            if (landingFreezeTimer <= 0f)
-            {
-                landingFreezeTimer = 0f;
-                // 타이머가 끝난 후 다시 움직일 수 있도록 설정
-                rigid.velocity = new Vector2(inputAxis * movePower, rigid.velocity.y);
-            }
+            landingFreezeTimer = Mathf.Max(0f, landingFreezeTimer - Time.deltaTime);
         }
         else
         {
@@ -217,8 +210,6 @@ public class PlayerController : MonoBehaviour
                         Landing(false);
                     }
                     else {
-                        width = transform.position.x;
-
                         isJump = true;
                         pam.isJumping = true;
                         stopped = false;
@@ -277,7 +268,7 @@ public class PlayerController : MonoBehaviour
         if (pam.isFalling && breakTime > 0f){
             pam.isCrashing = true;
             jumpBreak = true;
-            rigid.velocity = new Vector2(rigid.velocity.x / 2 , rigid.velocity.y);
+            rigid.velocity = new Vector2(rigid.velocity.x > 0 ? Mathf.Max(rigid.velocity.x / 2, 1f) : Mathf.Min(rigid.velocity.x / 2, -1f), rigid.velocity.y);
         }
         if (!jumpBreak && breakTime > 0f){
             rigid.velocity = new Vector2(rigid.velocity.x / 2 , rigid.velocity.y);
@@ -297,8 +288,8 @@ public class PlayerController : MonoBehaviour
                 uib.buttonLock = false;
                 mainCameraController.ChangeHeight(mainCameraController.maxHeight + 23.2f);
                 Debug.Log("변경");
-                gameManager.stage += 1;
-                gameManager.ChangeBackground(gameManager.stage);
+                GameManager.stage += 1;
+                gameManager.ChangeBackground(GameManager.stage);
                 StartCoroutine(CameraDifferenceAdjust());
             }
         }
@@ -307,9 +298,18 @@ public class PlayerController : MonoBehaviour
 
         isPlayerVelocityZero[1] = isPlayerVelocityZero[0];
         if (rigid.velocity.x == 0){
-            isPlayerVelocityZero[0] = true;
+            isPlayerVelocityZero[0][0] = true;
         } else {
-            isPlayerVelocityZero[0] = false;
+            isPlayerVelocityZero[0][0] = false;
+        }
+        if (rigid.velocity.y == 0){
+            isPlayerVelocityZero[1][0] = true;
+        } else {
+            isPlayerVelocityZero[1][0] = false;
+        }
+
+        if (isPlayerVelocityZero[0][1] == true && isPlayerVelocityZero[1][1] == true){
+            Debug.Log("[PlayerController] 원치 않는 디버깅");
         }
 
         if (isDead) rigid.velocity = Vector2.zero;
@@ -333,14 +333,15 @@ public class PlayerController : MonoBehaviour
     {
         for (int i = 0; i < collision.contacts.Length; i++)
         {
-            if (collision.contacts[i].normal.y > 0.7f && pam.isFalling)
+            if (collision.contacts[i].normal.y > 0.7f && (pam.isFalling 
+            || isPlayerVelocityZero[0][1] == true && isPlayerVelocityZero[1][1] == true && pam.isJumping))
             {
+                if (isPlayerVelocityZero[0][1] == true && isPlayerVelocityZero[1][1] == true){
+                    Debug.Log("[PlayerController] 상승 중 착지 시 발생하는 버그 수정");
+                }
                 Landing();
 
                 if (collision.gameObject.CompareTag("LastBlock")){
-                    if (!uib.buttonLock) pam.lookAt = transform.position.x >= 0 ? -1 : 1;
-                    uib.buttonLock = true;
-                    pam.isJumpReady = true;
                     StartCoroutine(NextStageAnimaiton());
                 } else {
                     uib.buttonLock = false;
@@ -350,18 +351,26 @@ public class PlayerController : MonoBehaviour
     }
 
 
-    float[] heightList = {134.7f, 320.7f, 540.7f};
+    readonly float[] heightList = {134.7f, 320.7f, 540.7f};
 
-    private IEnumerator NextStageAnimaiton(){
+    internal IEnumerator NextStageAnimaiton(){
+        if (!uib.buttonLock) pam.lookAt = transform.position.x >= 0 ? -1 : 1;
+        uib.buttonLock = true;
         pam.isJumpReady = true;
+        soundPlayManager.GetComponent<SoundPlayManager>().PlaySound("jumpReady");
         StartCoroutine(Camera.main.GetComponent<CameraController>().ZoomCamera(pam.lookAt));
         // 90 프레임 대기
         yield return new WaitForSeconds(1.5f);
         pam.isJumpReady = false;
         pam.isJumping = true;
-        rigid.velocity = new Vector2(1.2f * pam.lookAt, Mathf.Sqrt(2 * gravity * (heightList[gameManager.stage - 1] - transform.position.y)));
+        rigid.velocity = new Vector2(1.2f * pam.lookAt, Mathf.Sqrt(2 * gravity * (heightList[GameManager.stage - 1] - transform.position.y)));
         /* 콜라이더 해제 */
         col.enabled = false;
+
+        /* 효과음 재생 */
+        soundPlayManager.GetComponent<SoundPlayManager>().PlaySound("jump2");
+
+        
     }
     
     // 벽 충돌 시 실행
@@ -370,7 +379,7 @@ public class PlayerController : MonoBehaviour
         for (int i = 0; i < collision.contacts.Length; i++){
             ContactPoint2D contact = collision.contacts[i];
             // 플레이어가 왼쪽에서 오른쪽으로 충돌
-            if (contact.normal.x < -0.7f && !collision.gameObject.CompareTag("PassBlock") && !isPlayerVelocityZero[1])
+            if (contact.normal.x < -0.7f && !collision.gameObject.CompareTag("PassBlock") && !isPlayerVelocityZero[0][1])
             {
                 if (pam.isJumping){
                     rigid.velocity = new Vector2(-1.5f, rigid.velocity.y/3);
@@ -388,7 +397,7 @@ public class PlayerController : MonoBehaviour
                 }
             }
             // 플레이어가 오른쪽에서 왼쪽으로 충돌
-            else if (contact.normal.x > 0.7f && !collision.gameObject.CompareTag("PassBlock") && !isPlayerVelocityZero[1])
+            else if (contact.normal.x > 0.7f && !collision.gameObject.CompareTag("PassBlock") && !isPlayerVelocityZero[0][1])
             {
                 if (pam.isJumping){
                     rigid.velocity = new Vector2(1.5f, rigid.velocity.y/3);
@@ -420,7 +429,9 @@ public class PlayerController : MonoBehaviour
 
         if (landingFreezeTimer > 0f)
         {
-            currentVelocity.x = 0; // 착지 후 멈추는 상태
+            inputAxis = 0;
+            inputJump = false;
+
         }
 
         // 점프 장전이 안 되어있고, 점프 중이지 않고, 낙하 중이지 않을 때
@@ -574,7 +585,7 @@ public class PlayerController : MonoBehaviour
         }
 
         // 낙하 모션 중 땅에서 정지하는 버그 수정
-        if (pam.isFalling && pam.isFirstJump)
+        if (pam.isFalling && pam.isFirstJump && !pam.isCrashing)
         {
             Landing();
             Debug.Log("[PlayerController] 낙하 모션 중 땅에서 정지하는 버그가 발생하였으나 해결됨");
@@ -607,8 +618,6 @@ public class PlayerController : MonoBehaviour
         }
 
         spriteRendererGauge.enabled = false;
-
-        maxWidth = transform.position.x;
 
         // 착지 후 일시적으로 멈추는 타이머 시작
         landingFreezeTimer = landingFreezeDuration;
@@ -653,6 +662,25 @@ public class PlayerController : MonoBehaviour
         if (other.CompareTag("Tiger")){
             // 플레이어 콜라이더 너비: 0.3f
             float previousVelocity = 50f;
+            pam.isCrashing = true;
+            stopped = false;
+            jumpBreak = false;
+            CancelJumpReady();
+            Vector2 direction = -(other.transform.position - transform.position).normalized;
+            pam.lookAt = -(int)(direction.x / Mathf.Abs(direction.x));
+            if (breakTime > 0f){
+                breakTime = 0.1f;
+                rigid.velocity = new Vector2(previousVelocity * direction.x / Mathf.Abs(direction.x), rigid.velocity.y / 4.5f);
+                return;
+            }
+            breakTime = 0.1f;
+            rigid.velocity = new Vector2(previousVelocity * direction.x / Mathf.Abs(direction.x), rigid.velocity.y / 4.5f);
+            soundPlayManager.GetComponent<SoundPlayManager>().PlaySound("breakFx");
+        }
+
+        if (other.CompareTag("Airplane")){
+            // 플레이어 콜라이더 너비: 0.3f
+            float previousVelocity = 75f;
             pam.isCrashing = true;
             stopped = false;
             jumpBreak = false;

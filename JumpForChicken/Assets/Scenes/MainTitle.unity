@@ -2113,7 +2113,6 @@ GameObject:
   - component: {fileID: 667923267}
   - component: {fileID: 667923266}
   - component: {fileID: 667923265}
-  - component: {fileID: 667923264}
   - component: {fileID: 667923263}
   m_Layer: 3
   m_Name: Player
@@ -2183,27 +2182,6 @@ MonoBehaviour:
   hatCode: 0
   clothesCode: 0
   needUpdate: 0
---- !u!114 &667923264
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 667923262}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5538501054c7648a4a192364acb9b751, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gameSpeed: 2.56
-  inputLeft: 0
-  inputRight: 0
-  inputJump: 0
-  inputAxis: 0
-  firstJumpUp: 0
-  movePower: 4
-  jumpPower: 0.55
-  landingParticle: {fileID: 1266738736841524008, guid: 9a902085551d84936a1ecfff76c0fb8d, type: 3}
 --- !u!61 &667923265
 BoxCollider2D:
   m_ObjectHideFlags: 0

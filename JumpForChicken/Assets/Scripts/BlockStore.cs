@@ -8,12 +8,12 @@ using UnityEngine;
 public class BlockStore : MonoBehaviour
 {
 
-    private int currentPlatformLayer;
-    private int nextPlatformLayer;
-    private int pastPlatformLayer;
-    private int defaultPlatformLayer;
+    private static int currentPlatformLayer;
+    private static int nextPlatformLayer;
+    private static int pastPlatformLayer;
+    private static int defaultPlatformLayer;
 
-    public List<PlatformStateManager> blocks = new();
+    public static List<PlatformStateManager> blocks = new();
 
     private void Awake()
     {
@@ -52,10 +52,25 @@ public class BlockStore : MonoBehaviour
         }
     }
 
+    internal static void ResetBlockStore(){
+        blocks = new();
+    }
+
     /// <summary>
     /// 프리팹의 PlatformStageManager 추가
     /// </summary>
-    public void AddPrefab(PlatformStateManager psm){
+    public static void AddPrefab(PlatformStateManager psm){
         blocks.Add(psm);
+    }
+
+    /// <summary>
+    /// 다음 스테이지로 이동하기 위한 테스트 코드
+    /// </summary>
+    internal static void SetAllNext(){
+        for (int i = 0; i < blocks.Count; i++)
+        {
+            blocks[i].SetOnlyPlatformLayer(currentPlatformLayer);
+            blocks[i].SetPlatformLayer();
+        }
     }
 }

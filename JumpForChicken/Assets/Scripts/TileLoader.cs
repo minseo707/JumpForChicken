@@ -4,6 +4,9 @@ using UnityEngine;
 using UnityEditor;
 using PrefabName;
 
+/// <summary>
+/// 블록 선택 클래스 (가중치 적용)
+/// </summary>
 public class TileLoader : MonoBehaviour
 {
     private readonly string[] folderPathsEditer = {
@@ -21,25 +24,25 @@ public class TileLoader : MonoBehaviour
     };
 
     private readonly GameObject[][] allPrefabArray = { new GameObject[] {},
-                                              new GameObject[] {},
-                                              new GameObject[] {},
-                                              new GameObject[] {} };
+                                                       new GameObject[] {},
+                                                       new GameObject[] {},
+                                                       new GameObject[] {} };
 
     private GameObject[] allLastPrefab = {};
 
-    private float[][][] tileTypeWeight = { new float[][] {},
-                                           new float[][] {},
-                                           new float[][] {},
-                                           new float[][] {} };
-    private int[][] numberOfTileTypes = { new int[] {8, 8, 8, 8, 8, 8, 8, 8, 8, 8},
-                                          new int[] {8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8},
-                                          new int[] {1, 1, 1},
-                                          new int[] {1, 1, 1, 1} }; // 각 타일 종류별 개수
-    private string[][] tileTypeCodes = { new string[] {"F2", "F3", "F4", "F5", "F5_L", "F6", "F6_L", "T2", "T3", "T4"},
-                                         new string[] {"F1", "F2", "F3", "F4", "F0", "F0_L", "F5", "F5_L", "F6", "F6_L", 
-                                                       "T2", "T2_R", "T3", "T3_R", "T4", "T4_R", "T5", "T5_R"},
-                                         new string[] {"F1", "F2", "F3"},
-                                         new string[] {"F1", "F2", "T1", "F2"} }; // 각 타일 종류 코드
+    private readonly float[][][] tileTypeWeight = { new float[][] {},
+                                                    new float[][] {},
+                                                    new float[][] {},
+                                                    new float[][] {} };
+    private readonly int[][] numberOfTileTypes = { new int[] {8, 8, 8, 8, 8, 8, 8, 8, 8, 8},
+                                                   new int[] {8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8},
+                                                   new int[] {1, 1, 2, 1, 1, 2},
+                                                   new int[] {1, 1, 1, 1} }; // 각 타일 종류별 개수
+    private readonly string[][] tileTypeCodes = { new string[] {"F2", "F3", "F4", "F5", "F5_L", "F6", "F6_L", "T2", "T3", "T4"},
+                                                  new string[] {"F1", "F2", "F3", "F4", "F0", "F0_L", "F5", "F5_L", "F6", "F6_L", 
+                                                                "T2", "T2_R", "T3", "T3_R", "T4", "T4_R", "T5", "T5_R"},
+                                                  new string[] {"F1", "F2", "F3", "T1", "T2", "T3"},
+                                                  new string[] {"F1", "F2", "T1", "F2"} }; // 각 타일 종류 코드
 
 
     /// <summary>

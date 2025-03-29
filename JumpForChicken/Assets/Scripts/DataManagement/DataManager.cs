@@ -1,11 +1,13 @@
 using System.IO;
 using UnityEngine;
 
+/// <summary>
+/// 데이터 저장/로드 관리자
+/// : 첫 실행 시 Imstance에 접근
+/// </summary>
 public class DataManager : MonoBehaviour
 {
     static GameObject container;
-
-    // --- 싱글톤으로 선언 ---
     static DataManager instance;
     public static DataManager Instance
     {
@@ -13,9 +15,9 @@ public class DataManager : MonoBehaviour
         {
             if (!instance)
             {
-                container = new GameObject();
+                container = new();
                 container.name = "DataManager";
-                instance = container.AddComponent(typeof(DataManager)) as DataManager;
+                instance = container.AddComponent<DataManager>();
                 DontDestroyOnLoad(container);
             }
             return instance;
