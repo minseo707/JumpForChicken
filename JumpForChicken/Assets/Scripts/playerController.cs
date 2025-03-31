@@ -4,7 +4,6 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEditor;
-using UnityEditor.Rendering.LookDev;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -67,6 +66,10 @@ public class PlayerController : MonoBehaviour
     // Update에서 입력받는 inputAxis Horizontal, FixedUpdate에서 사용
     private float inputAxis;
 
+    private float lastInputAxis;
+
+    private bool jumpLock = false;
+
     // 점프 여부
     private bool isJump = false;
 
@@ -113,6 +116,7 @@ public class PlayerController : MonoBehaviour
         pam.isFirstJump = true;
         stopped = false;
         isDead = false;
+        jumpLock = false;
 
         soundPlayManager = GameObject.Find("Sound Player");
 
@@ -153,10 +157,19 @@ public class PlayerController : MonoBehaviour
     // 프레임 당 초기화: 사용자 입력 감지
     void Update()
     {
+        if (jumpLock && (Input.GetButtonUp("Jump") || firstJumpUp)){
+            jumpLock = false;
+        }
+
         // 타이머 업데이트
         if (landingFreezeTimer > 0f)
         {
             landingFreezeTimer = Mathf.Max(0f, landingFreezeTimer - Time.deltaTime);
+
+            if (landingFreezeTimer <= 0f){  
+                inputAxis = lastInputAxis;
+                pam.isFirstJump = true;
+            }
         }
         else
         {
@@ -167,7 +180,7 @@ public class PlayerController : MonoBehaviour
             // 땅에 있을 때
             if (!pam.isJumping && !pam.isFalling && !pam.isCrashing)
             {
-                if ((inputJump || Input.GetButton("Jump")) && rigid.velocity.y == 0)
+                if ((inputJump || Input.GetButton("Jump")) && rigid.velocity.y == 0 && !jumpLock)
                 {
                     // doJumpReady 트리거를 한 번만 작동시키기 위한 조건문
                     // isFirstJump : 다음 점프는 첫 번째 점프이다.
@@ -203,13 +216,16 @@ public class PlayerController : MonoBehaviour
                     }
                 }
 
-                if ((Input.GetButtonUp("Jump") || firstJumpUp) && rigid.velocity.y == 0)
+                if (rigid.velocity.y == 0)
                 {
                     if (jumpHoldTime >= 180){
                         jumpHoldTime = 0;
                         Landing(false);
+                        pam.isFirstJump = false;
+                        jumpLock = true;
                     }
-                    else {
+
+                    else if ((Input.GetButtonUp("Jump") || firstJumpUp) && pam.isJumpReady) {
                         isJump = true;
                         pam.isJumping = true;
                         stopped = false;
@@ -235,6 +251,14 @@ public class PlayerController : MonoBehaviour
             inputAxis = inputLeft ? -1 : inputAxis;
             inputAxis = inputRight ? 1 : inputAxis;
             inputAxis = inputLeft && inputRight ? 0 : inputAxis;
+
+        }
+
+
+        if (pam.onGround && !pam.isJumpReady && !pam.isCrashing && jumpHoldTime == 0){
+            lastInputAxis = Input.GetAxisRaw("Horizontal");
+            if (lastInputAxis > 0) pam.lookAt = 1;
+            else if (lastInputAxis < 0) pam.lookAt = -1;
         }
 
         jumpTime += Time.deltaTime;
@@ -431,7 +455,9 @@ public class PlayerController : MonoBehaviour
         {
             inputAxis = 0;
             inputJump = false;
-
+            pam.isFirstJump = false;
+            firstJumpUp = false;
+            jumpHoldTime = 0;
         }
 
         // 점프 장전이 안 되어있고, 점프 중이지 않고, 낙하 중이지 않을 때
