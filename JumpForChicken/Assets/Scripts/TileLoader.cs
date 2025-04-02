@@ -37,7 +37,7 @@ public class TileLoader : MonoBehaviour
     private readonly int[][] numberOfTileTypes = { new int[] {8, 8, 8, 8, 8, 8, 8, 8, 8, 8},
                                                    new int[] {8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8},
                                                    new int[] {1, 1, 2, 1, 1, 2},
-                                                   new int[] {1, 1, 1, 1} }; // 각 타일 종류별 개수
+                                                   new int[] {7, 4, 1, 1} }; // 각 타일 종류별 개수
     private readonly string[][] tileTypeCodes = { new string[] {"F2", "F3", "F4", "F5", "F5_L", "F6", "F6_L", "T2", "T3", "T4"},
                                                   new string[] {"F1", "F2", "F3", "F4", "F0", "F0_L", "F5", "F5_L", "F6", "F6_L", 
                                                                 "T2", "T2_R", "T3", "T3_R", "T4", "T4_R", "T5", "T5_R"},
@@ -72,16 +72,13 @@ public class TileLoader : MonoBehaviour
     }
 
     public GameObject GetLastBlock(int loadStage){
-        switch (loadStage){
-            case 1:
-                return NameToPrefab("cityBlock_LastBlock", true);
-            case 2:
-                return NameToPrefab("mountainBlock_LastBlock", true);
-            case 3:
-                return NameToPrefab("skyBlock_LastBlock", true);
-            default:
-                return new GameObject();
-        }
+        return loadStage switch
+        {
+            1 => NameToPrefab("cityBlock_LastBlock", true),
+            2 => NameToPrefab("mountainBlock_LastBlock", true),
+            3 => NameToPrefab("skyBlock_LastBlock", true),
+            _ => new GameObject(),
+        };
     }
 
     /// <summary>

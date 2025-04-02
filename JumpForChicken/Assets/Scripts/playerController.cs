@@ -173,10 +173,6 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            if (firstJumpUp && rigid.velocity.y != 0){ // 다음 점프 방지
-                firstJumpUp = false;
-            }
-
             // 땅에 있을 때
             if (!pam.isJumping && !pam.isFalling && !pam.isCrashing)
             {
@@ -246,7 +242,7 @@ public class PlayerController : MonoBehaviour
             }
 
             // Update에서 변수 저장
-            inputAxis = Input.GetAxisRaw("Horizontal");
+            inputAxis = uib.buttonLock ? 0 : Input.GetAxisRaw("Horizontal");
             
             inputAxis = inputLeft ? -1 : inputAxis;
             inputAxis = inputRight ? 1 : inputAxis;
@@ -254,9 +250,16 @@ public class PlayerController : MonoBehaviour
 
         }
 
+        if (rigid.velocity.y != 0f){
+            pam.onGround = false;
+        }
 
         if (pam.onGround && !pam.isJumpReady && !pam.isCrashing && jumpHoldTime == 0){
-            lastInputAxis = Input.GetAxisRaw("Horizontal");
+            lastInputAxis = uib.buttonLock ? 0 : Input.GetAxisRaw("Horizontal");
+            lastInputAxis = inputLeft ? -1 : lastInputAxis;
+            lastInputAxis = inputRight ? 1 : lastInputAxis;
+            lastInputAxis = inputLeft && inputRight ? 0 : lastInputAxis;
+
             if (lastInputAxis > 0) pam.lookAt = 1;
             else if (lastInputAxis < 0) pam.lookAt = -1;
         }
@@ -387,6 +390,8 @@ public class PlayerController : MonoBehaviour
         yield return new WaitForSeconds(1.5f);
         pam.isJumpReady = false;
         pam.isJumping = true;
+        pam.onGround = false;
+        stopped = false;
         rigid.velocity = new Vector2(1.2f * pam.lookAt, Mathf.Sqrt(2 * gravity * (heightList[GameManager.stage - 1] - transform.position.y)));
         /* 콜라이더 해제 */
         col.enabled = false;
@@ -454,9 +459,7 @@ public class PlayerController : MonoBehaviour
         if (landingFreezeTimer > 0f)
         {
             inputAxis = 0;
-            inputJump = false;
             pam.isFirstJump = false;
-            firstJumpUp = false;
             jumpHoldTime = 0;
         }
 

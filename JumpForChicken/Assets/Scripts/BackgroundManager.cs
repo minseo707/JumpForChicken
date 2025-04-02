@@ -16,9 +16,9 @@ public class BackgroundManager : MonoBehaviour
 
     private float[] scopeArray = {13f, 13f, 13f, 13f};
 
-    private float[] offsets = {0, 19.5f, 35.3f, 360f};
+    private float[] offsets = {0, 19.5f, 35.3f, 43f};
 
-    private float[] realHeights = {120f, 170f, 220f, 400f};
+    private float[] realHeights = {120f, 170f, 220f, 300f};
 
     private SpriteRenderer spriteRenderer;
 

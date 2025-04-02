@@ -62,7 +62,7 @@ public class CameraController : MonoBehaviour
         } else if (GameManager.stage == 2){
             maxHeight = 306.666f;
         } else if (GameManager.stage == 3){
-            maxHeight = 543f;
+            maxHeight = 527f;
         } else if (GameManager.stage == 4){
             maxHeight = 1000f;
         }
