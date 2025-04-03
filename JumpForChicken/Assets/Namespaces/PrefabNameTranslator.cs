@@ -127,6 +127,8 @@ namespace PrefabName {
                     Debug.LogError("[PrefabNameTranslator] 해당 프리팹은 대응되는 장애물이 없습니다.: " + prefabName);
                     return "";
                 }
+            } else if (_attributes[0] == 4){ // 스테이지 3에서
+                return "UFO";
             }
             return "";
         }
@@ -140,6 +142,7 @@ namespace PrefabName {
             if (prefabName == "cityBlock_LastBlock") return new int[] {1, 4, 0, 0, 1, 0, 0};
             if (prefabName == "mountainBlock_LastBlock") return new int[] {2, 4, 0, 0, 1, 0, 0};
             if (prefabName == "skyBlock_LastBlock") return new int[] {3, 4, 0, 0, 1, 0, 0};
+            if (prefabName == "UFO") return new int [] {4, 1, 0, 0, 0, 0, 0};
 
             int stage = 1;
             int nextTileSize = 2;
@@ -172,7 +175,8 @@ namespace PrefabName {
             _pfname = _pfname.Substring(1);
 
             // 추후 스테이지 변경에 따라 수정
-            if (_pfname.StartsWith("2")) nextTileSize = 2;
+            if (_pfname.StartsWith("1")) nextTileSize = 1;
+            else if (_pfname.StartsWith("2")) nextTileSize = 2;
             else if (_pfname.StartsWith("3")) nextTileSize = 3;
             else if (_pfname.StartsWith("4")) nextTileSize = 4;
             else if (_pfname.StartsWith("5") && oneWay == 1){

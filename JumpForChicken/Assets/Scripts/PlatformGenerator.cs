@@ -188,6 +188,7 @@ public class PlatformGenerator : MonoBehaviour
         float maxYSelect = 7.8f;
         float maxYSelectP = maxYSelect;
         float tigerPos = 0f;
+        float offset = 0f;
         bool isExistTiger = false;
         int jumpDirection;
 
@@ -439,14 +440,18 @@ public class PlatformGenerator : MonoBehaviour
                     stage2Conditions = new int[] {1, Random.Range(1, 6), 5}; // 구역 초기화
                 }
             }
-        } else if (stage == 3){
-
-        } else if (stage == 4){
-
+        } else if (_attribute[0] == 4){
+            // 장애물 처리 (Stage 4)
+            // 한 칸 블록에 대해 15%의 확률로 UFO 타일로 대치
+            if (_attribute[1] == 1 && Random.Range(0f, 1f) < 0.15f){
+                // TODO: UFO 타일 로드 및 대치
+                prefab = tileLoader.NameToPrefab("UFO");
+                offset = -3.076f;
+            }
         }
 
         // 새 타일 Instantiate하고 높이, 위치 설정 및 TileLoader에서 프리팹 불러오기
-        GameObject newTile = Instantiate(prefab, new Vector3(x, tileList[^1].y, 0), Quaternion.identity);
+        GameObject newTile = Instantiate(prefab, new Vector3(x, tileList[^1].y + offset, 0), Quaternion.identity);
 
         // 발판의 현재 월드 좌표를 저장
         Vector3 worldPosition = newTile.transform.position;

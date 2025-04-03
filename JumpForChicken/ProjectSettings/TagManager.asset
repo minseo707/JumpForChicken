@@ -12,6 +12,7 @@ TagManager:
   - Tiger
   - LastBlock
   - Airplane
+  - Laser
   layers:
   - Default
   - TransparentFX

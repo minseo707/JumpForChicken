@@ -283,6 +283,9 @@ public class PlayerController : MonoBehaviour
                 Debug.Log("[PlayerController] 점프 준비 중 낙하 시 생기는 버그 수정 (Update)");
             }
         }
+
+        // 기절 중에는 게이지바 제거
+        if (pam.isCrashing) spriteRendererGauge.enabled = false;
     }
 
     private void FixedUpdate()
@@ -295,7 +298,7 @@ public class PlayerController : MonoBehaviour
         if (pam.isFalling && breakTime > 0f){
             pam.isCrashing = true;
             jumpBreak = true;
-            rigid.velocity = new Vector2(rigid.velocity.x > 0 ? Mathf.Max(rigid.velocity.x / 2, 1f) : Mathf.Min(rigid.velocity.x / 2, -1f), rigid.velocity.y);
+            rigid.velocity = new Vector2(rigid.velocity.x != 0f ? (rigid.velocity.x > 0 ? Mathf.Max(rigid.velocity.x / 2, 1f) : Mathf.Min(rigid.velocity.x / 2, -1f)) : 0, rigid.velocity.y);
         }
         if (!jumpBreak && breakTime > 0f){
             rigid.velocity = new Vector2(rigid.velocity.x / 2 , rigid.velocity.y);
@@ -323,20 +326,18 @@ public class PlayerController : MonoBehaviour
 
         ScoreByHeight(); // 높이에 따른 점수 담당 함수
 
-        isPlayerVelocityZero[1] = isPlayerVelocityZero[0];
-        if (rigid.velocity.x == 0){
+        isPlayerVelocityZero[1][0] = isPlayerVelocityZero[0][0];
+        isPlayerVelocityZero[1][1] = isPlayerVelocityZero[0][1];
+
+        if (rigid.velocity.x == 0f){
             isPlayerVelocityZero[0][0] = true;
         } else {
             isPlayerVelocityZero[0][0] = false;
         }
-        if (rigid.velocity.y == 0){
-            isPlayerVelocityZero[1][0] = true;
+        if (rigid.velocity.y == 0f){
+            isPlayerVelocityZero[0][1] = true;
         } else {
-            isPlayerVelocityZero[1][0] = false;
-        }
-
-        if (isPlayerVelocityZero[0][1] == true && isPlayerVelocityZero[1][1] == true){
-            Debug.Log("[PlayerController] 원치 않는 디버깅");
+            isPlayerVelocityZero[0][1] = false;
         }
 
         if (isDead) rigid.velocity = Vector2.zero;
@@ -363,7 +364,7 @@ public class PlayerController : MonoBehaviour
             if (collision.contacts[i].normal.y > 0.7f && (pam.isFalling 
             || isPlayerVelocityZero[0][1] == true && isPlayerVelocityZero[1][1] == true && pam.isJumping))
             {
-                if (isPlayerVelocityZero[0][1] == true && isPlayerVelocityZero[1][1] == true){
+                if (isPlayerVelocityZero[0][1] == true && isPlayerVelocityZero[1][1] == true && pam.isJumping){
                     Debug.Log("[PlayerController] 상승 중 착지 시 발생하는 버그 수정");
                 }
                 Landing();
@@ -616,7 +617,7 @@ public class PlayerController : MonoBehaviour
         // 낙하 모션 중 땅에서 정지하는 버그 수정
         if (pam.isFalling && pam.isFirstJump && !pam.isCrashing)
         {
-            Landing();
+            Landing(false);
             Debug.Log("[PlayerController] 낙하 모션 중 땅에서 정지하는 버그가 발생하였으나 해결됨");
         }
     }
@@ -650,6 +651,11 @@ public class PlayerController : MonoBehaviour
 
         // 착지 후 일시적으로 멈추는 타이머 시작
         landingFreezeTimer = landingFreezeDuration;
+
+        // 기절 중 착지하였는데, 착지 후 Landing 함수가 실행 될 때 Paricle 나오는 현상 해결
+        if (isPlayerVelocityZero[1][1]){
+            playParticle = false;
+        }
 
         if (playParticle){
             GameObject landingPtcInstance = Instantiate(landingParticle);
@@ -724,6 +730,23 @@ public class PlayerController : MonoBehaviour
             breakTime = 0.1f;
             rigid.velocity = new Vector2(previousVelocity * direction.x / Mathf.Abs(direction.x), rigid.velocity.y / 4.5f);
             soundPlayManager.GetComponent<SoundPlayManager>().PlaySound("breakFx");
+        }
+
+        if (other.CompareTag("Laser")){
+            // 플레이어 콜라이더 너비: 0.3f
+            pam.isCrashing = true;
+            stopped = false;
+            jumpBreak = false;
+            CancelJumpReady();
+            Vector2 direction = -(other.transform.position - transform.position).normalized;
+            pam.lookAt = -(int)(direction.x / Mathf.Abs(direction.x));
+            if (breakTime > 0f){
+                breakTime = 4f;
+                rigid.velocity = new Vector2(0f, rigid.velocity.y / 4.5f);
+                return;
+            }
+            breakTime = 4f;
+            rigid.velocity = new Vector2(0f, rigid.velocity.y / 4.5f);
         }
     }
 
