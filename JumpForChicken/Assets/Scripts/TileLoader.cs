@@ -35,7 +35,7 @@ public class TileLoader : MonoBehaviour
     private readonly int[][] numberOfTileTypes = { new int[] {8, 8, 8, 8, 8, 8, 8, 8, 8, 8},
                                                    new int[] {8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8},
                                                    new int[] {1, 1, 2, 1, 1, 2},
-                                                   new int[] {7, 4, 1, 1} }; // 각 타일 종류별 개수
+                                                   new int[] {7, 4, 4, 2} }; // 각 타일 종류별 개수
     private readonly string[][] tileTypeCodes = { new string[] {"F2", "F3", "F4", "F5", "F5_L", "F6", "F6_L", "T2", "T3", "T4"},
                                                   new string[] {"F1", "F2", "F3", "F4", "F0", "F0_L", "F5", "F5_L", "F6", "F6_L", 
                                                                 "T2", "T2_R", "T3", "T3_R", "T4", "T4_R", "T5", "T5_R"},
@@ -53,6 +53,14 @@ public class TileLoader : MonoBehaviour
         AdjustWeights(blockIndex, loadStage);
 
         if (loadStage == 2 && blockIndex[0] >= 10 && blockIndex[0] <= 17){
+            blockIndex[1] = 0;
+        }
+
+        if (loadStage == 4 && blockIndex[0] == 2 && blockIndex[1] >= 1){
+            blockIndex[1] = 0;
+        }
+
+        if (loadStage == 4 && blockIndex[0] == 3 && blockIndex[1] >= 1){
             blockIndex[1] = 0;
         }
 
@@ -189,6 +197,20 @@ public class TileLoader : MonoBehaviour
     }
 
     /// <summary>
+    /// float 배열의 합을 구하는 함수
+    /// </summary>
+    /// <param name="arr">float 배열</param>
+    /// <returns>Summary</returns>
+    private float SumArray(float[] arr){
+        float sum = 0;
+        foreach (var item in arr)
+        {
+            sum += item;
+        }
+        return sum;
+    }
+
+    /// <summary>
     /// 랜덤 값에 대응되는 블럭의 2차원 좌표를 반환하는 함수
     /// </summary>
     /// <param name="rScore">편향적 랜덤 값의 합</param>
@@ -272,6 +294,10 @@ public class TileLoader : MonoBehaviour
                     tileTypeWeight[loadStage - 1][k][l] += 0.168f;
                 }
             }
+
+            // 바로 직전에 (마지막으로) 선택된 블록의 가중치를 0으로 설정
+            tileTypeWeight[loadStage - 1][i][j] = 0;
+
         } else if (loadStage == 2){
             // 같은 종류(타일 수 & L자 타일 여부 & 통과 가능 여부) 블록 가중치 조정
             for (int k = 0; k < tileTypeWeight[loadStage - 1][i].Length; k++)
@@ -330,10 +356,88 @@ public class TileLoader : MonoBehaviour
                     tileTypeWeight[loadStage - 1][k][l] += 0.168f;
                 }
             }
+
+            // 바로 직전에 (마지막으로) 선택된 블록의 가중치를 0으로 설정
+            tileTypeWeight[loadStage - 1][i][j] = 0;
+
+        } else if (loadStage == 3){
+            // 통과 가능 여부가 같은 블록 (통과 불가능) 가중치 조정
+            if (i <= 2)
+            {
+                for (int k = 0; k <= 2; k++)
+                {
+                    for (int l = 0; l < tileTypeWeight[loadStage - 1][k].Length; l++)
+                    {
+                        tileTypeWeight[loadStage - 1][k][l] -= 0.6f;
+                    }
+                }
+            }
+            // 통과 가능 여부가 같은 블록 (통과 가능) 가중치 조정
+            else
+            {
+                for (int k = 3; k <= 5; k++)
+                {
+                    for (int l = 0; l < tileTypeWeight[loadStage - 1][k].Length; l++)
+                    {
+                        tileTypeWeight[loadStage - 1][k][l] -= 0.75f;
+                    }
+                }
+            }
+
+            tileTypeWeight[loadStage - 1][0][0] -= 0.2f;
+            tileTypeWeight[loadStage - 1][3][0] -= 0.2f;
+
+            for (int k = 0; k <= 1; k++)
+            {
+                tileTypeWeight[loadStage - 1][2][k] -= 0.2f;
+                tileTypeWeight[loadStage - 1][5][k] -= 0.2f;
+            }
+
+            // 모든 타일 가중치 증가
+            for (int k = 0; k < tileTypeWeight[loadStage - 1].Length; k++)
+            {
+                for (int l = 0; l < tileTypeWeight[loadStage - 1][k].Length; l++)
+                {
+                    if (k <= 2) tileTypeWeight[loadStage - 1][k][l] += 1f;
+                    else tileTypeWeight[loadStage - 1][k][l] += 0.4f;
+                }
+            }
+
+            // 같은 종류(타일 수 & L자 타일 여부 & 통과 가능 여부) 블록 가중치 조정
+            for (int k = 0; k < tileTypeWeight[loadStage - 1][i].Length; k++)
+            {
+                tileTypeWeight[loadStage - 1][i][k] -= 3f;
+            }
+        } else if (loadStage == 4){
+            float w1 = 0.3f; // 통과 가능 블록 비율
+            float w2 = 0.7f; // 한 칸 블록 비율
+
+            float changeValue = 1;
+            if (i == 0 || i == 1) changeValue *= w1 / (1 - w1);
+            if (i == 1 || i == 3) changeValue *= w2 / (1 - w2);
+
+            int opposite = i switch
+            {
+                0 => 3,
+                1 => 2,
+                2 => 0,
+                3 => 1,
+                _ => 0
+            };
+
+            for (int k = 0; k < tileTypeWeight[loadStage - 1][i].Length; k++)
+            {
+                tileTypeWeight[loadStage - 1][i][k] = (SumArray(tileTypeWeight[loadStage - 1][i]) - changeValue) / numberOfTileTypes[loadStage - 1][i];
+                
+            }
+
+            for (int k = 0; k < tileTypeWeight[loadStage - 1][opposite].Length; k++)
+            {
+                tileTypeWeight[loadStage - 1][opposite][k] = (SumArray(tileTypeWeight[loadStage - 1][opposite]) + changeValue) / numberOfTileTypes[loadStage - 1][opposite];
+            }
         }
 
-        // 바로 직전에 (마지막으로) 선택된 블록의 가중치를 0으로 설정
-        tileTypeWeight[loadStage - 1][i][j] = 0;
+        //
 
         // 음수 가중치 방지
         for (int k = 0; k < tileTypeWeight[loadStage - 1].Length; k++)
