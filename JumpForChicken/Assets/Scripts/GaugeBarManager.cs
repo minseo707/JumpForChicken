@@ -12,10 +12,13 @@ public class GaugeBarManager : MonoBehaviour
     public int jumpGauge = 0;
 
     // 플레이어 위치 가져오기 위함
+    [Header("Player")]
     public GameObject player;
 
     // 카메라의 좌표를 가져오기 위함
+    [Header("Camera")]
     public GameObject cameras;
+    [SerializeField] private float offset = 7.5f;
     private CameraController cc;
     
     // 플레이어 애니메이션 매니저 안에 있는 'lookAt' 변수 가져오기 위함
@@ -24,6 +27,8 @@ public class GaugeBarManager : MonoBehaviour
     // 플레이어 위치 불러올 변수 Vector3
     private Vector3 playerPos;
 
+    // Gauge Bar
+    [Header("GaugeBar Sprites")]
     public Sprite[] sprites;
     private SpriteRenderer spriteRenderer;
     
@@ -49,7 +54,7 @@ public class GaugeBarManager : MonoBehaviour
 
         playerPos = player.transform.position;
 
-        playerPos = new Vector3(player.transform.position.x + pam.lookAt * 0.7f, Mathf.Max(player.transform.position.y, cc.cameraHeight - 7.5f), player.transform.position.z); // (x, y, z)
+        playerPos = new Vector3(player.transform.position.x + pam.lookAt * 0.7f, Mathf.Max(player.transform.position.y, cc.cameraHeight - offset), player.transform.position.z); // (x, y, z)
 
         transform.position = playerPos;
         transform.localScale = new Vector3(-pam.lookAt, 1, 1);
