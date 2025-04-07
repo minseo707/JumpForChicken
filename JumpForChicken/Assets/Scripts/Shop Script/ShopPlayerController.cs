@@ -46,7 +46,7 @@ public class ShopPlayerController : MonoBehaviour
     private bool isActDone = true;
     private int randomJumpHoldTime = 0;
 
-
+    public GameObject trailParticle;
 
     // Start is called before the first frame update
     void Start()
@@ -121,6 +121,8 @@ public class ShopPlayerController : MonoBehaviour
                 }
             }
         }
+
+        TrailManager();
     }
 
     private void FixedUpdate()
@@ -303,6 +305,14 @@ public class ShopPlayerController : MonoBehaviour
         if (playParticle){
             GameObject landingPtcInstance = Instantiate(landingParticle);
             landingPtcInstance.transform.position = new Vector3(transform.position.x, transform.position.y - 0.1f, transform.position.z);
+        }
+    }
+
+    private void TrailManager(){
+        if (pam.isJumping || pam.isFalling){
+            trailParticle.SetActive(true);
+        } else {
+            trailParticle.SetActive(false);
         }
     }
 

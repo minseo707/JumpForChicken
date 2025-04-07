@@ -1,3 +1,5 @@
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -28,7 +30,7 @@ public class SoundPlayManager : MonoBehaviour
 
     private AudioSource taxiAudioSource;
     private Dictionary<string, AudioSource> fxAudioSources = new Dictionary<string, AudioSource>();
-    private Dictionary<string, AudioSource> bgmAudioSources = new Dictionary<string, AudioSource>();
+    public Dictionary<string, AudioSource> bgmAudioSources = new Dictionary<string, AudioSource>();
 
     private List<float> taxiDistances = new List<float>();
 

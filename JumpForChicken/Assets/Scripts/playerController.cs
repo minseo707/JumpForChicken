@@ -389,6 +389,7 @@ public class PlayerController : MonoBehaviour
         StartCoroutine(Camera.main.GetComponent<CameraController>().ZoomCamera(pam.lookAt));
         // 90 프레임 대기
         yield return new WaitForSeconds(1.5f);
+        GameManager.NextSound();
         pam.isJumpReady = false;
         pam.isJumping = true;
         pam.onGround = false;
@@ -675,7 +676,7 @@ public class PlayerController : MonoBehaviour
             Die();
         }
 
-        if (other.tag == "Taxi"){
+        if (other.CompareTag("Taxi")){
             // 플레이어 콜라이더 너비: 0.3f
             float previousVelocity = 24.19f;
             pam.isCrashing = true;
@@ -747,6 +748,25 @@ public class PlayerController : MonoBehaviour
             }
             breakTime = 4f;
             rigid.velocity = new Vector2(0f, rigid.velocity.y / 4.5f);
+        }
+
+        if (other.CompareTag("Spaceman")){
+            // 플레이어 콜라이더 너비: 0.3f
+            float previousVelocity = 24.19f;
+            pam.isCrashing = true;
+            stopped = false;
+            jumpBreak = false;
+            CancelJumpReady();
+            Vector2 direction = -(other.transform.position - transform.position).normalized;
+            pam.lookAt = -(int)(direction.x / Mathf.Abs(direction.x));
+            if (breakTime > 0f){
+                breakTime = 0.1f;
+                rigid.velocity = new Vector2(previousVelocity * direction.x / Mathf.Abs(direction.x), rigid.velocity.y / 5);
+                return;
+            }
+            breakTime = 0.1f;
+            rigid.velocity = new Vector2(previousVelocity * direction.x / Mathf.Abs(direction.x), rigid.velocity.y / 5);
+            soundPlayManager.GetComponent<SoundPlayManager>().PlaySound("breakFx");
         }
     }
 

@@ -139,6 +139,7 @@ public class ShopManager : MonoBehaviour
         for (int i = 0; i < 5; i++) buttonItemSelectManagers[i + 10].Unselect();
         for (int i = 0; i < 15; i++) buttonItemSelectManagers[i].ItsNotMe();
         buttonItemSelectManagers[itemCode + 10].Select();
+        TailManager.ChangeMotorcycleTail(itemCode);
     }
 
 

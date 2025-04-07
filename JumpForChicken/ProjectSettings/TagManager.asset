@@ -13,6 +13,7 @@ TagManager:
   - LastBlock
   - Airplane
   - Laser
+  - Spaceman
   layers:
   - Default
   - TransparentFX

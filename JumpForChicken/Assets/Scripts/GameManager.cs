@@ -26,6 +26,8 @@ public class GameManager : MonoBehaviour
 
     private BackgroundManager backgroundManager;
 
+    public static BackgroundMusicManager bgmManager;
+
 
     private void Awake() {
         deltaTime = 0f;
@@ -37,6 +39,10 @@ public class GameManager : MonoBehaviour
         bsm = ButtonSoundManager.Instance;
         backgroundManager = GameObject.Find("Background").GetComponent<BackgroundManager>();
         stage = 1;
+
+        if (bgmManager == null){
+            bgmManager = FindAnyObjectByType<BackgroundMusicManager>().GetComponent<BackgroundMusicManager>();
+        }
     }
 
     private void Update() {
@@ -80,6 +86,16 @@ public class GameManager : MonoBehaviour
     public void GoToNextStage(){
         BlockStore.SetAllNext();
         StartCoroutine(GameObject.Find("Player").GetComponent<PlayerController>().NextStageAnimaiton());
+    }
+
+    public static void NextSound(){
+        if (bgmManager == null){
+            bgmManager = FindAnyObjectByType<BackgroundMusicManager>().GetComponent<BackgroundMusicManager>();
+        }
+
+        bgmManager.isMusicPlaying = false;
+        bgmManager.waitTime = 3f;
+        bgmManager.currentStage = stage + 1;
     }
 
     public void ChangeBackground(int currentStage){
