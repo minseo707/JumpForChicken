@@ -6,7 +6,7 @@ public class TailManager : MonoBehaviour
 {
     static List<GameObject> tailList = new();
 
-    void Start()
+    void Awake()
     {
         tailList = new();
         for (int i = 0; i < DataManager.Instance.gameData.hasMotorcycle.Length; i++)
