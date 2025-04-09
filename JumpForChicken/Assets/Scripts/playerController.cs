@@ -91,7 +91,9 @@ public class PlayerController : MonoBehaviour
     private GameObject soundPlayManager;
     private bool isWalkingSoundPlaying = false; // 현재 걷는 소리가 재생 중인지 추적
 
-    private bool[][] isPlayerVelocityZero = {new bool[] {false, false}, new bool[] {false, false}};
+    // 계속 헷갈려서 분명히 기재
+    // [i][j] 에서 i는 순서, j는 x, y
+    private readonly bool[][] isPlayerVelocityZero = {new bool[] {false, false}, new bool[] {false, false}};
 
     private float breakTime;
     private bool jumpBreak;
@@ -313,11 +315,9 @@ public class PlayerController : MonoBehaviour
 
         /* 카메라 시점 변환 */
         if (uib.buttonLock){
-            Debug.Log("변경 시도" + $"{mainCameraController.maxHeight}, {transform.position.y + 20f}");
             if (mainCameraController.maxHeight < transform.position.y - 7f){ /* Offset 설정 및 플레이어 위치, 카메라 위치 설정 */
                 uib.buttonLock = false;
                 mainCameraController.ChangeHeight(mainCameraController.maxHeight + 23.2f);
-                Debug.Log("변경");
                 GameManager.stage += 1;
                 gameManager.ChangeBackground(GameManager.stage);
                 StartCoroutine(CameraDifferenceAdjust());
@@ -410,7 +410,7 @@ public class PlayerController : MonoBehaviour
         for (int i = 0; i < collision.contacts.Length; i++){
             ContactPoint2D contact = collision.contacts[i];
             // 플레이어가 왼쪽에서 오른쪽으로 충돌
-            if (contact.normal.x < -0.7f && !collision.gameObject.CompareTag("PassBlock") && !isPlayerVelocityZero[0][1])
+            if (contact.normal.x < -0.7f && !collision.gameObject.CompareTag("PassBlock") && !(isPlayerVelocityZero[1][0] | isPlayerVelocityZero[0][1]))
             {
                 if (pam.isJumping){
                     rigid.velocity = new Vector2(-1.5f, rigid.velocity.y/3);
@@ -428,7 +428,7 @@ public class PlayerController : MonoBehaviour
                 }
             }
             // 플레이어가 오른쪽에서 왼쪽으로 충돌
-            else if (contact.normal.x > 0.7f && !collision.gameObject.CompareTag("PassBlock") && !isPlayerVelocityZero[0][1])
+            else if (contact.normal.x > 0.7f && !collision.gameObject.CompareTag("PassBlock") && !(isPlayerVelocityZero[1][0] | isPlayerVelocityZero[0][1]))
             {
                 if (pam.isJumping){
                     rigid.velocity = new Vector2(1.5f, rigid.velocity.y/3);

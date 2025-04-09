@@ -92,7 +92,6 @@ public class GaugeBarManager : MonoBehaviour
 
         if (jumpGauge >= 120){
             Shake();
-            Debug.Log(jumpGauge);
         }
 
         if (((jumpGauge % 18) == 0) && (jumpGauge <= 90) && jumpGauge != 0 && pam.isJumpReady){
@@ -113,6 +112,5 @@ public class GaugeBarManager : MonoBehaviour
     public void NextFrameDisappear(){
         doDisappear = true;
         soundPlayManager.GetComponent<SoundPlayManager>().PlaySound("gaugeDisappear");
-        Debug.Log("Disappear!");
     }
 }

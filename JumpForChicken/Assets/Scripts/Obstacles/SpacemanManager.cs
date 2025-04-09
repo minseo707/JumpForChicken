@@ -45,7 +45,6 @@ public class SpacemanManager : MonoBehaviour
     }
 
     void Update(){
-        Debug.Log(transform.position.y);
         if (startTime > 0){
             localPos += moveSpeed * Time.deltaTime * moveVector;
             startTime = Mathf.Max(startTime - Time.deltaTime, 0f);

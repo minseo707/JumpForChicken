@@ -77,10 +77,8 @@ public class GameManager : MonoBehaviour
         {
             GameObject airplane = Instantiate(airplanePrefab, new Vector3(0f, startHeight + (float)stage3Height / (n + 1) * i, 1), Quaternion.identity);
             airplane.transform.SetParent(airplanesParent.transform);
-            Debug.Log($"Airplane created at position: {airplane.transform.position}");
+            // Debug.Log($"Airplane created at position: {airplane.transform.position}");
         }
-
-        Debug.Log("[GameManager] Airplane installed: " + n);
     }
 
     public void GoToNextStage(){

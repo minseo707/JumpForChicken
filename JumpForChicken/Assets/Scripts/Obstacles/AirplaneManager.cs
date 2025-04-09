@@ -33,8 +33,6 @@ public class AirplaneManager : MonoBehaviour
         boxCollider = GetComponent<BoxCollider2D>();
         airplaneSpriteRenderer = GetComponent<SpriteRenderer>();
         trailRenderer = transform.Find("Trail").GetComponent<TrailRenderer>();
-
-        Debug.Log("[AirplaneManager] Airplane initialized");
     }
 
     void FixedUpdate()

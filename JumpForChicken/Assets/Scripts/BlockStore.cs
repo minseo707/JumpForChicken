@@ -28,7 +28,6 @@ public class BlockStore : MonoBehaviour
     /// </summary>
     /// <param name="blockIndex">CurrentPlatform Index</param>
     public void ChangeBlockStateLayer(int blockIndex){
-        Debug.Log("[BlockStore] ChangeBlockStateLayer Run for: " + blockIndex);
         for (int i = 0; i < blocks.Count; i++)
         {
             if (i == blockIndex){

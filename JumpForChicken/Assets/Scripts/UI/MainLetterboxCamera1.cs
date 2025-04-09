@@ -32,8 +32,6 @@ public class MainLetterboxCamera : MonoBehaviour
 
         float scaleHeight = windowAspect / targetAspect;
 
-        Debug.Log($"[LetterBoxCamera] {targetAspect}, {windowAspect}, {scaleHeight}");
-
         if (scaleHeight < 1.0f)
         {
             // 세로가 더 긴 경우: 위아래에 레터박스 생성
