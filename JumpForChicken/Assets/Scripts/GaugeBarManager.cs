@@ -35,6 +35,8 @@ public class GaugeBarManager : MonoBehaviour
     // Sound Play Manager
     private GameObject soundPlayManager;
 
+    private bool doDisappear = false;
+
 
     void Start()
     {
@@ -45,6 +47,7 @@ public class GaugeBarManager : MonoBehaviour
         soundPlayManager = GameObject.Find("Sound Player");
 
         cc = cameras.GetComponent<CameraController>();
+        doDisappear = false;
     }
 
     void Update()
@@ -89,19 +92,27 @@ public class GaugeBarManager : MonoBehaviour
 
         if (jumpGauge >= 120){
             Shake();
+            Debug.Log(jumpGauge);
         }
 
         if (((jumpGauge % 18) == 0) && (jumpGauge <= 90) && jumpGauge != 0 && pam.isJumpReady){
             soundPlayManager.GetComponent<SoundPlayManager>().PlaySound("tick", 1f, 1f + (jumpGauge - 18) / 100f);
         }
 
-        if (jumpGauge == 180){
-            soundPlayManager.GetComponent<SoundPlayManager>().PlaySound("gaugeDisappear");
+        if (doDisappear){
+            spriteRenderer.enabled = false;
+            doDisappear = false;
         }
     }
 
     void Shake(){
         float shakeX = Mathf.Sin(Time.time * 60f) * .042f;
         transform.position = new Vector3(player.transform.position.x + pam.lookAt * 0.7f + shakeX, transform.position.y, transform.position.z);
+    }
+
+    public void NextFrameDisappear(){
+        doDisappear = true;
+        soundPlayManager.GetComponent<SoundPlayManager>().PlaySound("gaugeDisappear");
+        Debug.Log("Disappear!");
     }
 }

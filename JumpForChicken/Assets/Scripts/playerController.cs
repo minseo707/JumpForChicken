@@ -49,7 +49,7 @@ public class PlayerController : MonoBehaviour
     public GameObject landingParticle;
 
     private SpriteRenderer spriteRendererGauge;
-    private readonly GameObject gaugeObject;
+
 
     private UIButtonManager uib;
 
@@ -195,20 +195,20 @@ public class PlayerController : MonoBehaviour
                     // 점프 준비 시간 증가
                     jumpHoldTime = Mathf.Min(jumpHoldTime + 1, 181);
 
-                    // 점프 캔슬 (1 프레임 오차 허용)
-                    if (jumpHoldTime == 180){
-                        Destroy(gaugeObject);
-                        spriteRendererGauge.enabled = false;
-                        pam.isJumpReady = false;
-                        GameObject dapInstance = Instantiate(daParticle);
-                        dapInstance.transform.position = new Vector3(transform.position.x + pam.lookAt * 0.7f, transform.position.y, transform.position.z);
-                    }
-
                     // 게이지바에 점프 준비 시간 동기화
+                    // BugFix: jumpGauge가 179까지만 증가하는 버그
                     if (isTutorial){
                         tgbm.jumpGauge = jumpHoldTime;
                     } else {
                         gbm.jumpGauge = jumpHoldTime;
+                    }
+
+                    // 점프 캔슬 (1 프레임 오차 허용)
+                    if (jumpHoldTime == 180){
+                        gbm.NextFrameDisappear();
+                        pam.isJumpReady = false;
+                        GameObject dapInstance = Instantiate(daParticle);
+                        dapInstance.transform.position = new Vector3(transform.position.x + pam.lookAt * 0.7f, transform.position.y, transform.position.z);
                     }
                 }
 
@@ -638,7 +638,6 @@ public class PlayerController : MonoBehaviour
         pam.onGround = true;
         pam.isCrashing = false;
         jumpBreak = false;
-        Destroy(gaugeObject);
 
         // 동기화 원리 : 점프 키를 떼는 순간, jumpHoldTime은 0이 되지만, gaugeBar의 jumpGauge는 점프 키를 떼기 직전의 jumpHoldTime을 가지고 있으므로
         // jumpHoldTime이 0이 되어도 점프 중일 때 적절한 게이지바를 출력 
@@ -668,7 +667,6 @@ public class PlayerController : MonoBehaviour
         pam.isJumpReady = false;
         pam.isFirstJump = true;
         jumpHoldTime = 0;
-        Destroy(gaugeObject);
     }
 
     private void OnTriggerStay2D(Collider2D other) {

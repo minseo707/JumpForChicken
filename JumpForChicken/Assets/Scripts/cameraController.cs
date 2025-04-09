@@ -10,24 +10,31 @@ using UnityEngine;
 /// </summary>
 public class CameraController : MonoBehaviour
 {
+    [Header("Player Object")]
     public GameObject player;
+
+    [Header("Offset")]
     public float cameraHeight = 1f;
     public float floor = -2.231772f;
 
+    [Header("Camera Speed")]
     public float secPerTile = 10f;
-
     private readonly float[] cameraSpeeds = {0.1f, 0.15f, 0.25f, 0.37f};
+
+    [Header("Default Floor Array")]
+    [SerializeField] public float[] floors = {0f, 0.5f, 1f, 1.5f};
 
     private int lastStage = -1;
 
 
     // 데드라인 실수 보강
-
+    [Header("Deadline Backwards")]
     public float backwards = 4f;
 
     public float difference = 0f;
     private float tempDiff = 0f;
 
+    [Header("Scores")]
     public float maxHeight = 0f;
 
     private float startCamera;
@@ -37,9 +44,16 @@ public class CameraController : MonoBehaviour
 
     private GameManager gm;
 
+    [Header("Stage 2-Leap Particle")]
     [SerializeField] GameObject leapParticle;
 
     private Camera cameras;
+
+    [Header("Spaceman Config")]
+    [SerializeField] private GameObject spacemanPrefab;
+    [SerializeField] private float spacemanSpawnHeight = 600f;
+    private bool spacemanActive = false;
+
 
     void Start()
     {
@@ -53,6 +67,7 @@ public class CameraController : MonoBehaviour
         difference = 0f;
         tempDiff = 0f;
         trig = false;
+        spacemanActive = false;
     }
 
     void FixedUpdate()
@@ -65,6 +80,12 @@ public class CameraController : MonoBehaviour
             maxHeight = 527f;
         } else if (GameManager.stage == 4){
             maxHeight = 1000f;
+        }
+
+        if (GameManager.stage == 4 && !spacemanActive && cameraHeight > spacemanSpawnHeight){
+            // Instantiate Spaceman
+            Instantiate(spacemanPrefab, new Vector3(0, 10f, 0), Quaternion.identity);
+            spacemanActive = true;
         }
 
         // 카메라 높이 조정 (하강 과정)
@@ -80,9 +101,9 @@ public class CameraController : MonoBehaviour
         }
         
         // 카메라 높이 조정 (상승 과정)
-        if (pam.onGround && cameraHeight - player.transform.position.y < startCamera && !trig)
+        if (pam.onGround && cameraHeight - player.transform.position.y < startCamera - floors[GameManager.stage - 1] && !trig)
         {
-            totalDiff = Mathf.Min(player.transform.position.y + startCamera - cameraHeight, maxHeight - cameraHeight);
+            totalDiff = Mathf.Min(player.transform.position.y + startCamera - floors[GameManager.stage - 1] - cameraHeight, maxHeight - cameraHeight);
             trig = true;
         }
 
@@ -116,6 +137,7 @@ public class CameraController : MonoBehaviour
         }
     }
 
+    [Header("Zoom Camera")]
     public float scale = 0f;
 
     public IEnumerator ZoomCamera(int direction){
