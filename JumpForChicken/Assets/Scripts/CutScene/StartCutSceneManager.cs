@@ -18,8 +18,14 @@ public class StartCutSceneManager : MonoBehaviour
     private float pageTimer = 0f;
     private float fadeTimer = 0f;
 
+    private bool skip = false;
+
 
     public void NextPage(){
+        if (skip) return;
+        if (fadeTimer > 0f){
+            skip = true;
+        }
         fadeTimer = fadeDuration;
         pageTimer = 0f;
         currentPage++;
@@ -33,6 +39,7 @@ public class StartCutSceneManager : MonoBehaviour
 
     void Start(){
         currentPage = 0;
+        skip = false;
         images = new Image[pages.Length];
         for (int i = 0; i < pages.Length; i++)
         {
@@ -66,8 +73,10 @@ public class StartCutSceneManager : MonoBehaviour
 
         if (pageTimer > 0f){
             pageTimer -= Time.deltaTime;
+            if (skip) pageTimer = 0f;
             if (pageTimer <= 0f){
                 Debug.Log(currentPage);
+                skip = false;
                 NextPage();
             }
         }
