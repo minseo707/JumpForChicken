@@ -10,6 +10,8 @@ public class GameoverUIManager : MonoBehaviour
     private float viewScore = 0;
     private int currentScore;
 
+    internal bool increase;
+
     public GameObject highScoreText;
     public GameObject chickenText;
     public TextMeshProUGUI scoreTMP;
@@ -28,6 +30,7 @@ public class GameoverUIManager : MonoBehaviour
         currentScore = gm.GetComponent<ScoreManager>().score;
         int currentChicken = gm.GetComponent<ScoreManager>().chicken;
         viewScore = 0;
+        increase = false;
 
         if (highScoreText != null && chickenText != null){
 
@@ -47,6 +50,8 @@ public class GameoverUIManager : MonoBehaviour
 
     void Update()
     {
+        if (!increase) return;
+        
         if (viewScore < currentScore){
             viewScore += currentScore / increaseSecond * Time.unscaledDeltaTime;
         }

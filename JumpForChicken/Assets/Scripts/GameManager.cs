@@ -1,6 +1,7 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.SocialPlatforms.Impl;
 
 /// <summary>
 /// 인게임에서의 버튼 이벤트 및 UI 관리
@@ -15,6 +16,7 @@ public class GameManager : MonoBehaviour
 
     public GameObject realExitContainer;
     public GameObject settingsContainer;
+    public GameObject EndingCutSceneContainer;
 
     public TextMeshProUGUI fpsText;
 
@@ -145,7 +147,33 @@ public class GameManager : MonoBehaviour
     public void EndingUIActive(){
         Time.timeScale = 0f;
         isGameover = true;
-        endingUICanvas.SetActive(true);
+        EndingCutSceneContainer.SetActive(true);
         pauseUICanvas.SetActive(false);
+    }
+
+    public static int GetEndingPage(){        
+        int chicken = ScoreManager.Instance.chicken;
+
+        if (stage == 1){
+            return 0; // Ending 1
+        }
+
+        if (stage >= 2 && stage <= 3 && chicken < 10){
+            return 0; // Ending 1
+        }
+
+        if (stage >= 2 && stage <= 3 && chicken < 20 && chicken >= 10){
+            return 1; // Ending 2
+        }
+
+        if (stage >= 2 && stage <= 3 && chicken >= 20){
+            return 2; // Ending 3
+        }
+
+        if (stage == 4){
+            return 3; // Ending 4
+        }
+
+        return 0;
     }
 }
