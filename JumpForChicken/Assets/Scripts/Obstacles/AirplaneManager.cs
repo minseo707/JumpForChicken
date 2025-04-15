@@ -7,6 +7,10 @@ public class AirplaneManager : MonoBehaviour
 {
     [SerializeField] private float waitTime = 3f;
 
+    [SerializeField] private float soundDistance = 3f;
+
+    [SerializeField] private float offset = -1f;
+
     private const float moveSpeed = 2f; // Move Speed per Second
 
     private const float colliderWidth = 1f;
@@ -23,6 +27,12 @@ public class AirplaneManager : MonoBehaviour
 
     private TrailRenderer trailRenderer;
 
+    private GameObject mainCamera;
+
+    private CameraController cc;
+
+    private AudioSource audioSource;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -33,10 +43,16 @@ public class AirplaneManager : MonoBehaviour
         boxCollider = GetComponent<BoxCollider2D>();
         airplaneSpriteRenderer = GetComponent<SpriteRenderer>();
         trailRenderer = transform.Find("Trail").GetComponent<TrailRenderer>();
+
+        mainCamera = Camera.main.gameObject;
+        cc = mainCamera.GetComponent<CameraController>();
     }
 
     void FixedUpdate()
     {
+        if (!mainCamera) mainCamera = Camera.main.gameObject;
+        if (!cc) cc = mainCamera.GetComponent<CameraController>();
+
         if (!IsPlayerInside() && !wait)
         {
             wait = true;
@@ -47,6 +63,9 @@ public class AirplaneManager : MonoBehaviour
             transform.Translate(direction * moveSpeed * Time.fixedDeltaTime * Vector2.right);
             if (IsPlayerInside()) wait = false;
         }
+
+        audioSource.volume = Mathf.Abs(transform.position.y - cc.cameraHeight + offset) > soundDistance ?
+                            - 1f / Mathf.Pow(soundDistance, 2) * Mathf.Pow(transform.position.y - cc.cameraHeight + offset, 2) + 1 : 0;
     }
 
     private IEnumerator ChangeDirection(){

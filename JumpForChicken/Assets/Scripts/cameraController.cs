@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Unity.Mathematics;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -54,6 +55,9 @@ public class CameraController : MonoBehaviour
     [SerializeField] private float spacemanSpawnHeight = 600f;
     private bool spacemanActive = false;
 
+    [Header("Warning Particle")]
+    [SerializeField] GameObject warningParticle;
+
 
     void Start()
     {
@@ -103,7 +107,12 @@ public class CameraController : MonoBehaviour
         // 카메라 높이 조정 (상승 과정)
         if (pam.onGround && cameraHeight - player.transform.position.y < startCamera - floors[GameManager.stage - 1] && !trig)
         {
-            totalDiff = Mathf.Min(player.transform.position.y + startCamera - floors[GameManager.stage - 1] - cameraHeight, maxHeight - cameraHeight);
+            if (GameManager.stage < 4){
+                totalDiff = Mathf.Min(player.transform.position.y + startCamera - floors[GameManager.stage - 1] - cameraHeight, maxHeight - cameraHeight);
+            } else {
+                totalDiff = player.transform.position.y + startCamera - floors[GameManager.stage - 1] - cameraHeight;
+            }
+            
             trig = true;
         }
 
@@ -117,13 +126,13 @@ public class CameraController : MonoBehaviour
 
         if (totalDiff > 1e-4)
         {
-            cameraHeight = Mathf.Min(cameraHeight + totalDiff / 16, maxHeight);
+            cameraHeight = GameManager.stage < 4 ? Mathf.Min(cameraHeight + totalDiff / 16, maxHeight) : cameraHeight + totalDiff / 16;
             difference = Mathf.Max(0, difference - totalDiff / 64);
             totalDiff -= totalDiff / 16;
         }
         else
         {
-            cameraHeight = Mathf.Min(cameraHeight + totalDiff / 16, maxHeight);
+            cameraHeight = GameManager.stage < 4 ? Mathf.Min(cameraHeight + totalDiff / 16, maxHeight) : cameraHeight + totalDiff / 16;
             totalDiff = 0;
         }
 
@@ -135,6 +144,20 @@ public class CameraController : MonoBehaviour
             leapParticle.SetActive(GameManager.stage == 2);
             lastStage = GameManager.stage;
         }
+
+        // 일정 시간 동기화되지 않은 인스턴스는 삭제
+        warnings.RemoveAll(warning =>
+        {
+            
+            warning.frame--;
+            if (warning.frame <= 0)
+            {
+                Destroy(warning.instance);
+                return true;
+            }
+            warning.instance.transform.position = new Vector2(warning.x, cameraHeight + 6.25f);
+            return false;
+        });
     }
 
     [Header("Zoom Camera")]
@@ -187,4 +210,33 @@ public class CameraController : MonoBehaviour
         difference = 0;
         tempDiff = 0;
     }
+
+    private List<Warning> warnings = new();
+
+    public void ViewWarning(float x){
+        // 만약 x에 대한 경고가 없으면 추가
+        if (!warnings.Exists(w => w.x == x)){
+            warnings.Add(new Warning{
+                x = x,
+                frame = 2,
+                instance = Instantiate(
+                    warningParticle, 
+                    new Vector3(x, cameraHeight + 6.25f, 0), 
+                    Quaternion.identity
+                )
+            });
+        }
+
+        // 만약 x에 대한 경고가 있으면 frame 초기화
+        foreach (var warning in warnings.Where(w => w.x == x)){
+            warning.frame = 2;
+        }
+    }
+}
+
+class Warning {
+    public float x;
+    public int frame;
+    public GameObject instance;
+
 }

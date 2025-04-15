@@ -19,6 +19,7 @@ public class SoundPlayManager : MonoBehaviour
     public GameObject acquire;
     public GameObject walking;
     public GameObject taxi;
+    public GameObject tiger;
     
     [Header("BGM Manager")]
     public GameObject bgmManager;
@@ -52,6 +53,7 @@ public class SoundPlayManager : MonoBehaviour
         fxAudioSources["breakFx"] = breakFx.GetComponent<AudioSource>();
         fxAudioSources["failed"] = failed.GetComponent<AudioSource>();
         fxAudioSources["flap"] = flap.GetComponent<AudioSource>();
+        fxAudioSources["tiger"] = tiger.GetComponent<AudioSource>();
         fxAudioSources["tick"] = tick.GetComponent<AudioSource>();
         fxAudioSources["gaugeDisappear"] = gaugeDisappear.GetComponent<AudioSource>();
         fxAudioSources["walking"] = walking.GetComponent<AudioSource>();

@@ -28,8 +28,10 @@ public class ChickenInWall : MonoBehaviour
     private void FixedUpdate()
     {
         // 1. OverlapCollider로 치킨 콜라이더와 겹치는 모든 콜라이더를 찾는다.
-        ContactFilter2D filter = new ContactFilter2D();
-        filter.useTriggers = false;  
+        ContactFilter2D filter = new()
+        {
+            useTriggers = false,
+        };
         filter.SetLayerMask(Physics2D.AllLayers);
 
         int count = Physics2D.OverlapCollider(chickenCol, filter, overlapHits);
@@ -50,19 +52,11 @@ public class ChickenInWall : MonoBehaviour
             // distInfo.isOverlapped == true 이면 실제로 겹친 상태
             if (distInfo.isOverlapped)
             {
-                float overlapDistance = -distInfo.distance;
+                // 겹침 해결을 위한 이동 벡터 계산
+                Vector2 separationVector = distInfo.normal * distInfo.distance;
 
-                // 탈출
-                transform.position += new Vector3(0, overlapDistance, 0);
-
-                // 리지드바디 속도 보정 (떨림 방지)
-                if (rb != null)
-                {
-                    Vector2 vel = rb.velocity;
-                    // 아래로 파고드는 중이라면 y속도 0으로
-                    if (vel.y < 0) vel.y = 0;
-                    rb.velocity = vel;
-                }
+                // 치킨의 위치를 조정하여 블록에서 밀어냄
+                transform.position = (Vector2)transform.position + separationVector;
             }
         }
 

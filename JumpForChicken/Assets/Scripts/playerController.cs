@@ -709,7 +709,7 @@ public class PlayerController : MonoBehaviour
             }
             breakTime = 0.1f;
             rigid.velocity = new Vector2(previousVelocity * direction.x / Mathf.Abs(direction.x), rigid.velocity.y / 4.5f);
-            soundPlayManager.GetComponent<SoundPlayManager>().PlaySound("breakFx");
+            soundPlayManager.GetComponent<SoundPlayManager>().PlaySound("tiger");
         }
 
         if (other.CompareTag("Airplane")){
