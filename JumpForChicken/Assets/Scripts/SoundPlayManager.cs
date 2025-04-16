@@ -20,6 +20,7 @@ public class SoundPlayManager : MonoBehaviour
     public GameObject walking;
     public GameObject taxi;
     public GameObject tiger;
+    public GameObject score;
     
     [Header("BGM Manager")]
     public GameObject bgmManager;
@@ -54,6 +55,7 @@ public class SoundPlayManager : MonoBehaviour
         fxAudioSources["failed"] = failed.GetComponent<AudioSource>();
         fxAudioSources["flap"] = flap.GetComponent<AudioSource>();
         fxAudioSources["tiger"] = tiger.GetComponent<AudioSource>();
+        fxAudioSources["score"] = score.GetComponent<AudioSource>();
         fxAudioSources["tick"] = tick.GetComponent<AudioSource>();
         fxAudioSources["gaugeDisappear"] = gaugeDisappear.GetComponent<AudioSource>();
         fxAudioSources["walking"] = walking.GetComponent<AudioSource>();
@@ -94,7 +96,7 @@ public class SoundPlayManager : MonoBehaviour
     {
         if (sound == "taxi")
         {
-            taxiDistances.Add(distance);
+            taxiDistances.Add(distance + 2.231772f);
         }
     }
 
@@ -122,7 +124,7 @@ public class SoundPlayManager : MonoBehaviour
                     maxVolume = Mathf.Max(maxVolume, 0f);
                 }
             }
-            taxiAudioSource.volume = maxVolume * totalVolumeSlider.value * fxVolumeSlider.value;
+            taxiAudioSource.volume = maxVolume * totalVolumeSlider.value * fxVolumeSlider.value * 0.6f * Time.timeScale;
             taxiDistances.Clear();
         }
     }

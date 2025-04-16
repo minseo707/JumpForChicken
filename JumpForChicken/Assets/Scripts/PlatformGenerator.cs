@@ -19,11 +19,11 @@ public class PlatformGenerator : MonoBehaviour
     public float sideDecline = 2.0f; // 벽에서부터 생성 불가능 범위
     public float minYSelect = 2.0f;
 
-    private readonly float[] declineAreaArray = {3f, 3f, 3f, 3f};
+    private readonly float[] declineAreaArray = {3f, 3.5f, 4f, 5f};
     private readonly float[] sideDeclineArray = {2.0f, 2.0f, 2.0f, 2.0f};
     private readonly float[] minYSelectArray = {2.0f, 2.0f, 2.0f, 2.0f};
-    private readonly float[] minMoveArray = {16f, 16f, 16f, 16f};
-    private readonly int[] minTileArray = {4, 4, 4, 4};
+    private readonly float[] minMoveArray = {16f, 16f, 16f, 18f};
+    private readonly int[] minTileArray = {5, 5, 4, 3};
 
     [Header("Other Settings")]
     public int stage = 1;

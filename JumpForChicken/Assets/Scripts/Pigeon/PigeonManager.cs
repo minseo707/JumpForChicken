@@ -52,7 +52,7 @@ public class PigeonManager : MonoBehaviour
 
         transform.position = new Vector3(xPos, cameras.transform.position.y + 8f + objectSize/2, 0); // 화면 바로 위
 
-        soundPlayManager.GetComponent<SoundPlayManager>().PlaySound("flap"); // 비둘기 등-퇴장 효과음 재생
+        soundPlayManager.GetComponent<SoundPlayManager>().PlaySound("flap", volume: 0.55f); // 비둘기 등-퇴장 효과음 재생
     }
 
     // 일시정지 기능에 의해 Update -> FixedUpdate
@@ -76,7 +76,7 @@ public class PigeonManager : MonoBehaviour
                 // 한 번만 실행
                 if (!isDisappearing) {
                     isDisappearing = true;
-                    soundPlayManager.GetComponent<SoundPlayManager>().PlaySound("flap"); // 비둘기 등-퇴장 효과음 재생
+                    soundPlayManager.GetComponent<SoundPlayManager>().PlaySound("flap", volume: 0.55f); // 비둘기 등-퇴장 효과음 재생
                     Destroy(gameObject, 1.5f); // 0.25초보다 크게
                 }
             }

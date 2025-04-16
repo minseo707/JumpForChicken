@@ -25,7 +25,7 @@ public class ShopManager : MonoBehaviour
 
     private readonly int[] hatPrice = {0, 10, 20, 30, 40};
     private readonly int[] clothesPrice = {0, 10, 20, 30, 40};
-    private readonly int[] motorcyclePrice = {0, 10, 20, 30, 40};
+    private readonly int[] motorcyclePrice = {0, 10, 20, 30, 40, 50, 60};
 
     public GameObject purchaseButton;
     private PurchaseButtonManager pbm;
@@ -47,8 +47,8 @@ public class ShopManager : MonoBehaviour
     private ShopSoundPlayManager shopSoundManager;
 
     void Awake(){
-        buttonItemSelectManagers = new ItemSelectManager[15];
-        for (int i = 0; i < 15; i++) buttonItemSelectManagers[i] = buttons[i].GetComponent<ItemSelectManager>();
+        buttonItemSelectManagers = new ItemSelectManager[17];
+        for (int i = 0; i < 17; i++) buttonItemSelectManagers[i] = buttons[i].GetComponent<ItemSelectManager>();
         pbm = purchaseButton.GetComponent<PurchaseButtonManager>();
         pam = player.GetComponent<PlayerAnimationManager>();
         bsm = bike.GetComponent<BikeSpriteManager>();
@@ -59,10 +59,11 @@ public class ShopManager : MonoBehaviour
     void Start()
     {
         DataManager.Instance.LoadGameData();
+        DataManager.Instance.ResetGameData();
 
         for (int i = 0; i < 5; i++) buttonItemSelectManagers[i].isPurchased = DataManager.Instance.gameData.hasHelmets[i];
         for (int i = 0; i < 5; i++) buttonItemSelectManagers[i + 5].isPurchased = DataManager.Instance.gameData.hasClothes[i];
-        for (int i = 0; i < 5; i++) buttonItemSelectManagers[i + 10].isPurchased = DataManager.Instance.gameData.hasMotorcycle[i];
+        for (int i = 0; i < 7; i++) buttonItemSelectManagers[i + 10].isPurchased = DataManager.Instance.gameData.hasMotorcycle[i];
 
         first = true; // 매개변수 전달
         SelectHatContainer(DataManager.Instance.gameData.equippedGoods[0]);
@@ -70,7 +71,7 @@ public class ShopManager : MonoBehaviour
         SelectMotorcycleContainer(DataManager.Instance.gameData.equippedGoods[2]);
         first = false;
         _selected = false;
-        for (int i = 0; i < 15; i++) buttonItemSelectManagers[i].ItsNotMe();
+        for (int i = 0; i < 17; i++) buttonItemSelectManagers[i].ItsNotMe();
         currentChickenTMP.text = $"x {DataManager.Instance.gameData.chickens}";
 
         starCycle = 120;
@@ -121,7 +122,7 @@ public class ShopManager : MonoBehaviour
         ChangePlayerItem(itemCode, 0);
         selectedItemIsPurchased = DataManager.Instance.gameData.hasHelmets[itemCode];
         for (int i = 0; i < 5; i++) buttonItemSelectManagers[i].Unselect();
-        for (int i = 0; i < 15; i++) buttonItemSelectManagers[i].ItsNotMe();
+        for (int i = 0; i < 17; i++) buttonItemSelectManagers[i].ItsNotMe();
         buttonItemSelectManagers[itemCode].Select();
     }
 
@@ -129,15 +130,15 @@ public class ShopManager : MonoBehaviour
         ChangePlayerItem(itemCode, 1);
         selectedItemIsPurchased = DataManager.Instance.gameData.hasClothes[itemCode];
         for (int i = 0; i < 5; i++) buttonItemSelectManagers[i + 5].Unselect();
-        for (int i = 0; i < 15; i++) buttonItemSelectManagers[i].ItsNotMe();
+        for (int i = 0; i < 17; i++) buttonItemSelectManagers[i].ItsNotMe();
         buttonItemSelectManagers[itemCode + 5].Select();
     }
 
     private void ChangeMotorcycleSelect(int itemCode){
         ChangePlayerItem(itemCode, 2);
         selectedItemIsPurchased = DataManager.Instance.gameData.hasMotorcycle[itemCode];
-        for (int i = 0; i < 5; i++) buttonItemSelectManagers[i + 10].Unselect();
-        for (int i = 0; i < 15; i++) buttonItemSelectManagers[i].ItsNotMe();
+        for (int i = 0; i < 7; i++) buttonItemSelectManagers[i + 10].Unselect();
+        for (int i = 0; i < 17; i++) buttonItemSelectManagers[i].ItsNotMe();
         buttonItemSelectManagers[itemCode + 10].Select();
         TailManager.ChangeMotorcycleTail(itemCode);
     }

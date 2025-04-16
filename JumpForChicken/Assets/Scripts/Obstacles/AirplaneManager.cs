@@ -25,6 +25,8 @@ public class AirplaneManager : MonoBehaviour
 
     private bool wait = false;
 
+    private float volumeProd;
+
     private TrailRenderer trailRenderer;
 
     private GameObject mainCamera;
@@ -37,6 +39,7 @@ public class AirplaneManager : MonoBehaviour
     void Start()
     {
         direction = 2 * Random.Range(0, 2) - 1; // 1 or -1
+        volumeProd = 1;
         wait = false;
         ScaleChange();
 
@@ -46,13 +49,13 @@ public class AirplaneManager : MonoBehaviour
 
         mainCamera = Camera.main.gameObject;
         cc = mainCamera.GetComponent<CameraController>();
+        audioSource = GetComponent<AudioSource>();
+
+        audioSource.volume = 0f;
     }
 
     void FixedUpdate()
     {
-        if (!mainCamera) mainCamera = Camera.main.gameObject;
-        if (!cc) cc = mainCamera.GetComponent<CameraController>();
-
         if (!IsPlayerInside() && !wait)
         {
             wait = true;
@@ -63,9 +66,24 @@ public class AirplaneManager : MonoBehaviour
             transform.Translate(direction * moveSpeed * Time.fixedDeltaTime * Vector2.right);
             if (IsPlayerInside()) wait = false;
         }
+    }
 
-        audioSource.volume = Mathf.Abs(transform.position.y - cc.cameraHeight + offset) > soundDistance ?
-                            - 1f / Mathf.Pow(soundDistance, 2) * Mathf.Pow(transform.position.y - cc.cameraHeight + offset, 2) + 1 : 0;
+    void Update()
+    {
+        if (!mainCamera) mainCamera = Camera.main.gameObject;
+        if (!cc) cc = mainCamera.GetComponent<CameraController>();
+
+        if (!cc) return;
+
+        if (wait){
+            volumeProd = Mathf.Max(0, volumeProd - Time.deltaTime) * Time.timeScale;
+        } else {
+            volumeProd = Mathf.Min(1, volumeProd + Time.deltaTime) * Time.timeScale;
+        }
+
+        audioSource.volume = Mathf.Abs(transform.position.y - cc.cameraHeight - offset) <= soundDistance ?
+                            - 1f / Mathf.Pow(soundDistance, 2) * Mathf.Pow(transform.position.y - cc.cameraHeight - offset, 2) + 1f : 0f;
+        audioSource.volume *= volumeProd;
     }
 
     private IEnumerator ChangeDirection(){

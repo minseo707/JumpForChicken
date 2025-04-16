@@ -4018,6 +4018,8 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 380f28cc9931b4e12a617e508db60e07, type: 3}
   - {fileID: 21300000, guid: d3441faeda3124571ac2accd83b484d3, type: 3}
   - {fileID: 21300000, guid: 9f86ae25fdee6465dacea583694c2aa4, type: 3}
+  - {fileID: 21300000, guid: 54663fb83697e4ecbb2648c8b8b1cd3c, type: 3}
+  - {fileID: 21300000, guid: 6c140b31c63274830958bc99cc5e4485, type: 3}
   xScale: 1.5
 --- !u!212 &1166981905
 SpriteRenderer:

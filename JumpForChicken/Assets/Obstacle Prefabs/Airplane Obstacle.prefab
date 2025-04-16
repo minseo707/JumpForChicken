@@ -174,8 +174,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   waitTime: 3
-  soundDistance: 3
-  offset: -1
+  soundDistance: 7
+  offset: -2
 --- !u!82 &594820164735682625
 AudioSource:
   m_ObjectHideFlags: 0
@@ -187,7 +187,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: f3cb8fd4318f0472d82e4040c6baf4a8, type: 3}
-  m_PlayOnAwake: 0
+  m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
   Loop: 1

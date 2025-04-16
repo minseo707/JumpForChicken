@@ -6,11 +6,15 @@ using TMPro;
 public class GameoverUIManager : MonoBehaviour
 {
 
-    public float increaseSecond = 1f;
+    public float increaseSecond = 3f;
     private float viewScore = 0;
     private int currentScore;
 
     internal bool increase;
+
+    private bool soundPlayTrigger = false;
+
+    private SoundPlayManager soundPlayManager;
 
     public GameObject highScoreText;
     public GameObject chickenText;
@@ -29,8 +33,10 @@ public class GameoverUIManager : MonoBehaviour
         DataManager.Instance.LoadGameData();
         currentScore = gm.GetComponent<ScoreManager>().score;
         int currentChicken = gm.GetComponent<ScoreManager>().chicken;
+        soundPlayManager = soundPlayManager = GameObject.Find("Sound Player").GetComponent<SoundPlayManager>();
         viewScore = 0;
         increase = false;
+        soundPlayTrigger = false;
 
         if (highScoreText != null && chickenText != null){
 
@@ -51,6 +57,11 @@ public class GameoverUIManager : MonoBehaviour
     void Update()
     {
         if (!increase) return;
+
+        if (!soundPlayTrigger){
+            soundPlayTrigger = true;
+            soundPlayManager.PlaySound("score");
+        }
         
         if (viewScore < currentScore){
             viewScore += currentScore / increaseSecond * Time.unscaledDeltaTime;
