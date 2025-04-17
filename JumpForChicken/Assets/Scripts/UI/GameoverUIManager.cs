@@ -14,6 +14,8 @@ public class GameoverUIManager : MonoBehaviour
 
     private bool soundPlayTrigger = false;
 
+    [SerializeField] private bool isTutorial = false;
+
     private SoundPlayManager soundPlayManager;
 
     public GameObject highScoreText;
@@ -35,8 +37,13 @@ public class GameoverUIManager : MonoBehaviour
         int currentChicken = gm.GetComponent<ScoreManager>().chicken;
         soundPlayManager = soundPlayManager = GameObject.Find("Sound Player").GetComponent<SoundPlayManager>();
         viewScore = 0;
-        increase = false;
         soundPlayTrigger = false;
+
+        if (isTutorial){
+            increase = true;
+        } else {
+            increase = false;
+        }
 
         if (highScoreText != null && chickenText != null){
 

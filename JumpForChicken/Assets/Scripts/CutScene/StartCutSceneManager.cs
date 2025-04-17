@@ -78,7 +78,16 @@ public class StartCutSceneManager : MonoBehaviour
             
             if (currentPage == pages.Length - 1){
                 // 마지막 페이지 Fade Out하고 나서 LoadingScene -> SampleScene으로 이동
-                LoadingSceneManager.LoadScene("SampleScene");
+                DataManager.Instance.LoadGameData();
+                if (DataManager.Instance.gameData.isFirstGame){
+                    ButtonSoundManager.Instance.PlayButtonSound("startButton");
+                    TutorialLoadingSceneManager.LoadScene("TutorialScene");
+                    Debug.Log("[ButtonManager] Play Tutorial");
+                } else {
+                    ButtonSoundManager.Instance.PlayButtonSound("startButton");
+                    LoadingSceneManager.LoadScene("SampleScene");
+                    Debug.Log("[ButtonManager] Play InGame");
+                }
             }
         }
 

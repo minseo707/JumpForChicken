@@ -3910,6 +3910,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   increaseSecond: 3
+  isTutorial: 0
   highScoreText: {fileID: 1125592100}
   chickenText: {fileID: 1201167780}
   scoreTMP: {fileID: 1282365456}
@@ -4624,7 +4625,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: fac1b761211234c1d986a49681cf6001, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 1a59447a4b91746f3b16c47512b638b1, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -5032,7 +5033,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 8d5e369ca816842e3aa17ec44ea6b3a8, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 41e036635c6e94d3ab293c49b4fe183d, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -15267,7 +15268,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 6fca3fd4dcabf4f2080ee2a3bb0ea3b2, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 51478dbe3455b4fd2bb91b194d921b87, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -15694,7 +15695,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: b893a1fa40e414469b69a62302f9852b, type: 3}
+  m_Sprite: {fileID: 21300000, guid: fb9e50b8bd37a49e18f52b95de690bf4, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

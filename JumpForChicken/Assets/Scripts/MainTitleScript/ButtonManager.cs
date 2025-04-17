@@ -39,16 +39,8 @@ public class ButtonManager : MonoBehaviour
     }
 
     public void StartButton(){
-        DataManager.Instance.LoadGameData();
-        if (DataManager.Instance.gameData.isFirstGame){
-            ButtonSoundManager.Instance.PlayButtonSound("startButton");
-            TutorialLoadingSceneManager.LoadScene("TutorialScene");
-            Debug.Log("[ButtonManager] Play Tutorial");
-        } else {
-            ButtonSoundManager.Instance.PlayButtonSound("startButton");
-            LoadingSceneManager.LoadScene("SampleScene");
-            Debug.Log("[ButtonManager] Play InGame");
-        }
+        // 시작 시 무조건 컷신 실행
+        SceneManager.LoadScene("StartCutScene");
     }
 
     public void SettingsButton(){

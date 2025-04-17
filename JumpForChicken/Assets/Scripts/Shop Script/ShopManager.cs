@@ -59,7 +59,6 @@ public class ShopManager : MonoBehaviour
     void Start()
     {
         DataManager.Instance.LoadGameData();
-        DataManager.Instance.ResetGameData();
 
         for (int i = 0; i < 5; i++) buttonItemSelectManagers[i].isPurchased = DataManager.Instance.gameData.hasHelmets[i];
         for (int i = 0; i < 5; i++) buttonItemSelectManagers[i + 5].isPurchased = DataManager.Instance.gameData.hasClothes[i];
