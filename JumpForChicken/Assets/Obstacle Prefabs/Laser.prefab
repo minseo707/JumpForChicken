@@ -194,6 +194,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e78fe41fd6d946518ef38618daab326, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  soundDistance: 8
+  offset: -2
 --- !u!82 &-4249455641303437965
 AudioSource:
   m_ObjectHideFlags: 0

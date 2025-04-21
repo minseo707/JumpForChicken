@@ -466,7 +466,7 @@ public class PlayerController : MonoBehaviour
         }
 
         // 점프 장전이 안 되어있고, 점프 중이지 않고, 낙하 중이지 않을 때
-        else if (jumpHoldTime == 0 && !pam.isJumping && !pam.isFalling && !pam.isCrashing)
+        else if (jumpHoldTime == 0 && !pam.isJumping && !pam.isFalling && !pam.isCrashing && !uib.buttonLock)
         {
             if (inputAxis < 0)
             {

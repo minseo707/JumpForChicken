@@ -168,21 +168,30 @@ public class CameraController : MonoBehaviour
         int runFrame = 0;
 
         while (runFrame < 90){
-            runFrame++;
-            rotateTheta += 2f / 90f * direction;
-            scale += 0.5f / 90f;
-            transform.rotation = Quaternion.Euler(0, 0, rotateTheta);
-            cameras.orthographicSize = (8f - scale) * 1f / (Mathf.Sqrt(2) * Mathf.Sin(Mathf.Deg2Rad * Mathf.Abs(rotateTheta) + Mathf.PI / 4f));
-            yield return null;
+            if (Time.timeScale == 0f){
+                yield return null;
+            } else {
+                runFrame++;
+                rotateTheta += 2f / 90f * direction;
+                scale += 0.5f / 90f;
+                transform.rotation = Quaternion.Euler(0, 0, rotateTheta);
+                cameras.orthographicSize = (8f - scale) * 1f / (Mathf.Sqrt(2) * Mathf.Sin(Mathf.Deg2Rad * Mathf.Abs(rotateTheta) + Mathf.PI / 4f));
+                yield return null;
+            }
+            
         }
 
         while (runFrame >= 60){
-            runFrame--;
-            rotateTheta -= 2f / 30f * direction;
-            scale = jisuCalc((90 - runFrame) / 30f, 0.5f);
-            transform.rotation = Quaternion.Euler(0, 0, rotateTheta);
-            cameras.orthographicSize = (8f - scale) * 1f / (Mathf.Sqrt(2) * Mathf.Sin(Mathf.Deg2Rad * Mathf.Abs(rotateTheta) + Mathf.PI / 4f));
-            yield return null;
+            if (Time.timeScale == 0f){
+                yield return null;
+            } else {
+                runFrame--;
+                rotateTheta -= 2f / 30f * direction;
+                scale = jisuCalc((90 - runFrame) / 30f, 0.5f);
+                transform.rotation = Quaternion.Euler(0, 0, rotateTheta);
+                cameras.orthographicSize = (8f - scale) * 1f / (Mathf.Sqrt(2) * Mathf.Sin(Mathf.Deg2Rad * Mathf.Abs(rotateTheta) + Mathf.PI / 4f));
+                yield return null;
+            }
         }
 
         transform.rotation = Quaternion.Euler(0, 0, 0);

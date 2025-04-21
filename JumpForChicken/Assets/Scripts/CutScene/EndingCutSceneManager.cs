@@ -19,7 +19,9 @@ public class EndingCutSceneManager : MonoBehaviour
     [SerializeField] private GameObject gameoverUI;
     [SerializeField] private GameoverUIManager gameoverUIManager;
 
-    private Image[] images;
+    private Image[][] images;
+
+    private int currentPage = 0;
 
     private float waitTimer;
     private float fadeTimer;
@@ -40,25 +42,43 @@ public class EndingCutSceneManager : MonoBehaviour
         }
 
         if (part == 2){
-            // 엔딩 컷씬 종료
-            darkPanel.SetActive(false); // 미리 검은 색 불투명 배경 제거
+            if (currentPage >= 3){
+                // 엔딩 컷씬 종료
+                darkPanel.SetActive(false); // 미리 검은 색 불투명 배경 제거
 
-            // TODO: Gameover UI 활성화
-            gameoverUI.SetActive(true);
+                // TODO: Gameover UI 활성화
+                gameoverUI.SetActive(true);
 
-            fadeTimer = fadeoutDuration;
-            pageTimer = 0f; // Goto (3)
+                fadeTimer = fadeoutDuration;
+                pageTimer = 0f; // Goto (3)
+            } else {
+                // 다음 페이지 활성화
+                currentPage++;
+                skip = false;
+                fadeTimer = fadeoutDuration;
+                pageTimer = 0f;
+                waitTimer = 0f; // Goto (1)
+            }
+            
         }
     }
 
     void Start()
     {
-        images = new Image[pages.Length];
+        images = new Image[pages.Length][];
+        for (int i = 0; i < pages.Length; i++){
+            images[i] = new Image[4];
+        }
+        
         skip = false;
+        currentPage = 0;
 
         for (int i = 0; i < pages.Length; i++)
         {
-            images[i] = pages[i].transform.GetChild(0).GetComponent<Image>();
+            for (int j = 0; j < 4; j++)
+            {
+                images[i][j] = pages[i].transform.GetChild(j).GetComponent<Image>();
+            }
         }
     }
 
@@ -77,7 +97,10 @@ public class EndingCutSceneManager : MonoBehaviour
             waitTimer -= Time.fixedDeltaTime;
             if (waitTimer <= 0f){
                 pages[activePage].SetActive(true);
-                images[activePage].color = new Color(1, 1, 1, 0);
+                for (int i = 0; i < 4; i++)
+                {
+                    images[activePage][i].color = new Color(1, 1, 1, 0); 
+                }
                 waitTimer = 0f;
                 fadeTimer = fadeoutDuration; // Goto (1)
             }
@@ -88,7 +111,7 @@ public class EndingCutSceneManager : MonoBehaviour
             // 페이지 활성화
             fadeTimer -= Time.fixedDeltaTime;
             float fadeAlpha = 1f - fadeTimer / fadeoutDuration; // 0f -> 1f FadeIn
-            images[activePage].color = new Color(1, 1, 1, fadeAlpha);
+            images[activePage][currentPage].color = new Color(1, 1, 1, fadeAlpha);
 
             if (fadeTimer <= 0f){
                 pageTimer = pageDuration;
@@ -100,7 +123,7 @@ public class EndingCutSceneManager : MonoBehaviour
             part = 2;
             pageTimer -= Time.fixedDeltaTime;
             waitTimer = -1f; // (3) -> (1)로 가는 것을 방지하는 트리거
-            if (pageTimer <= 0f || skip){
+            if ((pageTimer <= 0f || skip) && currentPage == 3){ // 마지막 페이지이면
                 // 엔딩 컷씬 종료
                 darkPanel.SetActive(false); // 미리 검은 색 불투명 배경 제거
 
@@ -109,6 +132,13 @@ public class EndingCutSceneManager : MonoBehaviour
 
                 fadeTimer = fadeoutDuration;
                 pageTimer = 0f; // Goto (3)
+            } else if ((pageTimer <= 0f || skip) && currentPage != 3){
+                // 다음 페이지 활성화
+                currentPage++;
+                skip = false;
+                fadeTimer = fadeoutDuration;
+                pageTimer = 0f;
+                waitTimer = 0f; // Goto (1)
             }
         }
 
@@ -116,7 +146,10 @@ public class EndingCutSceneManager : MonoBehaviour
             part = 3;
             fadeTimer -= Time.fixedDeltaTime;
             float fadeAlpha = fadeTimer / fadeoutDuration; // 1f -> 0f FadeOut
-            images[activePage].color = new Color(1, 1, 1, fadeAlpha);
+            for (int i = 0; i < 4; i++)
+            {
+                images[activePage][i].color = new Color(1, 1, 1, fadeAlpha);
+            }
             if (fadeTimer <= 0f){
                 fadeTimer = 0f; // Goto (4)
             }

@@ -30,8 +30,8 @@ public class PlatformGenerator : MonoBehaviour
     public bool isLoaded = false;
     public int runFrames = 0;
 
-    private List<Vector3> tileList = new List<Vector3>(); // 타일 리스트
-    private List<float> tileYList = new List<float>(); // 타일의 y좌표 리스트
+    private readonly List<Vector3> tileList = new(); // 타일 리스트
+    private readonly List<float> tileYList = new(); // 타일의 y좌표 리스트
 
     [Header("Grid")]
     public Grid grid; // 그리드 설정
@@ -286,8 +286,23 @@ public class PlatformGenerator : MonoBehaviour
             if (y >= declineArea)
             {
                 // rMin 변수를 사용해야 할 상황이 있을 것 같아서 미리 제작해둡니다.
-                rMin = PrefabNameTranslator.ToPrefabAttribute(prefab.name)[2] == 1 ? 0 : .5f;
+
+                if (tileList.Count > 1 && tileList[^1].z == 1f){
+                    if (PrefabNameTranslator.ToPrefabAttribute(prefab.name)[2] == 1){
+                        rMin = .5f;
+                    } else {
+                        rMin = 1.25f;
+                    }
+                } else {
+                    if (PrefabNameTranslator.ToPrefabAttribute(prefab.name)[2] == 1){
+                        rMin = 0;
+                    } else {
+                        rMin = .5f;
+                    }
+                }
+
                 rMax = y >= 0 && y < 7f ? -(4f / 7f) * y + 6f : -(1f / 4f) * y + 3f;
+                rMax -= .2f;
 
                 float left = lastTileX - rMax - lastTileSize / 2;
                 float right = lastTileX + rMax + lastTileSize / 2;
@@ -300,6 +315,14 @@ public class PlatformGenerator : MonoBehaviour
                 int side = 0;
                 if (leftIn < -4.5f + _sideDecline) side = 2; // 왼쪽에 설치가 가능한 부분이 없을 경우
                 if (rightIn > 4.5f - _sideDecline) side = 1; // 오른쪽에 설치가 가능한 부분이 없을 경우
+
+                if (left > leftIn || right < rightIn){
+                    Debug.LogWarning($"[PlatformGenerator] I/O 범위에 의해 설치 가능한 부분이 존재하지 않습니다.: {prefab.name}, {tileList.Count}, {left}, {leftIn}, {rightIn}, {right}");
+                }
+
+                if (leftIn < -4.5f + _sideDecline && rightIn > 4.5f - _sideDecline){
+                    Debug.LogWarning($"[PlatformGenerator] SideDecline에 의해 설치 가능한 부분이 존재하지 않습니다.: {prefab.name}, {tileList.Count}");
+                }
 
                 left = Mathf.Max(left, -4.5f + _sideDecline);
                 right = Mathf.Min(right, 4.5f - _sideDecline);
