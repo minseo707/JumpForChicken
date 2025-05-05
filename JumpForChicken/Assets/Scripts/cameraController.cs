@@ -20,7 +20,7 @@ public class CameraController : MonoBehaviour
 
     [Header("Camera Speed")]
     public float secPerTile = 10f;
-    private readonly float[] cameraSpeeds = {0.1f, 0.15f, 0.25f, 0.37f};
+    private readonly float[] cameraSpeeds = {0.12f, 0.22f, 0.38f, 0.59f};
 
     [Header("Default Floor Array")]
     [SerializeField] public float[] floors = {0f, 0.5f, 1f, 1.5f};

@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using PrefabName;
+using UnityEngine.Rendering.Universal.Internal;
+using UnityEditor.SceneManagement;
 
 /// <summary>
 /// 블록 배치 클래스
@@ -50,7 +52,7 @@ public class PlatformGenerator : MonoBehaviour
     /// <summary>
     /// 스테이지 2 장애물 설치 알고리즘을 위한 변수 배열
     /// </summary>
-    /// <value>0: first Init, 1: T2-4 Count, 2: FiveCount</value>
+    /// <value>0: first Init, 1: T2-4 Count, 2: Max Count</value>
     private int[] stage2Conditions = {0, 0, 0};
 
     void Start()
@@ -167,7 +169,7 @@ public class PlatformGenerator : MonoBehaviour
             }
         }
 
-        GameManager.PlaceAirplane(airplanePrefab, 5);
+        GameManager.PlaceAirplane(airplanePrefab, 10);
 
         blockStore.ChangeBlockStateLayer(0);
 
@@ -412,6 +414,9 @@ public class PlatformGenerator : MonoBehaviour
 
         int[] _attribute = PrefabNameTranslator.ToPrefabAttribute(prefab.name);
 
+
+        const int STAGE1_CONDITION_COUNT = 1; // 1 / 변수 * 100% -> 확률
+        const int STAGE2_CONDITION_COUNT = 4;
         // 장애물 처리 (Stage 1)
         if (_attribute[0] == 1){
             if (stage1Conditions[0] == 0){ // 아직 T3 블록이 나오지 않았다면
@@ -424,7 +429,7 @@ public class PlatformGenerator : MonoBehaviour
                 if (_attribute[2] == 1 && (_attribute[1] >= 3) && (_attribute[1] <= 4)){ // 3칸 이상의 도로 타일에 대해서
                     stage1Conditions[1] += 1;
                     if (stage1Conditions[1] == 2){ // 2번째
-                        if (Random.Range(1, 3) == 1){ // 50%의 확률
+                        if (Random.Range(0, STAGE1_CONDITION_COUNT) == 0){ // 50%의 확률
                             stage1Conditions[1] = 0; // 번호 초기화
                             prefab = tileLoader.NameToPrefab(PrefabNameTranslator.GetObstaclePrefab(prefab.name)); // 장애물이 있는 프리팹으로 변경
                         }
@@ -437,7 +442,7 @@ public class PlatformGenerator : MonoBehaviour
         } else if (_attribute[0] == 2){ // 장애물 처리 (Stage 2)
             if (_attribute[2] == 0 && _attribute[3] == 0 && _attribute[1] >= 2){ // 장애물 설치가 가능한 블럭에 대해서
                 if (stage2Conditions[0] == 0){ // 만약 초기화되지 않은 상황이라면
-                    stage2Conditions = new int[] {1, Random.Range(1, 6), 5}; // 초기화
+                    stage2Conditions = new int[] {1, Random.Range(1, STAGE2_CONDITION_COUNT + 1), STAGE2_CONDITION_COUNT}; // 초기화
                 }
 
                 stage2Conditions[1]--;
@@ -460,7 +465,7 @@ public class PlatformGenerator : MonoBehaviour
                 }
 
                 if (stage2Conditions[2] == 0){
-                    stage2Conditions = new int[] {1, Random.Range(1, 6), 5}; // 구역 초기화
+                    stage2Conditions = new int[] {1, Random.Range(1, STAGE2_CONDITION_COUNT + 1), STAGE2_CONDITION_COUNT}; // 구역 초기화
                 }
             }
         } else if (_attribute[0] == 4){
