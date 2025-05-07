@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using PrefabName;
-using UnityEngine.Rendering.Universal.Internal;
-using UnityEditor.SceneManagement;
 
 /// <summary>
 /// 블록 배치 클래스
