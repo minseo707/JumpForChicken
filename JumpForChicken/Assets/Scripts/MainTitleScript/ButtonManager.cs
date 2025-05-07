@@ -8,6 +8,7 @@ public class ButtonManager : MonoBehaviour
     public GameObject settingsContainer;
     public GameObject realQuitContainer;
     public GameObject ThanksToContainer;
+    public GameObject CreditContainer;
     private MainMusicManager mmm;
 
     private bool settingsUIEnabled = false;
@@ -88,5 +89,15 @@ public class ButtonManager : MonoBehaviour
 
     public void ExitThanksTo(){
         ThanksToContainer.SetActive(false);
+    }
+
+    public void CreditButton(){
+        CreditContainer.SetActive(true);
+        ButtonSoundManager.Instance.PlayButtonSound("button1");
+    }
+
+    public void CreditCancelButton(){
+        CreditContainer.SetActive(false);
+        ButtonSoundManager.Instance.PlayButtonSound("button1");
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using Unity.Mathematics;
 using Unity.VisualScripting;
@@ -20,7 +21,15 @@ public class CameraController : MonoBehaviour
 
     [Header("Camera Speed")]
     public float secPerTile = 10f;
-    private readonly float[] cameraSpeeds = {0.12f, 0.22f, 0.38f, 0.59f};
+    private readonly float[] cameraSpeeds = {0.35f, 0.41f, 0.5f, 0.5f};
+
+    [Description("Add Speed Per 5Meters")]
+    private float addSpeed1 = 0.02f; // 0 ~ 100
+    private float addSpeed2 = 0.015f; // 100 ~ 200
+    private float addSpeed3 = 0.010f; // 200 ~ 300 (1.4)
+    private float addSpeed4 = 0.005f; // 300 ~
+
+    private float speedOffsetStage4 = 0f;
 
     [Header("Default Floor Array")]
     [SerializeField] public float[] floors = {0f, 0.5f, 1f, 1.5f};
@@ -72,6 +81,7 @@ public class CameraController : MonoBehaviour
         tempDiff = 0f;
         trig = false;
         spacemanActive = false;
+        speedOffsetStage4 = 0f;
     }
 
     void FixedUpdate()
@@ -121,8 +131,20 @@ public class CameraController : MonoBehaviour
             trig = false;
         }
 
+        if (GameManager.stage == 4){
+            if ((int)cameraHeight - 527 <= 100){
+                speedOffsetStage4 = ((int)cameraHeight - 527) / 5 * addSpeed1;
+            } else if ((int)cameraHeight - 527 <= 200) {
+                speedOffsetStage4 = 20 * addSpeed1 + ((int)cameraHeight - 527 - 100) / 5 * addSpeed2;
+            } else if ((int)cameraHeight - 527 <= 300) {
+                speedOffsetStage4 = 20 * addSpeed1 + 20 * addSpeed2 + ((int)cameraHeight - 527 - 200) / 5 * addSpeed3;
+            } else {
+                speedOffsetStage4 = 20 * addSpeed1 + 20 * addSpeed2 + 20 * addSpeed3 + ((int)cameraHeight - 527 - 300) / 5 * addSpeed4;
+            }
+        }
         // 카메라 상승 속도
-        cameraHeight += Time.deltaTime * cameraSpeeds[GameManager.stage - 1];
+        cameraHeight += Time.deltaTime * (cameraSpeeds[GameManager.stage - 1] + (GameManager.stage == 4 ? speedOffsetStage4 : 0));
+        Debug.Log("Speed: " + (cameraSpeeds[GameManager.stage - 1] + (GameManager.stage == 4 ? speedOffsetStage4 : 0)));
 
         if (totalDiff > 1e-4)
         {

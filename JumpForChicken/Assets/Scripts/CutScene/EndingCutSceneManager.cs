@@ -19,6 +19,9 @@ public class EndingCutSceneManager : MonoBehaviour
     [SerializeField] private GameObject gameoverUI;
     [SerializeField] private GameoverUIManager gameoverUIManager;
 
+    [Header("Skip Button")]
+    [SerializeField] private GameObject skipButton;
+
     private Image[][] images;
 
     private int currentPage = 0;
@@ -31,6 +34,7 @@ public class EndingCutSceneManager : MonoBehaviour
 
     private int part;
     private bool skip;
+    private bool allSkip;
 
 
     /// <summary>
@@ -63,6 +67,17 @@ public class EndingCutSceneManager : MonoBehaviour
         }
     }
 
+    public void AllSkip(){
+        if (allSkip) return;
+        currentPage = pages.Length - 1;
+        waitTimer = -1f;
+        fadeTimer = 0f;
+        pageTimer = pageDuration;
+        skip = true;
+        allSkip = true;
+        skipButton.SetActive(false);
+    }
+
     void Start()
     {
         images = new Image[pages.Length][];
@@ -71,6 +86,7 @@ public class EndingCutSceneManager : MonoBehaviour
         }
         
         skip = false;
+        allSkip = false;
         currentPage = 0;
 
         for (int i = 0; i < pages.Length; i++)
@@ -97,6 +113,7 @@ public class EndingCutSceneManager : MonoBehaviour
             waitTimer -= Time.fixedDeltaTime;
             if (waitTimer <= 0f){
                 pages[activePage].SetActive(true);
+                skipButton.SetActive(true);
                 for (int i = 0; i < 4; i++)
                 {
                     images[activePage][i].color = new Color(1, 1, 1, 0); 

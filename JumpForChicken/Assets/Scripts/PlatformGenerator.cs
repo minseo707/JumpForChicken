@@ -21,10 +21,12 @@ public class PlatformGenerator : MonoBehaviour
     public float sideDecline = 2.0f; // 벽에서부터 생성 불가능 범위
     public float minYSelect = 2.0f;
 
-    private readonly float[] declineAreaArray = {3f, 3.5f, 4f, 5f};
-    private readonly float[] sideDeclineArray = {2.0f, 2.0f, 2.0f, 2.0f};
-    private readonly float[] minYSelectArray = {2.0f, 2.0f, 2.0f, 2.0f};
-    private readonly float[] minMoveArray = {16f, 16f, 16f, 18f};
+
+    // 5, 18, 3 -> 6f
+    private readonly float[] declineAreaArray = {3f, 3.5f, 4f, 4f};
+    private readonly float[] sideDeclineArray = {2.0f, 1.0f, 1.0f, 1.0f};
+    private readonly float[] minYSelectArray = {2.0f, 2.0f, 1f, 1f};
+    private readonly float[] minMoveArray = {16f, 16f, 12f, 9f};
     private readonly int[] minTileArray = {5, 5, 4, 3};
 
     [Header("Other Settings")]
@@ -221,6 +223,10 @@ public class PlatformGenerator : MonoBehaviour
             minYSelectP = 2.4f;
             maxYSelectP = 4.5f;
         }
+
+        if (stage == 4) maxYSelectP = Random.Range(1, 4) > 1 ? (
+            Random.Range(1, 3) == 1 ? 4f : 5f
+        ): 7.8f;
 
         // 다음 블록의 높이를 랜덤으로 설정 (전 조건문에 의해 결정된 최소 선택 높이 부터 최대 높이까지)
         y = minYSelectP >= maxYSelect ? maxYSelect : Mathf.Round(WeightFunction(minYSelectP, maxYSelectP) * 10f) / 10f;

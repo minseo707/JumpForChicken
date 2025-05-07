@@ -740,11 +740,11 @@ public class PlayerController : MonoBehaviour
             Vector2 direction = -(other.transform.position - transform.position).normalized;
             pam.lookAt = -(int)(direction.x / Mathf.Abs(direction.x));
             if (breakTime > 0f){
-                breakTime = 4f;
+                breakTime = 3f;
                 rigid.velocity = new Vector2(0f, rigid.velocity.y / 4.5f);
                 return;
             }
-            breakTime = 4f;
+            breakTime = 3f;
             rigid.velocity = new Vector2(0f, rigid.velocity.y / 4.5f);
         }
 

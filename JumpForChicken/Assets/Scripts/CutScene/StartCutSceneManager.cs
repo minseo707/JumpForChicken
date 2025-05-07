@@ -14,6 +14,9 @@ public class StartCutSceneManager : MonoBehaviour
     [SerializeField] private float fadeDuration = 1f;
     [SerializeField] private float pageDuration = 3f;
 
+    [Header("Skip Button")]
+    [SerializeField] private GameObject skipButton;
+
     private Image[] images;
 
     private int currentPage = 0;
@@ -22,6 +25,7 @@ public class StartCutSceneManager : MonoBehaviour
     private float fadeTimer = 0f;
 
     private bool skip = false;
+    private bool allSkip;
 
 
     public void NextPage(){
@@ -42,9 +46,21 @@ public class StartCutSceneManager : MonoBehaviour
         }
     }
 
+    public void AllSkip(){
+        if (allSkip) return;
+        currentPage = pages.Length - 1;
+        pages[currentPage].SetActive(true);
+        fadeTimer = fadeDuration;
+        pageTimer = 0f;
+        skip = true;
+        allSkip = true;
+        skipButton.SetActive(false);
+    }
+
     void Start(){
         currentPage = 0;
         skip = false;
+        allSkip = false;
         images = new Image[pages.Length];
 
         for (int i = 0; i < pages.Length; i++)
